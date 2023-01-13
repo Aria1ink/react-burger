@@ -1,3 +1,7 @@
-export const getUniqueIngredientTypes = (data) => {
-  return [...new Set(data.map(item => item.type))];
+export const getIngredientById = (id, data) => {
+  for (let ingredient of data)  {
+    if (ingredient._id === id) {
+      return ingredient;
+    };
+  };
 };

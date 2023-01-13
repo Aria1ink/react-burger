@@ -4,7 +4,7 @@ import './BurgerIngredients.css';
 import { menu } from '../../variables/data'
 import ChapterPanel from '../ChapterPanel/ChapterPanel';
 
-export default function BurgerIngredients () {
+export default function BurgerIngredients (props) {
   const chapters = [
     {title: 'Булки', type: 'bun'},
     {title: 'Соусы', type: 'sauce'},
