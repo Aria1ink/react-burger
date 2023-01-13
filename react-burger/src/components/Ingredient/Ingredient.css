@@ -1,0 +1,16 @@
+.Ingredient {
+  width: calc(100% - 16px - 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+}
+.IngredientImage {
+  width: 100%;
+  height: auto;
+}
+.IngredientTitle {
+  text-align: center;
+  margin: 0;
+}

@@ -210,3 +210,4 @@ const menu = [
    "__v":0
   }
 ];
+export { menu };
