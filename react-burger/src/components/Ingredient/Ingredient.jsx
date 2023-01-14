@@ -9,6 +9,8 @@ export default function Ingredient (props) {
   let tempCount = 0;
   const cart = props.cart.cart;
   const setCart = props.cart.setCart;
+  const modalState = props.modal.modalState;
+  const setModalState = props.modal.setModalState;
 
   useEffect(() => {
     cart.forEach(element => {
@@ -21,7 +23,17 @@ export default function Ingredient (props) {
   }, [cart]);
 
   return (
-    <li className='Ingredient pl-4 pb-4 pr-4' key={ingredient.id} id= {ingredient.id}>
+    <li 
+      className='Ingredient pl-4 pb-4 pr-4' 
+      key={ingredient.id} 
+      id= {ingredient.id} 
+      onClick={() => {setModalState({
+        display: 'flex',
+        type: 'ingredient',
+        title: 'dddddd',
+        data: ingredient
+      })}}
+    >
       {count > 0 && <Counter className='IngredientCounter' count={count} size="default" extraClass="m-1" />}
       <img className='IngredientImage' src={ingredient.image} alt={ingredient.name} />
       <p className='IngredientTitle text text_type_main-default'>{ingredient.name}</p>
