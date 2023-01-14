@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './ConstructorItem.css';
 import { DragIcon, DeleteIcon, LockIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Price from "../Price/Price";
 import {getIngredientById} from '../../utils/tools';
 
 export default function ConstructorItem (props) {
-  const ingredient = props.ingredient;
-  const currentId = props.currentId;
-  //const ingredient = getIngredientById(currentId, ingredients);
+
+  const [ingredient, setIngredient]= useState({});
+
+  useEffect(() => {
+    setIngredient(getIngredientById(props.currentId, props.ingredients));
+  }, []);
+
+  if (!ingredient) return <div>Loading...</div>;
+
   return (
     <div className="ConstructorItem">
       {props.isLocked === "false" ? <DragIcon /> : ''}
-      <img className='ConstructorImage' src={props.ingredient.image} alt={props.ingredient.name} />
-      <p className='ConstructorTitle text text_type_main-default'>{props.ingredient.name}</p>
-      <Price price={props.ingredient.price} />
-      {props.isLocked === "false" ? <DeleteIcon type="primary"/> : <LockIcon type="secondary" /> }
+      <div className="ConstructorBackground">
+        <img className='ConstructorImage' src={ingredient.image} alt={ingredient.name} />
+        <p className='ConstructorTitle text text_type_main-default'>{ingredient.name}</p>
+        <Price price={ingredient.price} />
+        {props.isLocked === "false" ? <DeleteIcon type="primary"/> : <LockIcon type="secondary" /> }
+      </div>
     </div>
   )
 };
