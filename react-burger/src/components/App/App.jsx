@@ -3,11 +3,11 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import './App.css';
-import {menu} from '../../variables/data';
 import {getIngredientsApi} from '../../utils/api'
 
 export default function App () {
   const [ingredients, setIngredients] = useState([]);
+  const [cart, setCart]= useState([]);
 
   useEffect(() => {
     getIngredientsApi()
@@ -24,8 +24,8 @@ export default function App () {
     <>
       <AppHeader />
       <main className='AppMain'>
-        <BurgerIngredients ingredients={ingredients} />
-        <BurgerConstructor ingredients={ingredients} />
+        <BurgerIngredients ingredients={ingredients} cart={{cart: cart, setCart: setCart}} />
+        <BurgerConstructor ingredients={ingredients} cart={{cart: cart, setCart: setCart}} />
       </main>
       <footer></footer>
     </>

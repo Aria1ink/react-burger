@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Chapter from '../Chapter/Chapter';
 import './BurgerIngredients.css';
 import { menu } from '../../variables/data'
@@ -18,7 +18,13 @@ export default function BurgerIngredients (props) {
       <div className='IngredientsContainer'>
         {
           chapters.map( (chapter) => 
-          <Chapter key={'chapter-' + chapter.type} title={chapter.title} type={chapter.type} name={chapter.title} ingredients={menu}></Chapter>
+          <Chapter 
+            {...props}
+            key={'chapter-' + chapter.type} 
+            title={chapter.title} 
+            type={chapter.type} 
+            name={chapter.title}>
+          </Chapter>
           )
         }
       </div>
