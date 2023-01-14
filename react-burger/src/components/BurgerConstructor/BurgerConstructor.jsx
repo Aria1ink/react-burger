@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import ConstructorItem from '../ConstructorItem/ConstructorItem';
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import {getIngredientById} from '../../utils/tools';
+import Price from '../Price/Price';
 import './BurgerConstructor.css'
 
 export default function BurgerConstructor (props) {
@@ -16,11 +16,13 @@ export default function BurgerConstructor (props) {
     "60d3b41abdacab0026a733ca",
     "60d3b41abdacab0026a733ca"
   ];
+  const [summ, setSumm] = useState(0);
   const cart = props.cart.cart;
   const setCart = props.cart.setCart;
   let tempCart = [];
+  let priceSumm = 0;
 
-  useEffect(() => {
+  useEffect( () => {
     selectedIngredient.forEach((id) => {
       tempCart.push(getIngredientById(id, props.ingredients));
     });
@@ -28,6 +30,14 @@ export default function BurgerConstructor (props) {
     tempCart = [];
   }, []);
 
+  useEffect( () => {
+    cart.map( (ingredient) => {
+      priceSumm = priceSumm + ingredient.price;
+    })
+    setSumm(priceSumm);
+  },
+    [cart]
+  );
   return (
     <div className="BurgerConstructor" >
       {
@@ -68,34 +78,13 @@ export default function BurgerConstructor (props) {
         />
       )
       }
+      <div className='BurgerConstructorOrder'>
+        <Price price={summ} type={'medium'} />
+        <Button htmlType="button" type="primary" size="large">
+          Оформить заказ
+        </Button>
+      </div>
     </div>
   );
-/*
-  return (
-    <div className="BurgerConstructor" >
-      <ConstructorItem 
-        currentId={selectedBun} 
-        ingredients={props.ingredients} 
-        isLocked="true"
-      />
-    <div className='ConstructorContainer'>
-        {
-          selectedIngredient.map( (id, index) => 
-          <ConstructorItem 
-            key={index + id} 
-            currentId={id} 
-            ingredients={props.ingredients} 
-            isLocked="false"
-          />
-          )
-        }
-      </div>
-      <ConstructorItem 
-        currentId={selectedBun} 
-        ingredients={props.ingredients} 
-        isLocked="true"
-      />
-      </div>
-  );
-  */
+
 };
