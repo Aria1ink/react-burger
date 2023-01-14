@@ -16,6 +16,8 @@ export default function BurgerConstructor (props) {
     "60d3b41abdacab0026a733ca",
     "60d3b41abdacab0026a733ca"
   ];
+  const modalState = props.modal.modalState;
+  const setModalState = props.modal.setModalState;
   const [summ, setSumm] = useState(0);
   const cart = props.cart.cart;
   const setCart = props.cart.setCart;
@@ -80,7 +82,16 @@ export default function BurgerConstructor (props) {
       }
       <div className='BurgerConstructorOrder'>
         <Price price={summ} type={'medium'} />
-        <Button htmlType="button" type="primary" size="large">
+        <Button 
+          htmlType="button" 
+          type="primary" 
+          size="large" 
+          onClick={() => {setModalState({
+            display: 'flex',
+            type: 'order',
+            title: '',
+            data: ''
+      })}}>
           Оформить заказ
         </Button>
       </div>

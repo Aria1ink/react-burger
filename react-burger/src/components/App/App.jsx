@@ -5,6 +5,7 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import './App.css';
 import {getIngredientsApi} from '../../utils/api'
 import ModalIngredients from '../ModalIngredients/ModalIngredients';
+import ModalOrder from '../ModalOrder/ModalOrder';
 
 export default function App () {
   const [ingredients, setIngredients] = useState([]);
@@ -51,6 +52,9 @@ export default function App () {
         />
         <ModalIngredients 
           modal={{modalState: modalState, setModalState: setModalState, closeModal: closeModal}} 
+        />
+        <ModalOrder 
+          modal={{modalState: modalState, setModalState: setModalState, closeModal: closeModal}}
         />
       </main>
       <footer></footer>
