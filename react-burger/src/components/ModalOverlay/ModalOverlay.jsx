@@ -22,5 +22,5 @@ export default function ModalOverlay (props) {
 ModalOverlay.propTypes = {
   modal: PropTypes.object,
   children: PropTypes.node,
-  display: PropTypes.string
+  display: PropTypes.any
 }; 

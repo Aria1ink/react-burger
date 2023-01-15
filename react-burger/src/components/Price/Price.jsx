@@ -14,7 +14,7 @@ export default function Price (props) {
 }
 
 Price.propTypes = {
-  price: PropTypes.string,
+  price: PropTypes.number,
   type: PropTypes.string,
   font: PropTypes.string
 }; 
