@@ -8,8 +8,9 @@
 
 .ConstructorContainer {
   width: calc(100% - 16px);
-  height: 44vh;
+  height: 40vh;
   overflow-y: scroll;
+  overflow-x:hidden;
   scrollbar-gutter: stable;
   list-style: none;
   display: flex;
@@ -46,4 +47,10 @@
   gap: 8px;
   align-items: center;
   justify-content: flex-end;
+}
+
+@media (max-height: 950px) {
+  .ConstructorContainer {
+    height: 30vh;
+  }
 }

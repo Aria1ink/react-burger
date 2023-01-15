@@ -16,13 +16,12 @@ export default function Chapter (props) {
           ingredients.map( (ingredient) =>
           {
             if (ingredient.type === props.type)
-              return <Ingredient 
+              return (<Ingredient 
                       {...props}
                       key={ingredient._id} 
                       id={ingredient._id} 
                       ingredient={ingredient} 
-                    />
-            return ""
+                    />)
           }
           )
         }

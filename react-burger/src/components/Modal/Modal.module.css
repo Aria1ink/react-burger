@@ -5,6 +5,7 @@
   align-items: center;
   z-index: 2;
   min-width: 640px;
+  width: min-content;
   min-height: 439px;
   background-color: rgba(28, 28, 33, 1);
   border: 1px solid rgba(76, 76, 255, 0.2);

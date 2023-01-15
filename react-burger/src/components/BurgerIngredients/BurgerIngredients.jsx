@@ -31,5 +31,4 @@ export default function BurgerIngredients (props) {
 BurgerIngredients.propTypes = {
   ingredients: PropTypes.array,
   cart: PropTypes.object,
-  modal: PropTypes.object
 }; 

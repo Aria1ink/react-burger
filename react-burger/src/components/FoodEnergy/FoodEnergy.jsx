@@ -14,5 +14,5 @@ export default function FoodEnergy (props) {
 
 FoodEnergy.propTypes = {
   title: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.number
 }; 
