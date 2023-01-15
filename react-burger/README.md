@@ -1,3 +1,21 @@
+# 7 спринт, проект Stellar Burger
+### Технологии
+
+* HTML
+* CSS
+* JS
+* React
+
+### 1 месяц проекта
+### Требования к проекту
+
+[Чеклист](https://code.s3.yandex.net/web-plus/checklists/checklist_pdf/checklist_7.pdf)
+
+### Figma
+
+[Ссылка на макет в Figma](https://bit.ly/3IZ7rSr)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
