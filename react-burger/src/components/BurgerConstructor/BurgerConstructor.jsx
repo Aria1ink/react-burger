@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import {getIngredientById} from '../../utils/tools';
-import Price from '../Price/Price';
-import './BurgerConstructor.css'
+import React, {useEffect, useState} from "react";
+import { ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import {getIngredientById} from "../../utils/tools";
+import Price from "../Price/Price";
+import "./BurgerConstructor.css"
 
 export default function BurgerConstructor (props) {
-  const selectedBun = "60d3b41abdacab0026a733c6";
   const selectedIngredient = [
     "60d3b41abdacab0026a733c6",
     "60d3b41abdacab0026a733ce",
@@ -44,9 +43,9 @@ export default function BurgerConstructor (props) {
     <div className="BurgerConstructor" >
       {
         cart.map( (ingredient, index) => 
-          ingredient.type === 'bun'&&
+          ingredient.type === "bun"&&
           <ConstructorElement
-            key={'top' + ingredient._id}
+            key={"top" + ingredient._id}
             type="top"
             isLocked={true}
             text={ingredient.name}
@@ -57,7 +56,7 @@ export default function BurgerConstructor (props) {
       }
       {
         cart.map( (ingredient, index) => 
-        ingredient.type !== 'bun'&&
+        ingredient.type !== "bun"&&
         <ConstructorElement
           key={index + ingredient._id}
           isLocked={false}
@@ -69,9 +68,9 @@ export default function BurgerConstructor (props) {
       }
       {
         cart.map( (ingredient, index) => 
-        ingredient.type === 'bun'&&
+        ingredient.type === "bun"&&
         <ConstructorElement
-          key={'bottom' + ingredient._id}
+          key={"bottom" + ingredient._id}
           type="bottom"
           isLocked={true}
           text={ingredient.name}
@@ -80,17 +79,17 @@ export default function BurgerConstructor (props) {
         />
       )
       }
-      <div className='BurgerConstructorOrder'>
-        <Price price={summ} type={'medium'} />
+      <div className="BurgerConstructorOrder">
+        <Price price={summ} type={"medium"} />
         <Button 
           htmlType="button" 
           type="primary" 
           size="large" 
           onClick={() => {setModalState({
-            display: 'flex',
-            type: 'order',
-            title: '',
-            data: ''
+            display: "flex",
+            type: "order",
+            title: "",
+            data: {number: "034536"}
       })}}>
           Оформить заказ
         </Button>

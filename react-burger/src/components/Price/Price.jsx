@@ -1,6 +1,6 @@
 import React from "react";
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import './Price.css';
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import "./Price.css";
 export default function Price (props) {
 
   return (

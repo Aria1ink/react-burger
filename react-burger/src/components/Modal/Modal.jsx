@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import style from './Modal.module.css'
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import style from "./Modal.module.css"
 
 export default function Modal (props) {
 
@@ -22,9 +22,9 @@ export default function Modal (props) {
   })
 
   return (
-    <div className={style.Modal + ' pl-10 pr-10 pt-10 pb-15'} data-type='modal'>
+    <div className={style.Modal + " pl-10 pr-10 pt-10 pb-15"} data-type="modal">
       <div className={style.ModalTitle} >
-        <h3>{props.title}</h3>
+        <h3 className="text text_type_main-large" >{props.title}</h3>
         <CloseIcon 
           type="primary" 
           onClick={closeModal}

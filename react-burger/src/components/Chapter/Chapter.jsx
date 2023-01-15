@@ -1,6 +1,6 @@
 import React from "react";
-import Ingredient from '../Ingredient/Ingredient'
-import './Chapter.css'
+import Ingredient from "../Ingredient/Ingredient"
+import "./Chapter.css"
 
 export default function Chapter (props) {
   const ingredients = props.ingredients;
@@ -21,7 +21,7 @@ export default function Chapter (props) {
                       id={ingredient._id} 
                       ingredient={ingredient} 
                     />
-            return ''
+            return ""
           }
           )
         }

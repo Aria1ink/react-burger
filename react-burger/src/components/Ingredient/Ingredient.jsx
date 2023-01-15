@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import Price from '../Price/Price'
-import './Ingredient.css'
+import React, { useEffect, useState } from "react";
+import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import Price from "../Price/Price"
+import "./Ingredient.css"
 
 export default function Ingredient (props) {
   const ingredient = props.ingredient; 
@@ -24,19 +24,19 @@ export default function Ingredient (props) {
 
   return (
     <li 
-      className='Ingredient pl-4 pb-4 pr-4' 
+      className="Ingredient pl-4 pb-4 pr-4" 
       key={ingredient.id} 
       id= {ingredient.id} 
       onClick={() => {setModalState({
-        display: 'flex',
-        type: 'ingredient',
-        title: 'dddddd',
+        display: "flex",
+        type: "ingredient",
+        title: "dddddd",
         data: ingredient
       })}}
     >
-      {count > 0 && <Counter className='IngredientCounter' count={count} size="default" extraClass="m-1" />}
-      <img className='IngredientImage' src={ingredient.image} alt={ingredient.name} />
-      <p className='IngredientTitle text text_type_main-default'>{ingredient.name}</p>
+      {count > 0 && <Counter className="IngredientCounter" count={count} size="default" extraClass="m-1" />}
+      <img className="IngredientImage" src={ingredient.image} alt={ingredient.name} />
+      <p className="IngredientTitle text text_type_main-default">{ingredient.name}</p>
       <Price price= {ingredient.price}/>
     </li>
   );
