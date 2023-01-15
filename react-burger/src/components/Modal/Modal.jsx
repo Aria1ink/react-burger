@@ -8,13 +8,12 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 export default function Modal (props) {
   const modalRoot = document.getElementById("react-modals");
 
-  const closeModalByEsc = (evt) => { 
-    if (evt.key === "Escape") { 
-      props.close(); 
-    } 
-  } 
- 
   useEffect(()=>{ 
+    const closeModalByEsc = (evt) => { 
+      if (evt.key === "Escape") { 
+        props.close(); 
+      } 
+    } 
     document.addEventListener("keydown", closeModalByEsc); 
     return () =>{ 
       document.removeEventListener("keydown", closeModalByEsc); 
