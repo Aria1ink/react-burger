@@ -25,7 +25,7 @@ export default function BurgerConstructor (props) {
   }, []);
 
   useEffect( () => {
-    cart.map( (ingredient) => {
+    cart.forEach( (ingredient) => {
       priceSumm = priceSumm + ingredient.price;
     })
     setSumm(priceSumm);

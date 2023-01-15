@@ -22,6 +22,7 @@ export default function Chapter (props) {
                       id={ingredient._id} 
                       ingredient={ingredient} 
                     />)
+            return ""
           }
           )
         }
