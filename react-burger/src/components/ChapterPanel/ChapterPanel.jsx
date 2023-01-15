@@ -1,6 +1,6 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import "./ChapterPanel.css"
+import style from "./ChapterPanel.module.css"
 
 export default function ChapterPanel (props) {
   const [current, setCurrent] = React.useState(props.chapters[0].type)
@@ -13,7 +13,7 @@ export default function ChapterPanel (props) {
   };
 
   return (
-    <div className="ChapterPanel">
+    <div className={style.ChapterPanel + " pb-10"} >
       {
         props.chapters.map((chapter) =>
           <Tab key={chapter.type} value={chapter.type} active={current === chapter.type} onClick={handleClick}>

@@ -6,7 +6,6 @@ export default function ModalOverlay (props) {
   const modalRoot = document.getElementById("react-modals");
   const closeModal =  props.modal.closeModal;
   const overlayClose = (evt) => {
-    console.log(evt);
     if (typeof(evt.target.className) == "string" && evt.target.className.includes("ModalOverlay")) {
       closeModal();
     }}

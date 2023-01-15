@@ -7,7 +7,7 @@ export default function Chapter (props) {
 
   return (
     <>
-      <h2 className="ChapterTitle" id={props.type} >
+      <h2 className="text text_type_main-medium" id={props.type} >
         {props.name}
       </h2>
       <ul className="Chapter pt-6 pb-10 pl-4 pr-4">

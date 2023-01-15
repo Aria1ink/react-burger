@@ -3,7 +3,8 @@
   justify-content: center;
   align-items: center;
   grid-template-columns: 1fr min-content 1fr;
-  width: calc(100% - (80px + 32px));
+  width: calc(100% - 32px);
+  background-color: rgba(28, 28, 33, 1);
 }
 .AppHeaderLink {
   display: flex;

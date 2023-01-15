@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Chapter from "../Chapter/Chapter";
-import "./BurgerIngredients.css";
-import { menu } from "../../variables/data"
+import style from "./BurgerIngredients.module.css";
 import ChapterPanel from "../ChapterPanel/ChapterPanel";
 
 export default function BurgerIngredients (props) {
@@ -12,10 +11,10 @@ export default function BurgerIngredients (props) {
   ];
 
   return (
-    <div className="BurgerIngredients" >
-      <h1>Соберите бургер</h1>
+    <div className={style.BurgerIngredients} >
+      <h1 className="text text_type_main-large pb-5">Соберите бургер</h1>
       <ChapterPanel chapters={chapters} />
-      <div className="IngredientsContainer">
+      <div className={style.IngredientsContainer}>
         {
           chapters.map( (chapter) => 
           <Chapter 

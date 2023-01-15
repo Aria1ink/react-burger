@@ -5,7 +5,7 @@ export default function AppHeader () {
   const [current, setCurrent] = React.useState("constructor");
 
   return (
-    <header className="AppHeader p-4 m-10">
+    <header className="AppHeader p-4 mb-10">
       <nav className="HeaderMenuContainer" >
         <a href="#" className="AppHeaderLink pt-4 pb-4 pr-5 pl-5" onClick={() => setCurrent("constructor")}>
           <BurgerIcon type={current === "constructor" ? "primary" : "secondary"} />

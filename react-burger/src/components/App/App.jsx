@@ -32,6 +32,9 @@ export default function App () {
           setIngredients(data.data);
         }
       )
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   if (!ingredients[0]) return <div>Loading...</div>;
@@ -39,7 +42,7 @@ export default function App () {
   return (
     <>
       <AppHeader />
-      <main className="AppMain">
+      <main className="AppMain pb-10">
         <BurgerIngredients 
           ingredients={ingredients} 
           cart={{cart: cart, setCart: setCart}} 
