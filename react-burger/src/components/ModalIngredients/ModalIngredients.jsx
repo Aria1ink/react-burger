@@ -1,19 +1,18 @@
-import React, { Children } from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import Modal from "../Modal/Modal";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import FoodEnergy from  '../FoodEnergy/FoodEnergy';
 import style from './ModalIngredients.module.css';
 
 export default function ModalIngredients (props) {
-
   const modalState = props.modal.modalState;
-  const setModalState = props.modal.setModalState;
   const ingredient = modalState.data;
 
   return (
     <>
     <ModalOverlay {...props} display={modalState.type === "ingredient" && modalState.display}>
-      <Modal {...props} title="Детали ингредиента">
+      <Modal {...props} title={modalState.title}>
         <img className={style.ModalIngredientsImage} src={ingredient.image} alt={ingredient.name} />
         <p className="text text_type_main-medium pt-4 pb-8">{ingredient.name}</p>
         <div className={style.FoodEnergyContainer} >
@@ -27,3 +26,7 @@ export default function ModalIngredients (props) {
     </>
   );
 };
+
+ModalIngredients.propTypes = {
+  modal: PropTypes.object
+}; 

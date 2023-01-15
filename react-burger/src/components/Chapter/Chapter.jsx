@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Ingredient from "../Ingredient/Ingredient"
-import "./Chapter.css"
+import style from "./Chapter.module.css"
 
 export default function Chapter (props) {
   const ingredients = props.ingredients;
@@ -10,7 +11,7 @@ export default function Chapter (props) {
       <h2 className="text text_type_main-medium" id={props.type} >
         {props.name}
       </h2>
-      <ul className="Chapter pt-6 pb-10 pl-4 pr-4">
+      <ul className={style.Chapter + " pt-6 pb-10 pl-4 pr-4"}>
         {
           ingredients.map( (ingredient) =>
           {
@@ -29,3 +30,9 @@ export default function Chapter (props) {
     </>
   );
 };
+
+Chapter.propTypes = {
+  ingredients: PropTypes.array,
+  type: PropTypes.string,
+  name: PropTypes.string
+}; 

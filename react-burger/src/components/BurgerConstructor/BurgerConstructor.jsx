@@ -1,21 +1,12 @@
 import React, {useEffect, useState} from "react";
+import PropTypes from 'prop-types';
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {getIngredientById} from "../../utils/tools";
 import Price from "../Price/Price";
 import style from "./BurgerConstructor.module.css";
+import {selectedIngredient} from "../../variables/data";
 
 export default function BurgerConstructor (props) {
-  const selectedIngredient = [
-    "60d3b41abdacab0026a733c6",
-    "60d3b41abdacab0026a733ce",
-    "60d3b41abdacab0026a733c9",
-    "60d3b41abdacab0026a733d1",
-    "60d3b41abdacab0026a733d0",
-    "60d3b41abdacab0026a733d0",
-    "60d3b41abdacab0026a733ca",
-    "60d3b41abdacab0026a733ca"
-  ];
-  const modalState = props.modal.modalState;
   const setModalState = props.modal.setModalState;
   const [summ, setSumm] = useState(0);
   const cart = props.cart.cart;
@@ -39,6 +30,7 @@ export default function BurgerConstructor (props) {
   },
     [cart]
   );
+  
   return (
     <div className={style.BurgerConstructor + " pt-25 pl-4"} >
       <ul>
@@ -106,3 +98,9 @@ export default function BurgerConstructor (props) {
   );
 
 };
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.array,
+  cart: PropTypes.object,
+  modal: PropTypes.object
+}; 

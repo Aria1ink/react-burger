@@ -1,14 +1,11 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Chapter from "../Chapter/Chapter";
 import style from "./BurgerIngredients.module.css";
 import ChapterPanel from "../ChapterPanel/ChapterPanel";
+import {chapters} from "../../variables/data";
 
 export default function BurgerIngredients (props) {
-  const chapters = [
-    {title: "Булки", type: "bun"},
-    {title: "Соусы", type: "sauce"},
-    {title: "Начинки", type: "main"}
-  ];
 
   return (
     <div className={style.BurgerIngredients} >
@@ -30,3 +27,9 @@ export default function BurgerIngredients (props) {
     </div>
   );
 };
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.array,
+  cart: PropTypes.object,
+  modal: PropTypes.object
+}; 

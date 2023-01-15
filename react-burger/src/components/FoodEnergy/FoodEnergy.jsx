@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import style from './FoodEnergy.module.css';
 
 export default function FoodEnergy (props) {
@@ -10,3 +11,8 @@ export default function FoodEnergy (props) {
     </div>
   );
 };
+
+FoodEnergy.propTypes = {
+  title: PropTypes.string,
+  value: PropTypes.string
+}; 

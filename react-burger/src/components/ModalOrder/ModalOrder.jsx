@@ -1,13 +1,12 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Modal from "../Modal/Modal";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import style from "./ModalOrder.module.css"
 import imgDone from "../../image/done.svg"
 
 export default function ModalOrder (props) {
-
   const modalState = props.modal.modalState;
-  const setModalState = props.modal.setModalState;
 
   return (
     <>
@@ -25,3 +24,7 @@ export default function ModalOrder (props) {
     </>
   );
 };
+
+ModalOrder.propTypes = {
+  modal: PropTypes.object
+}; 

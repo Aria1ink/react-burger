@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import "./App.css";
+import style from "./App.module.css";
 import {getIngredientsApi} from "../../utils/api"
 import ModalIngredients from "../ModalIngredients/ModalIngredients";
 import ModalOrder from "../ModalOrder/ModalOrder";
@@ -37,12 +37,12 @@ export default function App () {
       });
   }, []);
 
-  if (!ingredients[0]) return <div>Loading...</div>;
+  if (!ingredients[0]) return <div>Загрузка...</div>;
 
   return (
     <>
       <AppHeader />
-      <main className="AppMain pb-10">
+      <main className={style.AppMain + " pb-10"}>
         <BurgerIngredients 
           ingredients={ingredients} 
           cart={{cart: cart, setCart: setCart}} 

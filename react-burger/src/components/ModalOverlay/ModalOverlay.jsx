@@ -1,8 +1,8 @@
-import React, { Children } from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import ReactDOM from "react-dom";
 import styles from "./ModalOverlay.module.css"
 export default function ModalOverlay (props) {
-
   const modalRoot = document.getElementById("react-modals");
   const closeModal =  props.modal.closeModal;
   const overlayClose = (evt) => {
@@ -18,3 +18,9 @@ export default function ModalOverlay (props) {
     modalRoot
   );
 };
+
+ModalOverlay.propTypes = {
+  modal: PropTypes.object,
+  children: PropTypes.node,
+  display: PropTypes.string
+}; 

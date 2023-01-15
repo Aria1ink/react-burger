@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ChapterPanel.module.css"
 
@@ -24,3 +25,7 @@ export default function ChapterPanel (props) {
     </div>
   );
 };
+
+ChapterPanel.propTypes = {
+  chapters: PropTypes.array
+}; 
