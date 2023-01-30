@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from 'prop-types';
+import { CartContext } from "../../variables/context";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import Price from "../Price/Price"
-import style from "./Ingredient.module.css"
+import Price from "../Price/Price";
+import style from "./Ingredient.module.css";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
@@ -10,7 +11,7 @@ export default function Ingredient (props) {
   const ingredient = props.ingredient; 
   const [count, setCount] = useState(0);
   let tempCount = 0;
-  const cart = props.cart.cart;
+  const [cart] = useContext(CartContext); 
   const [modalState, setModalState] = useState(false);
 
   useEffect(() => {
@@ -46,6 +47,5 @@ export default function Ingredient (props) {
 };
 
 Ingredient.propTypes = {
-  cart: PropTypes.object,
   ingredient: PropTypes.object
 }; 

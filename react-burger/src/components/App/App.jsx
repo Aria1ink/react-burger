@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { IngredientsContext, CartContext } from "../../variables/context";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import style from "./App.module.css";
-import {getIngredientsApi} from "../../utils/api"
+import {getIngredientsApi} from "../../utils/api";
 
 export default function App () {
-  const [ingredients, setIngredients] = useState([]);
-  const [cart, setCart]= useState([]);
+  const ingredientsState = useState([]);
+  const cartState = useState([]);
+  const [ingredients, setIngredients] = ingredientsState;
 
   useEffect(() => {
     getIngredientsApi()
@@ -27,14 +29,16 @@ export default function App () {
     <>
       <AppHeader />
       <main className={style.AppMain + " pb-10"}>
-        <BurgerIngredients 
-          ingredients={ingredients} 
-          cart={{cart: cart, setCart: setCart}} 
-        />
-        <BurgerConstructor 
-          ingredients={ingredients} 
-          cart={{cart: cart, setCart: setCart}} 
-        />
+        <IngredientsContext.Provider value={ingredientsState}>
+          <CartContext.Provider value={cartState}>
+            <BurgerIngredients />
+          </CartContext.Provider>
+        </IngredientsContext.Provider>
+        <IngredientsContext.Provider value={ingredientsState}>
+          <CartContext.Provider value={cartState}>
+            <BurgerConstructor />
+          </CartContext.Provider>
+        </IngredientsContext.Provider>
       </main>
       <footer></footer>
     </>

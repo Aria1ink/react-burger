@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext } from "react";
 import PropTypes from 'prop-types';
+import { IngredientsContext, CartContext } from "../../variables/context";
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {getIngredientById} from "../../utils/tools";
 import Price from "../Price/Price";
@@ -11,14 +12,14 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 export default function BurgerConstructor (props) {
   const [modalState, setModalState] = useState(false);
   const [summ, setSumm] = useState(0);
-  const cart = props.cart.cart;
-  const setCart = props.cart.setCart;
+  const [cart, setCart] = useContext(CartContext);
+  const [ingredients] = useContext(IngredientsContext);
   let tempCart = [];
   let priceSumm = 0;
 
   useEffect( () => {
     selectedIngredient.forEach((id) => {
-      tempCart.push(getIngredientById(id, props.ingredients));
+      tempCart.push(getIngredientById(id, ingredients));
     });
     setCart(tempCart);
     tempCart = [];
@@ -27,6 +28,7 @@ export default function BurgerConstructor (props) {
   useEffect( () => {
     cart.forEach( (ingredient) => {
       priceSumm = priceSumm + ingredient.price;
+      ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.price);
     })
     setSumm(priceSumm);
   },

@@ -1,11 +1,10 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import Chapter from "../Chapter/Chapter";
 import style from "./BurgerIngredients.module.css";
 import ChapterPanel from "../ChapterPanel/ChapterPanel";
 import {chapters} from "../../variables/data";
 
-export default function BurgerIngredients (props) {
+export default function BurgerIngredients () {
 
   return (
     <div className={style.BurgerIngredients} >
@@ -15,7 +14,6 @@ export default function BurgerIngredients (props) {
         {
           chapters.map( (chapter) => 
           <Chapter 
-            {...props}
             key={"chapter-" + chapter.type} 
             title={chapter.title} 
             type={chapter.type} 
@@ -27,8 +25,3 @@ export default function BurgerIngredients (props) {
     </div>
   );
 };
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.array,
-  cart: PropTypes.object,
-}; 

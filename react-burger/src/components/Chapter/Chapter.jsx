@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from 'prop-types';
-import Ingredient from "../Ingredient/Ingredient"
-import style from "./Chapter.module.css"
+import Ingredient from "../Ingredient/Ingredient";
+import { IngredientsContext } from "../../variables/context";
+import style from "./Chapter.module.css";
 
 export default function Chapter (props) {
-  const ingredients = props.ingredients;
+  const [ingredients] = useContext(IngredientsContext);
 
   return (
     <>
@@ -32,7 +33,6 @@ export default function Chapter (props) {
 };
 
 Chapter.propTypes = {
-  ingredients: PropTypes.array,
   type: PropTypes.string,
   name: PropTypes.string
 }; 
