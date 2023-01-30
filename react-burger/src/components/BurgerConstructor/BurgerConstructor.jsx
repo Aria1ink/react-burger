@@ -1,21 +1,39 @@
 import React, {useEffect, useState, useContext } from "react";
-import PropTypes from 'prop-types';
 import { IngredientsContext, CartContext } from "../../variables/context";
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import {getIngredientById} from "../../utils/tools";
+import { getIngredientById } from "../../utils/tools";
 import Price from "../Price/Price";
 import style from "./BurgerConstructor.module.css";
-import {selectedIngredient} from "../../variables/data";
+import { selectedIngredient } from "../../variables/data";
+import { setOrderApi }from "../../utils/api";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
 export default function BurgerConstructor (props) {
   const [modalState, setModalState] = useState(false);
   const [summ, setSumm] = useState(0);
+  const [orderNumber, setOrderNumber] = useState(0);
   const [cart, setCart] = useContext(CartContext);
   const [ingredients] = useContext(IngredientsContext);
   let tempCart = [];
   let priceSumm = 0;
+
+  const openOrderModal = () => {
+    let orderItemsId = [];
+    cart.forEach( (ingredient) => {
+      orderItemsId.push(ingredient._id);
+    })
+    setOrderApi(orderItemsId)
+      .then(
+        (data) => {
+          setOrderNumber(data.order.number);
+          setModalState(true);
+        }
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect( () => {
     selectedIngredient.forEach((id) => {
@@ -31,6 +49,7 @@ export default function BurgerConstructor (props) {
       ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.price);
     })
     setSumm(priceSumm);
+    priceSumm = 0;
   },
     [cart]
   );
@@ -90,21 +109,16 @@ export default function BurgerConstructor (props) {
             htmlType="button" 
             type="primary" 
             size="large" 
-            onClick={() => {setModalState(true)}}>
+            onClick={openOrderModal}>
             Оформить заказ
           </Button>
         </div>
       </div>
       { modalState &&
           (<Modal title='' close={() => {setModalState(false)}}>
-            <OrderDetails number="034536"/>
+            <OrderDetails number={orderNumber} />
           </Modal>)
         }
     </>
   );
 };
-
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.array,
-  cart: PropTypes.object,
-}; 
