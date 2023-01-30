@@ -1,4 +1,4 @@
-# 7 спринт, проект Stellar Burger
+# 8 спринт, проект Stellar Burger
 ### Технологии
 
 * HTML
@@ -10,6 +10,8 @@
 ### Требования к проекту
 
 [Чеклист](https://code.s3.yandex.net/web-plus/checklists/checklist_pdf/checklist_7.pdf)
+
+### 2 месяц проекта
 
 ### Figma
 
