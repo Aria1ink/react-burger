@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import PropTypes from 'prop-types';
-import { CartContext } from "../../variables/context";
+import { CartContext } from "../../services/context";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import Price from "../Price/Price";
 import style from "./Ingredient.module.css";
@@ -11,15 +11,20 @@ export default function Ingredient (props) {
   const ingredient = props.ingredient; 
   const [count, setCount] = useState(0);
   let tempCount = 0;
-  const [cart] = useContext(CartContext); 
+  const cartState = useContext(CartContext);
+  const cart = cartState.cart;
   const [modalState, setModalState] = useState(false);
 
   useEffect(() => {
-    cart.forEach(element => {
-      if( element._id === ingredient._id) {
-        ++tempCount;
-      }
-    });;
+    if (cart.bun._id === ingredient._id) {
+      ++tempCount;
+    } else {
+      cart.others.forEach(element => {
+        if( element._id === ingredient._id) {
+          ++tempCount;
+        }
+      });
+    };
     setCount(tempCount);
     tempCount = 0;
   }, [cart]);

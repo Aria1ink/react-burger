@@ -8,19 +8,25 @@ export default function AppHeader () {
   return (
     <header className={style.AppHeader + " p-4 mb-10"}>
       <nav className={style.HeaderMenuContainer} >
-        <a href="#" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5" }onClick={() => setCurrent("constructor")}>
+        <a href="/constructor" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5" }onClick={() => setCurrent("constructor")}>
           <BurgerIcon type={current === "constructor" ? "primary" : "secondary"} />
-          <p className="text text_type_main-default pl-2">Конструктор</p>
+          <p className={current !== "constructor" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
+            Конструктор
+          </p>
         </a>
-        <a href="#" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("orderList")}>
+        <a href="/orderList" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("constructor")}>
           <ListIcon type={current === "orderList" ? "primary" : "secondary"} />
-          <p className="text text_type_main-default pl-2">Лента заказов</p>
+          <p className={current !== "orderList" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
+            Лента заказов
+          </p>
         </a>
       </nav>
       <Logo />
-      <a href="#" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("profile")}>
+      <a href="/profile" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("constructor")}>
         <ProfileIcon type={current === "profile" ? "primary" : "secondary"} />
-        <p className="text text_type_main-default pl-2">Личный кабинет</p>
+        <p className={current !== "profile" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
+          Личный кабинет
+        </p>
       </a>
     </header>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IngredientsContext, CartContext } from "../../variables/context";
+import { IngredientsContext, CartContext } from "../../services/context";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
@@ -7,9 +7,19 @@ import style from "./App.module.css";
 import {getIngredientsApi} from "../../utils/api";
 
 export default function App () {
-  const ingredientsState = useState([]);
-  const cartState = useState([]);
-  const [ingredients, setIngredients] = ingredientsState;
+  const [ingredients, setIngredients] = useState([]);
+  const ingredientsState = {
+    ingredients: ingredients,
+    setIngredients: setIngredients
+  };
+  const [cart, setCart] = useState({ 
+    bun: {},
+    others: []}
+  );
+  const cartState = {
+    cart: cart,
+    setCart: setCart
+  };
 
   useEffect(() => {
     getIngredientsApi()
@@ -32,10 +42,6 @@ export default function App () {
         <IngredientsContext.Provider value={ingredientsState}>
           <CartContext.Provider value={cartState}>
             <BurgerIngredients />
-          </CartContext.Provider>
-        </IngredientsContext.Provider>
-        <IngredientsContext.Provider value={ingredientsState}>
-          <CartContext.Provider value={cartState}>
             <BurgerConstructor />
           </CartContext.Provider>
         </IngredientsContext.Provider>
