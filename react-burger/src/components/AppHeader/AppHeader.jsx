@@ -14,7 +14,7 @@ export default function AppHeader () {
             Конструктор
           </p>
         </a>
-        <a href="/orderList" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("constructor")}>
+        <a href="/orderList" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} style={{pointerEvents: "none"}} onClick={() => setCurrent("orderList")}>
           <ListIcon type={current === "orderList" ? "primary" : "secondary"} />
           <p className={current !== "orderList" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
             Лента заказов
@@ -22,7 +22,7 @@ export default function AppHeader () {
         </a>
       </nav>
       <Logo />
-      <a href="/profile" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("constructor")}>
+      <a href="/profile" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} style={{pointerEvents: "none"}} onClick={() => setCurrent("profile")}>
         <ProfileIcon type={current === "profile" ? "primary" : "secondary"} />
         <p className={current !== "profile" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
           Личный кабинет
