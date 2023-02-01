@@ -1,0 +1,56 @@
+.BurgerConstructor {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.ConstructorContainer {
+  width: calc(100% - 16px);
+  height: 40vh;
+  overflow-y: scroll;
+  overflow-x:hidden;
+  scrollbar-gutter: stable;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.ConstructorContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ConstructorContainer::-webkit-scrollbar-track {
+  background-color: rgba(47, 47, 55, 1);
+}
+
+.ConstructorContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(133, 133, 173, 1);
+}
+
+.BurgerConstructorOrder {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 40px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media (max-height: 950px) {
+  .ConstructorContainer {
+    height: 30vh;
+  }
+}

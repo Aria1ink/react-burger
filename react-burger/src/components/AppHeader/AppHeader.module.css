@@ -1,0 +1,26 @@
+.AppHeader {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 1fr min-content 1fr;
+  width: calc(100% - 32px);
+  background-color: rgba(28, 28, 33, 1);
+}
+.AppHeaderLink {
+  display: flex;
+  color: rgba(242, 242, 243, 1);
+  flex-direction: row;
+  border: none;
+  border-radius: 40px;
+  text-decoration: none;
+  width: max-content;
+  justify-self: center;
+}
+.HeaderMenuContainer {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+}

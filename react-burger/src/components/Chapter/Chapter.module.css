@@ -1,0 +1,9 @@
+.Chapter {
+  width: calc(100% - 16px - 16px);
+  display: grid;
+  row-gap: 32px;
+  column-gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  list-style: none;
+  margin: 0;
+}
