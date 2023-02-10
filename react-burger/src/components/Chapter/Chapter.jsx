@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import Ingredient from "../Ingredient/Ingredient";
-import { IngredientsContext } from "../../services/context";
 import style from "./Chapter.module.css";
 
 export default function Chapter (props) {
-  const ingredientsState = useContext(IngredientsContext);
-  const ingredients = ingredientsState.ingredients;
+  const ingredients = useSelector(store => store.ingredients.ingredients);
 
   return (
     <>

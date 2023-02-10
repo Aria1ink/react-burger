@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useContext } from "react";
-import { IngredientsContext, CartContext } from "../../services/context";
+import React, {useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getIngredientById } from "../../utils/tools";
 import Price from "../Price/Price";
@@ -8,16 +8,16 @@ import { selectedIngredient } from "../../variables/data";
 import { setOrderApi }from "../../utils/api";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import { setCartDefault, setCartBun } from "../../services/actions/cart"
 
 export default function BurgerConstructor () {
   const [modalState, setModalState] = useState(false);
   const [summ, setSumm] = useState(0);
   const [orderNumber, setOrderNumber] = useState(0);
-  const cartState = useContext(CartContext);
-  const cart = cartState.cart;
-  const setCart = cartState.setCart;
-  const ingredientsState = useContext(IngredientsContext);
-  const ingredients = ingredientsState.ingredients;
+
+  const dispatch = useDispatch();
+  const ingredients = useSelector(store => store.ingredients.ingredients);
+  const cart = useSelector(store => store.cart);
 
   const openOrderModal = () => {
     let orderItemsId = [];
@@ -46,19 +46,19 @@ export default function BurgerConstructor () {
     selectedIngredient.forEach((id) => {
       const ingredient = getIngredientById(id, ingredients);
       if (ingredient.type === "bun") {
-        tempCart.bun = ingredient;
+        dispatch(setCartBun(ingredient));
       } else {
-        tempCart.others.push(ingredient);
+        tempCart.others.push({cartId: tempCart.others.length, ingredient: ingredient});
       };
     });
-    setCart(tempCart);
+    dispatch(setCartDefault(tempCart.others));
   }, []);
 
   useEffect( () => {
     let priceSumm = 0;
     cart.others.forEach( (ingredient) => {
-      priceSumm = priceSumm + ingredient.price;
-      ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.price);
+      priceSumm = priceSumm + ingredient.ingredient.price;
+      ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.ingredient.price);
     })
     priceSumm = priceSumm + cart.bun.price * 2;
     setSumm(priceSumm);
@@ -85,14 +85,14 @@ export default function BurgerConstructor () {
             {
               cart.others.map( (ingredient, index) => 
               ingredient.type !== "bun"&&
-              <li className={style.item} key={ "li-" + index + ingredient._id}>
+              <li className={style.item} key={ "li-" + index + ingredient.ingredient._id}>
                 <DragIcon type="primary" />
                 <ConstructorElement
-                  key={index + ingredient._id}
+                  key={index + ingredient.ingredient._id}
                   isLocked={false}
-                  text={ingredient.name}
-                  price={ingredient.price}
-                  thumbnail={ingredient.image}
+                  text={ingredient.ingredient.name}
+                  price={ingredient.ingredient.price}
+                  thumbnail={ingredient.ingredient.image}
                 />
               </li>
             )

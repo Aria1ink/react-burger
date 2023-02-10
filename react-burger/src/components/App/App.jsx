@@ -1,36 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { IngredientsContext, CartContext } from "../../services/context";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import style from "./App.module.css";
-import {getIngredientsApi} from "../../utils/api";
+import { loadIngredients } from "../../utils/tools";
 
 export default function App () {
-  const [ingredients, setIngredients] = useState([]);
-  const ingredientsState = {
-    ingredients: ingredients,
-    setIngredients: setIngredients
-  };
-  const [cart, setCart] = useState({ 
-    bun: {},
-    others: []}
-  );
-  const cartState = {
-    cart: cart,
-    setCart: setCart
-  };
+  const dispatch = useDispatch();
+  const ingredients = useSelector(store => store.ingredients.ingredients);
 
   useEffect(() => {
-    getIngredientsApi()
-      .then(
-        (data) => {
-          setIngredients(data.data);
-        }
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(loadIngredients());
   }, []);
 
   if (!ingredients[0]) return (<div>Загрузка...</div>);
@@ -39,12 +20,8 @@ export default function App () {
     <>
       <AppHeader />
       <main className={style.AppMain + " pb-10"}>
-        <IngredientsContext.Provider value={ingredientsState}>
-          <CartContext.Provider value={cartState}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </CartContext.Provider>
-        </IngredientsContext.Provider>
+        <BurgerIngredients />
+        <BurgerConstructor />
       </main>
       <footer></footer>
     </>
