@@ -28,7 +28,14 @@ export default function constructorReducer (state = defaultState, action) {
       };
     }
     case ADD_INGREDIENT: {
-      return {};
+      return {
+        ...state,
+        others: [
+          ...state.others,
+          { cartId: state.others.length,
+            ingredient: action.ingredient
+          }]
+      };
     }
     case REMOVE_INGREDIENT: {
       return {};

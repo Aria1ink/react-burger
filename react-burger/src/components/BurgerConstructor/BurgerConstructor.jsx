@@ -1,14 +1,17 @@
 import React, {useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from 'uuid';
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getIngredientById } from "../../utils/tools";
 import Price from "../Price/Price";
+import CartElement from "../CartElement/CartElement";
 import style from "./BurgerConstructor.module.css";
 import { selectedIngredient } from "../../variables/data";
 import { createOrder } from "../../services/actions/order";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { setCartDefault, setCartBun } from "../../services/actions/cart";
+import { setCartDefault, setCartBun, addCartIngredient } from "../../services/actions/cart";
 import { hideOrderModal } from "../../services/actions/order";
 
 export default function BurgerConstructor () {
@@ -17,6 +20,22 @@ export default function BurgerConstructor () {
   const ingredients = useSelector(store => store.ingredients.ingredients);
   const orderNumber =  useSelector(store => store.order);
   const cart = useSelector(store => store.cart);
+  const [{isHover}, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      onDropHandler(item);
+    },
+  });
+  const onDropHandler = (item) => {
+    if (item.cartId) {
+
+    }
+    else {
+      item.type === "bun" ?
+      dispatch(setCartBun(item)) :
+      dispatch(addCartIngredient(item));
+    }
+  };
 
   const openOrderModal = () => {
     let orderItemsId = [];
@@ -59,47 +78,38 @@ export default function BurgerConstructor () {
   return (
     <>
       <div className={style.BurgerConstructor + " pt-25 pl-4"} >
-        <ul>
-          <li className={style.item+ " pr-4 pb-4"} >
-            <ConstructorElement
-              key={"top" + cart.bun._id}
-              type="top"
-              isLocked={true}
-              text={cart.bun.name}
-              price={cart.bun.price}
-              thumbnail={cart.bun.image}
-              className="pt-4"
-            />
-          </li>
+        <ul ref={dropTarget} style={isHover ? {opacity: "0.5"} : {opacity: "1"}}>
+          <CartElement 
+            className="pr-4 pb-4"
+            key={ uuidv4() }
+            type="top"
+            isLocked={true}
+            item={cart.bun}
+            style="pt-4"
+          />
           <div className={style.ConstructorContainer + " pr-2"}>
             {
-              cart.others.map( (ingredient, index) => 
-              ingredient.type !== "bun"&&
-              <li className={style.item} key={ "li-" + index + ingredient.ingredient._id}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  key={index + ingredient.ingredient._id}
+              cart.others.map( (ingredient) => 
+                ingredient.type !== "bun"&&
+                <CartElement 
+                  key={ uuidv4() }
+                  type="undefined"
                   isLocked={false}
-                  text={ingredient.ingredient.name}
-                  price={ingredient.ingredient.price}
-                  thumbnail={ingredient.ingredient.image}
+                  item={ingredient.ingredient}
+                  id={ingredient.cartId}
                 />
-              </li>
             )
             }
           </div>
-          <li className={style.item + " pr-4 pt-4"} > 
-            <ConstructorElement
-              key={"bottom" + cart.bun._id}
-              type="bottom"
-              isLocked={true}
-              text={cart.bun.name}
-              price={cart.bun.price}
-              thumbnail={cart.bun.image}
-            />
-          </li>
+          <CartElement 
+            className="pr-4 pt-4"
+            key={ uuidv4() }
+            type="bottom"
+            isLocked={true}
+            item={cart.bun}
+          />
         </ul>
-        <div className={style.BurgerConstructorOrder + " pt-10 pr-4"}>
+        <div className={style.BurgerConstructorOrder + " pt-10 pr-4"} >
           <Price price={summ} font={"medium"} />
           <Button 
             htmlType="button" 
