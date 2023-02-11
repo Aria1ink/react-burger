@@ -1,29 +1,24 @@
 import { 
-  SET_ORDER, 
+  GET_ORDER_SUCCESS, 
   HIDE_ORDER, 
-  ORDER_ERROR 
+  GET_ORDER_ERROR,
+  GET_ORDER_REQUEST 
 } from "../actions/order";
 
-const defaultState = {
-  number: 0,
-  modalState: false
-};
+const defaultState = 0;
 
 export default function orderReducer (state = defaultState, action) {
   switch (action.type) {
-    case SET_ORDER: {
-      return { 
-        number: action.number, 
-        modalState: true };
+    case GET_ORDER_SUCCESS: {
+      return action.number;
+    }
+    case GET_ORDER_REQUEST: {
+      return '';
+    }
+    case GET_ORDER_ERROR: {
+      return 'ошибка';
     }
     case HIDE_ORDER: {
-      return { 
-        ...state, 
-        modalState: false 
-      };
-    }
-    case ORDER_ERROR: {
-      console.log(action.err);
       return defaultState;
     }
     default:

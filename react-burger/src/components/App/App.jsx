@@ -4,17 +4,18 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import style from "./App.module.css";
-import { loadIngredients } from "../../utils/tools";
+import { loadIngredients } from "../../services/actions/ingredients";
 
 export default function App () {
   const dispatch = useDispatch();
-  const ingredients = useSelector(store => store.ingredients.ingredients);
+  const status = useSelector(store => store.ingredients.status);
 
   useEffect(() => {
     dispatch(loadIngredients());
   }, []);
 
-  if (!ingredients[0]) return (<div>Загрузка...</div>);
+  if (status === 'loading') return (<div>Загрузка...</div>);
+  if (status === 'failed') return (<div>Ошибка подключения к базе данных.</div>);
 
   return (
     <>

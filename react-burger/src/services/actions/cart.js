@@ -17,6 +17,7 @@ export const addCartIngredient = (ingredient) => ({
   type: ADD_INGREDIENT,
   ingredient: ingredient
 });
+
 export const delCartIngredient = (id) => ({
   type: REMOVE_INGREDIENT,
   id: id

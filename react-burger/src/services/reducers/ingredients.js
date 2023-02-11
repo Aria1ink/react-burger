@@ -1,7 +1,7 @@
 import {
-  GET_INGREDIENTS_LOADED,
-  GET_INGREDIENTS_FAIL,
-  GET_INGREDIENTS_LOADING
+  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENTS_ERROR,
+  GET_INGREDIENTS_REQUEST
 } from "../actions/ingredients";
 
 const defaultState = {
@@ -11,21 +11,21 @@ const defaultState = {
 
 export default function ingredientsReducer (state = defaultState, action) {
   switch (action.type) {
-    case GET_INGREDIENTS_LOADED: {
+    case GET_INGREDIENTS_SUCCESS: {
       return { 
         ...state, 
         status: "loaded", 
         ingredients: action.ingredients 
       };
     }
-    case GET_INGREDIENTS_FAIL: {
+    case GET_INGREDIENTS_ERROR: {
       console.log(action.err);
       return { 
         ...state, 
         status: "failed" 
       };
     }
-    case GET_INGREDIENTS_LOADING: {
+    case GET_INGREDIENTS_REQUEST: {
       return { 
         ...state, 
         status: "loading" 

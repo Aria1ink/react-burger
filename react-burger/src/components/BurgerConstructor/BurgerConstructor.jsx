@@ -5,18 +5,17 @@ import { getIngredientById } from "../../utils/tools";
 import Price from "../Price/Price";
 import style from "./BurgerConstructor.module.css";
 import { selectedIngredient } from "../../variables/data";
-import { setOrderApi }from "../../utils/api";
+import { createOrder } from "../../services/actions/order";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { setCartDefault, setCartBun } from "../../services/actions/cart"
+import { setCartDefault, setCartBun } from "../../services/actions/cart";
+import { hideOrderModal } from "../../services/actions/order";
 
 export default function BurgerConstructor () {
-  const [modalState, setModalState] = useState(false);
   const [summ, setSumm] = useState(0);
-  const [orderNumber, setOrderNumber] = useState(0);
-
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients.ingredients);
+  const orderNumber =  useSelector(store => store.order);
   const cart = useSelector(store => store.cart);
 
   const openOrderModal = () => {
@@ -26,16 +25,7 @@ export default function BurgerConstructor () {
       orderItemsId.push(ingredient._id);
     });
     orderItemsId.push(cart.bun._id);
-    setOrderApi(orderItemsId)
-      .then(
-        (data) => {
-          setOrderNumber(data.order.number);
-          setModalState(true);
-        }
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(createOrder(orderItemsId));
   };
 
   useEffect( () => {
@@ -120,8 +110,8 @@ export default function BurgerConstructor () {
           </Button>
         </div>
       </div>
-      { modalState &&
-          (<Modal title='' close={() => {setModalState(false)}}>
+      { orderNumber !== 0 && orderNumber !== 'error' &&
+          (<Modal title='' close={() => {dispatch(hideOrderModal())}}>
             <OrderDetails number={orderNumber} />
           </Modal>)
         }
