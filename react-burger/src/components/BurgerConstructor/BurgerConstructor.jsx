@@ -27,14 +27,9 @@ export default function BurgerConstructor () {
     },
   });
   const onDropHandler = (item) => {
-    if (item.cartId) {
-
-    }
-    else {
       item.type === "bun" ?
       dispatch(setCartBun(item)) :
       dispatch(addCartIngredient(item));
-    }
   };
 
   const openOrderModal = () => {
@@ -57,7 +52,7 @@ export default function BurgerConstructor () {
       if (ingredient.type === "bun") {
         dispatch(setCartBun(ingredient));
       } else {
-        tempCart.others.push({cartId: tempCart.others.length, ingredient: ingredient});
+        tempCart.others.push({cartId: uuidv4(), ingredient: ingredient});
       };
     });
     dispatch(setCartDefault(tempCart.others));
