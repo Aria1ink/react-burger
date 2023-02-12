@@ -2,7 +2,7 @@ import React, {useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
-import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getIngredientById } from "../../utils/tools";
 import Price from "../Price/Price";
 import CartElement from "../CartElement/CartElement";
@@ -80,7 +80,7 @@ export default function BurgerConstructor () {
             type="top"
             isLocked={true}
             item={cart.bun}
-            style="pt-4"
+            addSstyle="pt-4"
           />
           <div className={style.ConstructorContainer + " pr-2"}>
             {

@@ -5,6 +5,3 @@ export const getIngredientById = (id, data) => {
     };
   };
 };
-export const getItemIndex = (cart, cartId) => {
-  return cart.findIndex(item => item.cartId === cartId);
-}
