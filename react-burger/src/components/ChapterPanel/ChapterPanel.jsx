@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ChapterPanel.module.css";
 import { setActiveMenuTab } from "../../services/actions/menu";
+import { getMenuStatusFromStore } from "../../utils/tools";
 
 export default function ChapterPanel (props) {
-  const currentMenu = useSelector(store => store.menu);
+  const currentMenu = useSelector(getMenuStatusFromStore);
   const dispatch = useDispatch();
   const handleClick = (target) => {
     dispatch(setActiveMenuTab(target));
@@ -30,5 +31,5 @@ export default function ChapterPanel (props) {
 };
 
 ChapterPanel.propTypes = {
-  chapters: PropTypes.array
+  chapters: PropTypes.array.isRequired
 }; 

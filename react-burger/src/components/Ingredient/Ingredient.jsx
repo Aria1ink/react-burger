@@ -8,14 +8,16 @@ import style from "./Ingredient.module.css";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { setSelectedIngredient, delSelectedIngredient } from '../../services/actions/ingredient';
+import { getCartFromStore } from "../../utils/tools";
+import { getCurrentIngredientFromStore } from "../../utils/tools";
 
 export default function Ingredient (props) {
   const ingredient = props.ingredient; 
   const [count, setCount] = useState(0);
   let tempCount = 0;
   const dispatch = useDispatch();
-  const cart = useSelector(store => store.cart);
-  const selectedIngredient = useSelector(store => store.ingredient);
+  const cart = useSelector(getCartFromStore);
+  const selectedIngredient = useSelector(getCurrentIngredientFromStore);
   const openIngredientDetails = (ingredient) => {
     dispatch(setSelectedIngredient(ingredient));
   };
@@ -69,5 +71,5 @@ export default function Ingredient (props) {
 };
 
 Ingredient.propTypes = {
-  ingredient: PropTypes.object
+  ingredient: PropTypes.object.isRequired
 }; 

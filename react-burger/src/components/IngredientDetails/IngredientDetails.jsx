@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import PropTypes from 'prop-types';
 import style from "./IngredientDetails.module.css";
 import FoodEnergy from  '../FoodEnergy/FoodEnergy';
+import { getCurrentIngredientFromStore } from "../../utils/tools";
 
 
 export default function IngredientDetails () {
-  const ingredient = useSelector(store => store.ingredient);
+  const ingredient = useSelector(getCurrentIngredientFromStore);
 
   return (
     <>
@@ -21,7 +21,3 @@ export default function IngredientDetails () {
     </>
   );
 };
-
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.object
-}; 

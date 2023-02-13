@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import Ingredient from "../Ingredient/Ingredient";
 import style from "./Chapter.module.css";
+import { getIngredientsFromStore } from "../../utils/tools";
 
 export default function Chapter (props) {
-  const ingredients = useSelector(store => store.ingredients.ingredients);
+  const ingredients = useSelector(getIngredientsFromStore);
 
   return (
     <>
@@ -33,6 +34,6 @@ export default function Chapter (props) {
 };
 
 Chapter.propTypes = {
-  type: PropTypes.string,
-  name: PropTypes.string
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 }; 

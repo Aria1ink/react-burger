@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { 
   DEFAULT_INGREDIENTS, 
   SET_BUN,
@@ -34,7 +33,7 @@ export default function constructorReducer (state = defaultState, action) {
         ...state,
         others: [
           ...state.others,
-          { cartId: uuidv4(),
+          { cartId: action.uuidv4,
             ingredient: action.ingredient
           }]
       };

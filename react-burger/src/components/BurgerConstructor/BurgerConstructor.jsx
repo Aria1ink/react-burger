@@ -13,13 +13,16 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { setCartDefault, setCartBun, addCartIngredient } from "../../services/actions/cart";
 import { hideOrderModal } from "../../services/actions/order";
+import { getIngredientsFromStore } from "../../utils/tools";
+import { getOrderNumberFromStore } from "../../utils/tools";
+import { getCartFromStore } from "../../utils/tools";
 
 export default function BurgerConstructor () {
   const [summ, setSumm] = useState(0);
   const dispatch = useDispatch();
-  const ingredients = useSelector(store => store.ingredients.ingredients);
-  const orderNumber =  useSelector(store => store.order);
-  const cart = useSelector(store => store.cart);
+  const ingredients = useSelector(getIngredientsFromStore);
+  const orderNumber =  useSelector(getOrderNumberFromStore);
+  const cart = useSelector(getCartFromStore);
   const [{isHover}, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item) {
@@ -29,14 +32,14 @@ export default function BurgerConstructor () {
   const onDropHandler = (item) => {
       item.type === "bun" ?
       dispatch(setCartBun(item)) :
-      dispatch(addCartIngredient(item));
+      dispatch(addCartIngredient(item, uuidv4()));
   };
 
   const openOrderModal = () => {
     let orderItemsId = [];
     orderItemsId.push(cart.bun._id);
     cart.others.forEach( (ingredient) => {
-      orderItemsId.push(ingredient._id);
+      orderItemsId.push(ingredient.ingredient._id);
     });
     orderItemsId.push(cart.bun._id);
     dispatch(createOrder(orderItemsId));

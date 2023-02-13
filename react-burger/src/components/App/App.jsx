@@ -7,10 +7,11 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import style from "./App.module.css";
 import { loadIngredients } from "../../services/actions/ingredients";
+import { loadIngredientsStatus } from "../../utils/tools";
 
 export default function App () {
   const dispatch = useDispatch();
-  const status = useSelector(store => store.ingredients.status);
+  const status = useSelector(loadIngredientsStatus);
 
   useEffect(() => {
     dispatch(loadIngredients());

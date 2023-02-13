@@ -14,9 +14,10 @@ export const setCartDefault = (ingredients) => ({
   default: ingredients
 });
 
-export const addCartIngredient = (ingredient) => ({
+export const addCartIngredient = (ingredient, uuidv4) => ({
   type: ADD_INGREDIENT,
-  ingredient: ingredient
+  ingredient: ingredient,
+  uuidv4: uuidv4
 });
 
 export const delCartIngredient = (cartId) => ({

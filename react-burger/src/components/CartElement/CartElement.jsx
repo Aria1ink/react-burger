@@ -49,7 +49,8 @@ export default function CartElement(props) {
   );
 };
 CartElement.propTypes = {
-  type: PropTypes.string,
-  props: PropTypes.string,
-  addStyle: PropTypes.string
+  type: PropTypes.string.isRequired,
+  addStyle: PropTypes.string,
+  isLocked: PropTypes.bool.isRequired,
+  item: PropTypes.object.isRequired
 }; 

@@ -13,10 +13,10 @@ export default function orderReducer (state = defaultState, action) {
       return action.number;
     }
     case GET_ORDER_REQUEST: {
-      return '';
+      return defaultState;
     }
     case GET_ORDER_ERROR: {
-      return 'ошибка';
+      return defaultState;
     }
     case HIDE_ORDER: {
       return defaultState;

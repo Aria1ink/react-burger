@@ -20,15 +20,15 @@ export default function ingredientsReducer (state = defaultState, action) {
     }
     case GET_INGREDIENTS_ERROR: {
       console.log(action.err);
-      return { 
-        ...state, 
-        status: "failed" 
+      return {  
+        status: "failed",
+        ingredients: []
       };
     }
     case GET_INGREDIENTS_REQUEST: {
       return { 
-        ...state, 
-        status: "loading" 
+        status: "loading",
+        ingredients: []
       };
     }
     default:
