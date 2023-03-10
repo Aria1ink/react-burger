@@ -1,33 +1,36 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import style from "./App.module.css";
-import { loadIngredients } from "../../services/actions/ingredients";
-import { loadIngredientsStatus } from "../../utils/tools";
+import ConstructorPage from '../../pages/constructor/constructor';
+import LoginPage from "../../pages/login/login";
+import RegisterPage from "../../pages/register/register";
+import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
+import ResetPasswordPage from "../../pages/reset-password/reset-password";
+import ProfilePage from "../../pages/profile/profile";
+import IngredientPage from "../../pages/ingredients/ingredients";
+import PageNotFoundPage from "../../pages/page-not-found/page-not-found";
 
 export default function App () {
-  const dispatch = useDispatch();
-  const status = useSelector(loadIngredientsStatus);
-
-  useEffect(() => {
-    dispatch(loadIngredients());
-  }, []);
-
-  if (status === 'loading') return (<div>Загрузка...</div>);
-  if (status === 'failed') return (<div>Ошибка подключения к базе данных.</div>);
 
   return (
     <>
       <AppHeader />
       <main className={style.AppMain + " pb-10"}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<ConstructorPage />}/>
+          {/*
+          <Route path="/login" element={<LoginPage />}/>
+          <Route path="/register" element={<RegisterPage />}/>
+          <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
+          <Route path="/reset-password" element={<ResetPasswordPage />}/>
+          <Route path="/profile" element={<ProfilePage />}/>
+          <Route path="/ingredients/:id" element={<IngredientPage />}/>
+        */}
+          <Route path="*" element={<PageNotFoundPage />}/>
+         </Routes>
+      </Router>
       </main>
       <footer></footer>
     </>
