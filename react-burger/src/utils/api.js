@@ -18,6 +18,99 @@ export const setOrderApi = (orderItemsId) => {
   .then(checkPromiseResult)
 };
 
+export const registerUserApi = (email, password, name) => {
+  return fetch(url + '/auth/register', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "email": email, 
+      "password": password, 
+      "name": name 
+    })
+  })
+  .then(checkPromiseResult)
+};
+
+export const loginUserApi = (email, password) => {
+  return fetch(url + '/auth/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "email": email, 
+      "password": password
+    })
+  })
+  .then(checkPromiseResult)
+};
+
+export const refreshTokenApi = (token) => {
+  return fetch(url + '/auth/token', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "token": token
+    })
+  })
+  .then(checkPromiseResult)
+};
+
+export const getUserProfileApi = (token) => {
+  return fetch(url + '/auth/user', {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "authorization": token
+    })
+  })
+  .then(checkPromiseResult)
+};
+
+export const setUserProfileApi = (token, data) => {
+  return fetch(url + '/auth/user', {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "authorization": token,
+      data
+    })
+  })
+  .then(checkPromiseResult)
+};
+
+export const resetPasswordApi = (email) => {
+  return fetch(url + '/auth/password-reset', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "email": email
+    })
+  })
+  .then(checkPromiseResult)
+};
+
+export const saveResetPasswordApi = (password, token) => {
+  return fetch(url + '/auth/password-reset/reset', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "password": password,
+      "token": token
+    })
+  })
+  .then(checkPromiseResult)
+};
+
+export const logoutUserApi = (token) => {
+  return fetch(url + '/auth/logout', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "token": token
+    })
+  })
+  .then(checkPromiseResult)
+};
+
 function checkPromiseResult (res) {
   if (res.ok) {
     return res.json();
