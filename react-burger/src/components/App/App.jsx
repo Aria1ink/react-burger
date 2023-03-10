@@ -1,50 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { IngredientsContext, CartContext } from "../../services/context";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import style from "./App.module.css";
-import {getIngredientsApi} from "../../utils/api";
+import { loadIngredients } from "../../services/actions/ingredients";
+import { loadIngredientsStatus } from "../../utils/tools";
 
 export default function App () {
-  const [ingredients, setIngredients] = useState([]);
-  const ingredientsState = {
-    ingredients: ingredients,
-    setIngredients: setIngredients
-  };
-  const [cart, setCart] = useState({ 
-    bun: {},
-    others: []}
-  );
-  const cartState = {
-    cart: cart,
-    setCart: setCart
-  };
+  const dispatch = useDispatch();
+  const status = useSelector(loadIngredientsStatus);
 
   useEffect(() => {
-    getIngredientsApi()
-      .then(
-        (data) => {
-          setIngredients(data.data);
-        }
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(loadIngredients());
   }, []);
 
-  if (!ingredients[0]) return (<div>Загрузка...</div>);
+  if (status === 'loading') return (<div>Загрузка...</div>);
+  if (status === 'failed') return (<div>Ошибка подключения к базе данных.</div>);
 
   return (
     <>
       <AppHeader />
       <main className={style.AppMain + " pb-10"}>
-        <IngredientsContext.Provider value={ingredientsState}>
-          <CartContext.Provider value={cartState}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </CartContext.Provider>
-        </IngredientsContext.Provider>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
       </main>
       <footer></footer>
     </>

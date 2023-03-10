@@ -1,41 +1,48 @@
-import React, {useEffect, useState, useContext } from "react";
-import { IngredientsContext, CartContext } from "../../services/context";
-import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from 'uuid';
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getIngredientById } from "../../utils/tools";
 import Price from "../Price/Price";
+import CartElement from "../CartElement/CartElement";
 import style from "./BurgerConstructor.module.css";
 import { selectedIngredient } from "../../variables/data";
-import { setOrderApi }from "../../utils/api";
+import { createOrder } from "../../services/actions/order";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import { setCartDefault, setCartBun, addCartIngredient } from "../../services/actions/cart";
+import { hideOrderModal } from "../../services/actions/order";
+import { getIngredientsFromStore } from "../../utils/tools";
+import { getOrderNumberFromStore } from "../../utils/tools";
+import { getCartFromStore } from "../../utils/tools";
 
 export default function BurgerConstructor () {
-  const [modalState, setModalState] = useState(false);
   const [summ, setSumm] = useState(0);
-  const [orderNumber, setOrderNumber] = useState(0);
-  const cartState = useContext(CartContext);
-  const cart = cartState.cart;
-  const setCart = cartState.setCart;
-  const ingredientsState = useContext(IngredientsContext);
-  const ingredients = ingredientsState.ingredients;
+  const dispatch = useDispatch();
+  const ingredients = useSelector(getIngredientsFromStore);
+  const orderNumber =  useSelector(getOrderNumberFromStore);
+  const cart = useSelector(getCartFromStore);
+  const [{isHover}, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      onDropHandler(item);
+    },
+  });
+  const onDropHandler = (item) => {
+      item.type === "bun" ?
+      dispatch(setCartBun(item)) :
+      dispatch(addCartIngredient(item, uuidv4()));
+  };
 
   const openOrderModal = () => {
     let orderItemsId = [];
     orderItemsId.push(cart.bun._id);
     cart.others.forEach( (ingredient) => {
-      orderItemsId.push(ingredient._id);
+      orderItemsId.push(ingredient.ingredient._id);
     });
     orderItemsId.push(cart.bun._id);
-    setOrderApi(orderItemsId)
-      .then(
-        (data) => {
-          setOrderNumber(data.order.number);
-          setModalState(true);
-        }
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(createOrder(orderItemsId));
   };
 
   useEffect( () => {
@@ -46,19 +53,19 @@ export default function BurgerConstructor () {
     selectedIngredient.forEach((id) => {
       const ingredient = getIngredientById(id, ingredients);
       if (ingredient.type === "bun") {
-        tempCart.bun = ingredient;
+        dispatch(setCartBun(ingredient));
       } else {
-        tempCart.others.push(ingredient);
+        tempCart.others.push({cartId: uuidv4(), ingredient: ingredient});
       };
     });
-    setCart(tempCart);
+    dispatch(setCartDefault(tempCart.others));
   }, []);
 
   useEffect( () => {
     let priceSumm = 0;
     cart.others.forEach( (ingredient) => {
-      priceSumm = priceSumm + ingredient.price;
-      ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.price);
+      priceSumm = priceSumm + ingredient.ingredient.price;
+      ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.ingredient.price);
     })
     priceSumm = priceSumm + cart.bun.price * 2;
     setSumm(priceSumm);
@@ -69,47 +76,38 @@ export default function BurgerConstructor () {
   return (
     <>
       <div className={style.BurgerConstructor + " pt-25 pl-4"} >
-        <ul>
-          <li className={style.item+ " pr-4 pb-4"} >
-            <ConstructorElement
-              key={"top" + cart.bun._id}
-              type="top"
-              isLocked={true}
-              text={cart.bun.name}
-              price={cart.bun.price}
-              thumbnail={cart.bun.image}
-              className="pt-4"
-            />
-          </li>
+        <ul ref={dropTarget} style={isHover ? {opacity: "0.5"} : {opacity: "1"}}>
+          <CartElement 
+            className="pr-4 pb-4"
+            key={ uuidv4() }
+            type="top"
+            isLocked={true}
+            item={cart.bun}
+            addSstyle="pt-4"
+          />
           <div className={style.ConstructorContainer + " pr-2"}>
             {
-              cart.others.map( (ingredient, index) => 
-              ingredient.type !== "bun"&&
-              <li className={style.item} key={ "li-" + index + ingredient._id}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  key={index + ingredient._id}
+              cart.others.map( (ingredient) => 
+                ingredient.type !== "bun"&&
+                <CartElement 
+                  key={ uuidv4() }
+                  type="undefined"
                   isLocked={false}
-                  text={ingredient.name}
-                  price={ingredient.price}
-                  thumbnail={ingredient.image}
+                  item={ingredient.ingredient}
+                  id={ingredient.cartId}
                 />
-              </li>
             )
             }
           </div>
-          <li className={style.item + " pr-4 pt-4"} > 
-            <ConstructorElement
-              key={"bottom" + cart.bun._id}
-              type="bottom"
-              isLocked={true}
-              text={cart.bun.name}
-              price={cart.bun.price}
-              thumbnail={cart.bun.image}
-            />
-          </li>
+          <CartElement 
+            className="pr-4 pt-4"
+            key={ uuidv4() }
+            type="bottom"
+            isLocked={true}
+            item={cart.bun}
+          />
         </ul>
-        <div className={style.BurgerConstructorOrder + " pt-10 pr-4"}>
+        <div className={style.BurgerConstructorOrder + " pt-10 pr-4"} >
           <Price price={summ} font={"medium"} />
           <Button 
             htmlType="button" 
@@ -120,8 +118,8 @@ export default function BurgerConstructor () {
           </Button>
         </div>
       </div>
-      { modalState &&
-          (<Modal title='' close={() => {setModalState(false)}}>
+      { orderNumber !== 0 && orderNumber !== 'error' &&
+          (<Modal title='' close={() => {dispatch(hideOrderModal())}}>
             <OrderDetails number={orderNumber} />
           </Modal>)
         }

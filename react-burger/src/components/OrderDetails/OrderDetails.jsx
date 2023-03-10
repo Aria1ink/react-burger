@@ -18,6 +18,6 @@ export default function OrderDetails (props) {
 
 OrderDetails.propTypes = {
   number: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number])
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired])
 }; 

@@ -5,3 +5,9 @@ export const getIngredientById = (id, data) => {
     };
   };
 };
+export const getCurrentIngredientFromStore = store => store.ingredient;
+export const getCartFromStore = store => store.cart;
+export const getMenuStatusFromStore = store => store.menu;
+export const getIngredientsFromStore = store => store.ingredients.ingredients;
+export const loadIngredientsStatus = store => store.ingredients.status;
+export const getOrderNumberFromStore = store => store.order;

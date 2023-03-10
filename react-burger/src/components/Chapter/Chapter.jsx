@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import Ingredient from "../Ingredient/Ingredient";
-import { IngredientsContext } from "../../services/context";
 import style from "./Chapter.module.css";
+import { getIngredientsFromStore } from "../../utils/tools";
 
 export default function Chapter (props) {
-  const ingredientsState = useContext(IngredientsContext);
-  const ingredients = ingredientsState.ingredients;
+  const ingredients = useSelector(getIngredientsFromStore);
 
   return (
     <>
@@ -34,6 +34,6 @@ export default function Chapter (props) {
 };
 
 Chapter.propTypes = {
-  type: PropTypes.string,
-  name: PropTypes.string
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 }; 
