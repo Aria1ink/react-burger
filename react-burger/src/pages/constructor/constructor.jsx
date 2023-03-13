@@ -6,6 +6,7 @@ import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredie
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import { loadIngredients } from "../../services/actions/ingredients";
 import { loadIngredientsStatus } from "../../utils/tools";
+import {signUp} from "../../services/actions/auth";
 
 import styles from './constructor.module.css';
 
@@ -15,6 +16,7 @@ export default function ConstructorPage () {
 
   useEffect(() => {
     dispatch(loadIngredients());
+    //signUp({email: 'gfgfjtjjfd66fsgе@ya.ru', password: 'bhjwgjeygrjywger', name: 'Pixel'}, dispatch);
   }, []);
 
   if (status === 'loading') return (<div>Загрузка...</div>);

@@ -4,11 +4,13 @@ import orderReducer from "./order";
 import ingredientReducer from "./ingredient";
 import ingredientsReducer from "./ingredients";
 import menuReducer from "./menu";
+import authReducer from "./auth";
 
 export const rootReducer = combineReducers({
   cart: constructorReducer,
   order: orderReducer,
   ingredient: ingredientReducer,
   ingredients: ingredientsReducer,
-  menu: menuReducer
+  menu: menuReducer,
+  auth: authReducer
 })

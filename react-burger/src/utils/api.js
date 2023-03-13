@@ -18,8 +18,8 @@ export const setOrderApi = (orderItemsId) => {
   .then(checkPromiseResult)
 };
 
-export const registerUserApi = (email, password, name) => {
-  return fetch(url + '/auth/register', {
+export const registerUserApi = async (email, password, name) => {
+  return await fetch(url + '/auth/register', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
@@ -28,7 +28,7 @@ export const registerUserApi = (email, password, name) => {
       "name": name 
     })
   })
-  .then(checkPromiseResult)
+  .then(await checkPromiseResult)
 };
 
 export const loginUserApi = (email, password) => {
@@ -111,8 +111,9 @@ export const logoutUserApi = (token) => {
   .then(checkPromiseResult)
 };
 
-function checkPromiseResult (res) {
+async function checkPromiseResult (res) {
   if (res.ok) {
+    console.log(res)
     return res.json();
   } else {
     Promise.reject(`Ошибка: ${res.status}`);
