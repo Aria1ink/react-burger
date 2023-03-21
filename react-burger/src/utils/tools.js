@@ -41,3 +41,21 @@ export function getCookie(name) {
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
+
+export function setToken (accessToken) {
+  let authToken;
+  if (accessToken) {
+    if (accessToken.indexOf('Bearer') === 0) {
+      authToken = accessToken.split('Bearer ')[1];
+    }
+  }
+  if (authToken) {
+    setCookie('token', authToken);
+  };
+}
+export function setRefreshToken (refreshToken) {
+  sessionStorage.setItem("refreshToken", refreshToken);
+}
+export function getRefreshToken (refreshToken) {
+  return sessionStorage.getItem("refreshToken", refreshToken);
+}
