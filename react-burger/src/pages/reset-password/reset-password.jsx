@@ -17,7 +17,7 @@ export default function ResetPasswordPage () {
     },
     footer: [
       {
-        text: 'Вспомнили пароль?',
+        linkText: 'Вспомнили пароль?',
         linkName: 'Войти',
         linkUrl: '/login',
         key: 'linkLogin'

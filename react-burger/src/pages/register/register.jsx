@@ -19,7 +19,7 @@ export default function RegisterPage () {
     },
     footer: [
       {
-        text: 'Уже зарегистрированы?',
+        linkText: 'Уже зарегистрированы?',
         linkName: 'Войти',
         linkUrl: '/login',
         key: 'linkLogin'
