@@ -9,7 +9,7 @@ import {
 import style from "./AuthInputForm.module.css";
 
 export default function AuthInputForm (props) {
-    const form = props.form;
+  const form = props.form;
 
   return (
     <div>
