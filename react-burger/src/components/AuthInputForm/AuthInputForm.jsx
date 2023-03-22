@@ -16,7 +16,7 @@ export default function AuthInputForm (props) {
       { form.title && (
         <h1 className={style.title}>{form.title}</h1>
       )}
-      <form onSubmit={form.submit.onsubmit}>
+      <form onSubmit={form.submit.onSubmit}>
         { form.input.length > 0 && 
             form.input.map( (input) => {
               if (input.name === 'password') {

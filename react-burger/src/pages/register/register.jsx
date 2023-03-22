@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
+import { useDispatch } from "react-redux";
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
+import { signUp } from "../../services/actions/auth"
 import styles from './register.module.css';
 
 export default function RegisterPage () {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const formRegister = {
     title: 'Регистрация',
     input: [
@@ -15,7 +19,10 @@ export default function RegisterPage () {
     ],
     submit: {
       name: 'Зарегистрироваться',
-      onSubmit: () => {}
+      onSubmit: (e) => {
+        e.preventDefault();
+        signUp({name: name, email: email, password: password}, dispatch);
+      }
     },
     footer: [
       {

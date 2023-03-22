@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
+import { resetUserPassword } from "../../services/actions/auth";
 import styles from './forgot-password.module.css';
 
 export default function ForgotPasswordPage () {
@@ -11,7 +12,10 @@ export default function ForgotPasswordPage () {
     ],
     submit: {
       name: 'Восстановить',
-      onSubmit: () => {}
+      onSubmit: (e) => {
+        e.preventDefault();
+        resetUserPassword(email);
+      }
     },
     footer: [
       {

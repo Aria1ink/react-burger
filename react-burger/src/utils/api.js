@@ -78,7 +78,7 @@ export const setUserProfileApi = (token, data) => {
 };
 
 export const resetPasswordApi = (email) => {
-  return fetch(url + '/auth/password-reset', {
+  return fetch(url + '/password-reset', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
@@ -89,7 +89,7 @@ export const resetPasswordApi = (email) => {
 };
 
 export const saveResetPasswordApi = (password, token) => {
-  return fetch(url + '/auth/password-reset/reset', {
+  return fetch(url + '/password-reset/reset', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({

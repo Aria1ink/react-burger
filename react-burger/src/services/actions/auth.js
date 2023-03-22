@@ -1,4 +1,4 @@
-import { registerUserApi, loginUserApi, refreshTokenApi, getUserProfileApi } from '../../utils/api';
+import { registerUserApi, loginUserApi, refreshTokenApi, getUserProfileApi, resetPasswordApi, saveResetPasswordApi } from '../../utils/api';
 import { setCookie, getCookie, setToken, setRefreshToken , getRefreshToken} from '../../utils/tools';
 
 export const LOGIN = 'LOGIN';
@@ -86,6 +86,15 @@ export const refreshUserToken = async () => {
         return false;
       })
   }
+};
+export const resetUserPassword = async (email) => {
+  console.log(email)
+  await resetPasswordApi(email);
+};
+export const saveResetUserPassword = async (password, token) => {
+  token = token.replaceAll(' ','');
+  console.log(token)
+  saveResetPasswordApi(password, token);
 };
 export const getUserProfile = async (token, dispatch) => {
   await getUserProfileApi(token)

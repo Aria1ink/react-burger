@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
+import { useDispatch } from "react-redux";
+import { signIn } from "../../services/actions/auth";
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
 import styles from './login.module.css';
 
 export default function LoginPage () {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const formLogin = {
@@ -13,7 +16,10 @@ export default function LoginPage () {
     ],
     submit: {
       name: 'Войти',
-      onSubmit: () => {}
+      onSubmit: (e) => {
+        e.preventDefault();
+        signIn({ email: email, password: password }, dispatch);
+      }
     },
     footer: [
       {

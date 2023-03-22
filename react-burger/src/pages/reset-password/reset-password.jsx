@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { saveResetUserPassword } from "../../services/actions/auth";
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
 import styles from './reset-password.module.css';
 
@@ -13,7 +14,10 @@ export default function ResetPasswordPage () {
     ],
     submit: {
       name: 'Сохранить',
-      onSubmit: () => {}
+      onSubmit: (e) => {
+        e.preventDefault();
+        saveResetUserPassword(password, key);
+      }
     },
     footer: [
       {
