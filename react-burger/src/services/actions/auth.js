@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { registerUserApi, loginUserApi, refreshTokenApi, getUserProfileApi, resetPasswordApi, saveResetPasswordApi } from '../../utils/api';
 import { setCookie, getCookie, setToken, setRefreshToken , getRefreshToken} from '../../utils/tools';
 
@@ -89,12 +90,27 @@ export const refreshUserToken = async () => {
 };
 export const resetUserPassword = async (email) => {
   console.log(email)
-  await resetPasswordApi(email);
+  const status =await resetPasswordApi(email)
+    .then((data) => {
+      return data && data.success === true;
+    })
+    .catch((err) => {
+      console.log(err);
+      return false;
+    })
+    return status;
 };
 export const saveResetUserPassword = async (password, token) => {
   token = token.replaceAll(' ','');
-  console.log(token)
-  saveResetPasswordApi(password, token);
+  const status = await saveResetPasswordApi(password, token)
+    .then((data) => {
+      return data && data.success === true;
+    })
+    .catch((err) => {
+      console.log(err);
+      return false;
+    })
+    return status;
 };
 export const getUserProfile = async (token, dispatch) => {
   await getUserProfileApi(token)

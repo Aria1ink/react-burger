@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import { saveResetUserPassword } from "../../services/actions/auth";
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
 import styles from './reset-password.module.css';
 
 export default function ResetPasswordPage () {
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [key, setKey] = useState('');
   const formResetPassword = {
@@ -14,9 +16,13 @@ export default function ResetPasswordPage () {
     ],
     submit: {
       name: 'Сохранить',
-      onSubmit: (e) => {
+      onSubmit: async (e) => {
         e.preventDefault();
-        saveResetUserPassword(password, key);
+        const result = await saveResetUserPassword(password, key);
+        console.log(result)
+        if (result) {
+          navigate("/login");
+        }
       }
     },
     footer: [

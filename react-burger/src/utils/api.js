@@ -88,7 +88,7 @@ export const resetPasswordApi = (email) => {
   .then(checkPromiseResult)
 };
 
-export const saveResetPasswordApi = (password, token) => {
+export const saveResetPasswordApi = async (password, token) => {
   return fetch(url + '/password-reset/reset', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
