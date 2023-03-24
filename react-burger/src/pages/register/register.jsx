@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
 import { signUp } from "../../services/actions/auth"

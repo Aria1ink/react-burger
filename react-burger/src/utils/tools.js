@@ -11,6 +11,7 @@ export const getMenuStatusFromStore = store => store.menu;
 export const getIngredientsFromStore = store => store.ingredients.ingredients;
 export const loadIngredientsStatus = store => store.ingredients.status;
 export const getOrderNumberFromStore = store => store.order;
+export const getAuthUser = store => store.auth;
 
 export function setCookie(name, value, props) {
   props = props || {};

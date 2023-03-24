@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import {
   Button,
   EmailInput,
@@ -12,7 +12,7 @@ export default function AuthInputForm (props) {
   const form = props.form;
 
   return (
-    <div>
+    form && <div>
       { form.title && (
         <h1 className={style.title}>{form.title}</h1>
       )}

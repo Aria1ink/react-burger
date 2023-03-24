@@ -74,7 +74,7 @@ export const signOut = async (dispatch) => {
 export const refreshUserToken = async () => {
   const refreshToken = getRefreshToken();
   if (refreshToken) {
-    await refreshTokenApi(refreshToken)
+    const status = await refreshTokenApi(refreshToken)
       .then( (data) => {
         if (data.success) {
           setToken(data.accessToken);
@@ -86,7 +86,9 @@ export const refreshUserToken = async () => {
         console.log(err);
         return false;
       })
+    return status;
   }
+  return false;
 };
 export const resetUserPassword = async (email) => {
   console.log(email)
@@ -113,7 +115,7 @@ export const saveResetUserPassword = async (password, token) => {
     return status;
 };
 export const getUserProfile = async (token, dispatch) => {
-  await getUserProfileApi(token)
+  const user = await getUserProfileApi(token)
     .then( (data) => {
       dispatch(setUser(data.user));
     })
@@ -122,7 +124,7 @@ export const getUserProfile = async (token, dispatch) => {
       const refreshToken = getRefreshToken();
       if (refreshToken) {
         if (refreshUserToken()) {
-          getUserProfile(token, dispatch);
+          getUserProfile(token, dispatch)
         } else {
           dispatch(setAuthError('Ошибка загрузки данных. Проверьте подключение к интернет и перезагрузите страницу.'));
         };

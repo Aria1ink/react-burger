@@ -8,7 +8,7 @@ export default function AppHeader () {
   return (
     <header className={style.AppHeader + " p-4 mb-10"}>
       <nav className={style.HeaderMenuContainer} >
-        <a href="/constructor" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5" }onClick={() => setCurrent("constructor")}>
+        <a href="/" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5" }onClick={() => setCurrent("constructor")}>
           <BurgerIcon type={current === "constructor" ? "primary" : "secondary"} />
           <p className={current !== "constructor" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
             Конструктор
