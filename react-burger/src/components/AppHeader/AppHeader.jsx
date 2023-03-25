@@ -1,11 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./AppHeader.module.css";
 
 export default function AppHeader () {
   const [current, setCurrent] = React.useState("constructor");
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname.replace('/','');
+    if (path){
+      setCurrent(path);
+    };
+  }, []
+  )
 
   return (
     <header className={style.AppHeader + " p-4 mb-10"}>
