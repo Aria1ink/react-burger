@@ -17,9 +17,9 @@ export default function App () {
 
   return (
     <>
+    <Router>
       <AppHeader />
       <main className={style.AppMain + " pb-10"}>
-      <Router>
         <Routes>
           <Route path="/" element={<ConstructorPage />}/>
           <Route path="/login" element={<OnlyNoAuthRoute element={<LoginPage />} />} />
@@ -30,8 +30,8 @@ export default function App () {
           <Route path="/ingredients/:id" element={<IngredientPage />}/>
           <Route path="*" element={<PageNotFoundPage />}/>
          </Routes>
-      </Router>
       </main>
+    </Router>
       <footer></footer>
     </>
   );
