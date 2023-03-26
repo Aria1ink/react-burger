@@ -57,10 +57,10 @@ export const refreshTokenApi = (token) => {
 export const getUserProfileApi = (token) => {
   return fetch(url + '/auth/user', {
     method: 'GET',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      "authorization": token
-    })
+    headers: {
+      'Content-Type': 'application/json',
+      "authorization": 'Bearer ' + token
+    }
   })
   .then(checkPromiseResult)
 };
@@ -68,11 +68,11 @@ export const getUserProfileApi = (token) => {
 export const setUserProfileApi = (token, data) => {
   return fetch(url + '/auth/user', {
     method: 'PATCH',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
+    headers: {
+      'Content-Type': 'application/json',
       "authorization": token,
-      data
-    })
+    },
+    body: JSON.stringify(data)
   })
   .then(checkPromiseResult)
 };
@@ -114,7 +114,10 @@ export const logoutUserApi = (token) => {
 async function checkPromiseResult (res) {
   if (res.ok) {
     console.log(res)
-    return res.json();
+    if (res.status === 200) {
+      return res.json() } else {
+        Promise.reject(`Ошибка: ${res.status}`);
+      };
   } else {
     Promise.reject(`Ошибка: ${res.status}`);
   };

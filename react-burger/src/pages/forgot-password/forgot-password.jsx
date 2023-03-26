@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Navigate, useNavigate } from "react-router-dom"
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
-import { resetUserPassword } from "../../services/actions/auth";
+import { resetUserPassword } from "../../utils/user";
 import styles from './forgot-password.module.css';
 
 export default function ForgotPasswordPage () {

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppHeader from "../AppHeader/AppHeader";
 import style from "./App.module.css";
@@ -12,8 +13,14 @@ import IngredientPage from "../../pages/ingredients/ingredients";
 import PageNotFoundPage from "../../pages/page-not-found/page-not-found";
 import OnlyNoAuthRoute from "../Routes/OnlyNoAuthRoute";
 import AuthRequiredRoute from "../Routes/AuthRequiredRoute";
+import { getUserProfile } from "../../utils/user";
 
 export default function App () {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getUserProfile(dispatch);
+  }, [])
 
   return (
     <>

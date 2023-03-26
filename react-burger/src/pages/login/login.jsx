@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useDispatch } from "react-redux";
-import { signIn } from "../../services/actions/auth";
+import { signIn } from "../../utils/user";
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
 import styles from './login.module.css';
 

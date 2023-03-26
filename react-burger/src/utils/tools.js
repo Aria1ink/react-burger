@@ -37,9 +37,7 @@ export function setCookie(name, value, props) {
 };
 
 export function getCookie(name) {
-  const matches = document.cookie.match(
-    new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
-  );
+  const matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
@@ -55,8 +53,10 @@ export function setToken (accessToken) {
   };
 }
 export function setRefreshToken (refreshToken) {
-  sessionStorage.setItem("refreshToken", refreshToken);
+  setCookie('refreshtoken', refreshToken);
+  //sessionStorage.setItem("refreshToken", refreshToken);
 }
-export function getRefreshToken (refreshToken) {
-  return sessionStorage.getItem("refreshToken", refreshToken);
+export function getRefreshToken () {
+  return getCookie('refreshtoken');
+  //return sessionStorage.getItem("refreshToken", refreshToken);
 }

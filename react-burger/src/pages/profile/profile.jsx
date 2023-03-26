@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   EmailInput,
@@ -7,7 +7,8 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
-import AuthInputForm from '../../components/AuthInputForm/AuthInputForm';
+import { setUserProfile } from "../../utils/user";
+import { getAuthUser } from "../../utils/tools";
 import styles from './profile.module.css';
 
 export default function ProfilePage () {
@@ -15,26 +16,31 @@ export default function ProfilePage () {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const user = useSelector(getAuthUser);
 
-  const formProfile = {
-    input: [
-      {name: 'name', placeHolder: 'Имя', state: { value: name, setValue: setName }, key: 'inputName'},
-      {name: 'email', placeHolder: 'E-mail', state: { value: email, setValue: setEmail }, key: 'inputEmail'},
-      {name: 'password', placeHolder: 'Пароль', state: { value: password, setValue: setPassword }, key: 'inputPassword'}
-    ],
-    submit: {
-      name: 'Сохранить',
-      onSubmit: (e) => {
-        e.preventDefault();
-        
-      }
-    }
+  useEffect(() => {
+    if (user) {
+      setName(user.user.name);
+      setEmail(user.user.email);
+    };
+  }, []);
+  const saveProfile = (e) => {
+    e.preventDefault();
+    setUserProfile({
+      name: name,
+      email: email,
+      password: password
+    })
+  };
+  const cancelChange = () => {
+    setName(user.user.name);
+    setEmail(user.user.email);
   };
 
   return (
     <div className={styles.profileMain}>
       <ProfileMenu />
-      <div>
+      <form>
         <Input
           type="text"
           placeholder="Имя"
@@ -54,15 +60,15 @@ export default function ProfilePage () {
           name={'password'}
           extraClass="mb-2"
         />
-      </div>
       <div>
         <button className={styles.cancelButton}>
           Отмена
         </button>
-        <Button>
+        <Button htmlType="submit">
           Сохранить
         </Button>
       </div>
+      </form>
     </div>
   );
 }
