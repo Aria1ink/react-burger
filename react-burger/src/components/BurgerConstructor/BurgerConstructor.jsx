@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getIngredientById } from "../../utils/tools";
+import { getIngredientByName } from "../../utils/tools";
 import Price from "../Price/Price";
 import CartElement from "../CartElement/CartElement";
 import style from "./BurgerConstructor.module.css";
@@ -11,6 +11,7 @@ import { selectedIngredient } from "../../variables/data";
 import { createOrder } from "../../services/actions/order";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import Preloader from "../Preloader/Preloader";
 import { setCartDefault, setCartBun, addCartIngredient } from "../../services/actions/cart";
 import { hideOrderModal } from "../../services/actions/order";
 import { getIngredientsFromStore } from "../../utils/tools";
@@ -50,12 +51,14 @@ export default function BurgerConstructor () {
       bun: {},
       others: []
     };
-    selectedIngredient.forEach((id) => {
-      const ingredient = getIngredientById(id, ingredients);
-      if (ingredient.type === "bun") {
-        dispatch(setCartBun(ingredient));
-      } else {
-        tempCart.others.push({cartId: uuidv4(), ingredient: ingredient});
+    selectedIngredient.forEach((name) => {
+      const ingredient = getIngredientByName(name, ingredients);
+      if (ingredient) {
+        if (ingredient.type === "bun") {
+          dispatch(setCartBun(ingredient));
+        } else {
+          tempCart.others.push({cartId: uuidv4(), ingredient: ingredient});
+        };
       };
     });
     dispatch(setCartDefault(tempCart.others));
@@ -63,15 +66,22 @@ export default function BurgerConstructor () {
 
   useEffect( () => {
     let priceSumm = 0;
-    cart.others.forEach( (ingredient) => {
-      priceSumm = priceSumm + ingredient.ingredient.price;
-      ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.ingredient.price);
-    })
-    priceSumm = priceSumm + cart.bun.price * 2;
-    setSumm(priceSumm);
+    if (cart.others.length > 0 || cart.bun !== null) {
+      cart.others.forEach( (ingredient) => {
+        priceSumm = priceSumm + ingredient.ingredient.price;
+        ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.ingredient.price);
+      })
+      priceSumm = priceSumm + cart.bun.price * 2;
+      setSumm(priceSumm);
+    };
   },
     [cart]
   );
+  if (!cart.others || !cart.bun) {
+    return (
+      <Preloader />
+    );
+  }
 
   return (
     <>

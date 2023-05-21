@@ -5,6 +5,13 @@ export const getIngredientById = (id, data) => {
     };
   };
 };
+export const getIngredientByName = (name, data) => {
+  for (var i=0; i < data.length; i++)  {
+    if (data[i].name === name) {
+      return data[i];
+    };
+  };
+};
 export const getCurrentIngredientFromStore = store => store.ingredient;
 export const getCartFromStore = store => store.cart;
 export const getMenuStatusFromStore = store => store.menu;

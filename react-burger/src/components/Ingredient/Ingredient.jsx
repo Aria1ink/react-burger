@@ -33,17 +33,19 @@ export default function Ingredient (props) {
   });
  
   useEffect(() => {
-    if (cart.bun._id === ingredient._id) {
-      ++tempCount;
-    } else {
-      cart.others.forEach(element => {
-        if( element.ingredient._id === ingredient._id) {
-          ++tempCount;
-        }
-      });
+    if (cart.others.length > 0 || cart.bun !== null) {
+      if (cart.bun._id === ingredient._id) {
+        ++tempCount;
+      } else {
+        cart.others.forEach(element => {
+          if( element.ingredient._id === ingredient._id) {
+            ++tempCount;
+          }
+        });
+      };
+      setCount(tempCount);
+      tempCount = 0;
     };
-    setCount(tempCount);
-    tempCount = 0;
   }, [cart]);
 
   return (
