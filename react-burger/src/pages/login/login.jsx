@@ -23,10 +23,12 @@ export default function LoginPage () {
     ],
     submit: {
       name: 'Войти',
-      onSubmit: (e) => {
+      onSubmit: async (e) => {
         e.preventDefault();
-        signIn({ email: email, password: password }, dispatch);
-        navigate(fromPage, {replace: true});
+        const result = await signIn({ email: email, password: password }, dispatch);
+        if (result) {
+          navigate(fromPage, {replace: true});
+        }
       }
     },
     footer: [

@@ -22,10 +22,12 @@ export default function RegisterPage () {
     ],
     submit: {
       name: 'Зарегистрироваться',
-      onSubmit: (e) => {
+      onSubmit: async (e) =>  {
         e.preventDefault();
-        signUp({name: name, email: email, password: password}, dispatch);
-        navigate("/", {replace: true, state: {from: location}});
+        const result = await signUp({name: name, email: email, password: password}, dispatch);
+        if (result) {
+          navigate("/", {replace: true, state: {from: location}});
+        }
       }
     },
     footer: [

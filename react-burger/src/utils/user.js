@@ -20,48 +20,48 @@ import {
   setAuthError } from '../services/actions/auth';
 
 export const signUp = async (form, dispatch) => {
-  console.log(form);
-  await registerUserApi(form.email, form.password, form.name)
+  const result = await registerUserApi(form.email, form.password, form.name)
     .then( (data) => {
-      console.log(data)
       if (data) {
         setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         if (data.success) {
-          console.log(data.user)
-          dispatch(setUser(data.user));
+          //dispatch(setUser(data.user));
           dispatch(loginUser());
+          return true;
         };
-      } else {
+      };
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+      if (err === 403) {
         dispatch(setAuthError('Пользователь с там email возможно уже существует. Проверьте введенные данные.'));
       };
-    })
-    .catch((err) => {
-      console.log(`Ошибка: ${err}`);
-      dispatch(setAuthError('Сетевая ошибка. Попробуйте еще раз.'));
+      return false;
     });
+  return result;
 };
 export const signIn = async (form, dispatch) => {
-  console.log(form);
-  await loginUserApi(form.email, form.password)
+  const result = await loginUserApi(form.email, form.password)
     .then( (data) => {
-      console.log(data)
       if (data) {
         setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         if (data.success) {
-          console.log(data.user)
-          dispatch(setUser(data.user));
+          //dispatch(setUser(data.user));
           dispatch(loginUser());
+          return true;
         };
-      } else {
-        dispatch(setAuthError('Ошибка авторизации. Проверьте введенные данные.'));
       };
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
-      dispatch(setAuthError('Ошибка авторизации. Попробуйте еще раз.'));
+      if (err === 401) {
+        dispatch(setAuthError('Ошибка авторизации. Проверьте введенные данные.'));
+      }
+      return false;
     });
+  return result;
 };
 export const signOut = async (dispatch) => {
   dispatch(logoutUser(getRefreshToken()));
@@ -74,7 +74,7 @@ export const refreshUserToken = async () => {
     const status = await refreshTokenApi(refreshToken)
       .then( (data) => {
         if (data.success) {
-          setAccessToken(data.accessToken);
+          setAccessToken(data.accessToken)
           setRefreshToken(data.refreshToken);
           return true;
         }
@@ -84,11 +84,11 @@ export const refreshUserToken = async () => {
         return false;
       })
     return status;
+  } else {
+    return false;
   }
-  return false;
 };
 export const resetUserPassword = async (email) => {
-  console.log(email)
   const status =await resetPasswordApi(email)
     .then((data) => {
       return data && data.success === true;
@@ -113,26 +113,50 @@ export const saveResetUserPassword = async (password, token) => {
 };
 export const getUserProfile = async (dispatch) => {
   const token = getAccessToken();
-  console.log(token)
-  const user = await getUserProfileApi(token)
+  const result = await getUserProfileApi(token)
     .then( (data) => {
-      console.log(data)
       dispatch(setUser(data.user));
-      dispatch(loginUser());
+      //dispatch(loginUser());
+      return true;
     })
     .catch( (err) => {
       console.log(`Ошибка: ${err}`);
+      return false;
+      /*
       if (err === 401) {
         const refreshToken = getRefreshToken();
         if (refreshToken) {
           if (refreshUserToken()) {
             getUserProfile(dispatch)
           } else {
-            dispatch(setAuthError('Ошибка загрузки данных. Проверьте подключение к интернет и перезагрузите страницу.'));
+            return false;
           };
         };
       }
+      */
     });
+  return result;
+};
+export const getUserProfileWithCheck = async (dispatch) => {
+  let result = await getUserProfile(dispatch);
+  if (result) {
+    return true;
+  } else {
+    const refreshToken = getRefreshToken();
+    if (refreshToken) {
+      const refreshStatus = await refreshUserToken();
+      if (refreshStatus) {
+        result = await getUserProfile(dispatch);
+        if (result) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      };
+    };
+  };
 };
 export const setUserProfile = async (userData) => {
   const status = await setUserProfileApi(userData)
@@ -142,4 +166,4 @@ export const setUserProfile = async (userData) => {
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
-}
+};

@@ -117,9 +117,9 @@ async function checkPromiseResult (res) {
     if (res.status === 200) {
       return res.json();
     } else {
-        Promise.reject(res.status);
+        return Promise.reject(res.status);
       };
   } else {
-    Promise.reject(res.status);
+    return Promise.reject(res.status);
   };
 };

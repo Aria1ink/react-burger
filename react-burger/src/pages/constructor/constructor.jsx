@@ -7,15 +7,12 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import { loadIngredients } from "../../services/actions/ingredients";
 import { loadIngredientsStatus } from "../../utils/tools";
 import Preloader from "../../components/Preloader/Preloader";
-import {signUp} from "../../services/actions/auth";
 
 import styles from './constructor.module.css';
 
 export default function ConstructorPage () {
   const dispatch = useDispatch();
   const status = useSelector(loadIngredientsStatus);
-
-
 
   if (status === 'loading') return (<Preloader />);
   if (status === 'failed') return (<div>Ошибка подключения к базе данных.</div>);

@@ -6,8 +6,9 @@ import Preloader from "../../components/Preloader/Preloader";
 import { loadIngredients } from "../../services/actions/ingredients";
 import { loadIngredientsStatus, getIngredientById, getIngredientsFromStore } from "../../utils/tools";
 import { setSelectedIngredient } from "../../services/actions/ingredient";
+import { loginUser } from "../../services/actions/auth";
 import style from "./Layout.module.css";
-import { getUserProfile } from "../../utils/user";
+import { getUserProfileWithCheck } from "../../utils/user";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -16,12 +17,19 @@ export default function Layout() {
 
   useEffect(() => {
     dispatch(loadIngredients());
-    // getUserProfile(dispatch);
-    //signUp({email: 'gfgfjtjjfd66fsgе@ya.ru', password: 'bhjwgjeygrjywger', name: 'Pixel'}, dispatch);
+    getUserProfileWithCheck(dispatch)
+      .then( (result) => {
+        if (result) {
+          dispatch(loginUser());
+        }
+      })
+      .catch( (err) => {
+        console.log(err);
+      })
   }, []);
 
   useEffect(() => {
-    if (id !== null && infredients.length > 0) {
+    if (id && infredients.length > 0) {
       dispatch(setSelectedIngredient(getIngredientById(id, infredients)));
     };
   }, [infredients]);
