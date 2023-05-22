@@ -8,8 +8,8 @@ import {
   setUserProfileApi } from './api';
 import { 
   setCookie, 
-  getCookie, 
-  setToken, 
+  getAccessToken, 
+  setAccessToken, 
   setRefreshToken, 
   getRefreshToken } from './tools';
 
@@ -25,7 +25,7 @@ export const signUp = async (form, dispatch) => {
     .then( (data) => {
       console.log(data)
       if (data) {
-        setToken(data.accessToken);
+        setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         if (data.success) {
           console.log(data.user)
@@ -47,7 +47,7 @@ export const signIn = async (form, dispatch) => {
     .then( (data) => {
       console.log(data)
       if (data) {
-        setToken(data.accessToken);
+        setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         if (data.success) {
           console.log(data.user)
@@ -65,7 +65,7 @@ export const signIn = async (form, dispatch) => {
 };
 export const signOut = async (dispatch) => {
   dispatch(logoutUser(getRefreshToken()));
-  setToken('');
+  setAccessToken('');
   setRefreshToken('');
 };
 export const refreshUserToken = async () => {
@@ -74,7 +74,7 @@ export const refreshUserToken = async () => {
     const status = await refreshTokenApi(refreshToken)
       .then( (data) => {
         if (data.success) {
-          setToken(data.accessToken);
+          setAccessToken(data.accessToken);
           setRefreshToken(data.refreshToken);
           return true;
         }
@@ -112,7 +112,7 @@ export const saveResetUserPassword = async (password, token) => {
     return status;
 };
 export const getUserProfile = async (dispatch) => {
-  const token = getCookie('token');
+  const token = getAccessToken();
   console.log(token)
   const user = await getUserProfileApi(token)
     .then( (data) => {
