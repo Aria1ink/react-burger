@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
+import { useNavigate, useLocation } from 'react-router';
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
 import { signUp } from "../../utils/user"
 import styles from './register.module.css';
 
 export default function RegisterPage () {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,6 +25,7 @@ export default function RegisterPage () {
       onSubmit: (e) => {
         e.preventDefault();
         signUp({name: name, email: email, password: password}, dispatch);
+        navigate("/", {replace: true, state: {from: location}});
       }
     },
     footer: [

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { signIn } from "../../utils/user";
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
@@ -6,6 +7,12 @@ import styles from './login.module.css';
 
 export default function LoginPage () {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  let fromPage = "/";
+  if (location.state) {
+    fromPage = location.state.from.pathname;
+  }
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const formLogin = {
@@ -19,6 +26,7 @@ export default function LoginPage () {
       onSubmit: (e) => {
         e.preventDefault();
         signIn({ email: email, password: password }, dispatch);
+        navigate(fromPage, {replace: true});
       }
     },
     footer: [

@@ -37,7 +37,7 @@ export const signUp = async (form, dispatch) => {
       };
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Ошибка: ${err}`);
       dispatch(setAuthError('Сетевая ошибка. Попробуйте еще раз.'));
     });
 };
@@ -59,7 +59,7 @@ export const signIn = async (form, dispatch) => {
       };
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Ошибка: ${err}`);
       dispatch(setAuthError('Ошибка авторизации. Попробуйте еще раз.'));
     });
 };
@@ -80,7 +80,7 @@ export const refreshUserToken = async () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`Ошибка: ${err}`);
         return false;
       })
     return status;
@@ -94,7 +94,7 @@ export const resetUserPassword = async (email) => {
       return data && data.success === true;
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Ошибка: ${err}`);
       return false;
     })
     return status;
@@ -106,7 +106,7 @@ export const saveResetUserPassword = async (password, token) => {
       return data && data.success === true;
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Ошибка: ${err}`);
       return false;
     })
     return status;
@@ -121,15 +121,17 @@ export const getUserProfile = async (dispatch) => {
       dispatch(loginUser());
     })
     .catch( (err) => {
-      console.log(err);
-      const refreshToken = getRefreshToken();
-      if (refreshToken) {
-        if (refreshUserToken()) {
-          getUserProfile(dispatch)
-        } else {
-          dispatch(setAuthError('Ошибка загрузки данных. Проверьте подключение к интернет и перезагрузите страницу.'));
+      console.log(`Ошибка: ${err}`);
+      if (err === 401) {
+        const refreshToken = getRefreshToken();
+        if (refreshToken) {
+          if (refreshUserToken()) {
+            getUserProfile(dispatch)
+          } else {
+            dispatch(setAuthError('Ошибка загрузки данных. Проверьте подключение к интернет и перезагрузите страницу.'));
+          };
         };
-      };
+      }
     });
 };
 export const setUserProfile = async (userData) => {
@@ -138,6 +140,6 @@ export const setUserProfile = async (userData) => {
       console.log('set: ' + data);
     })
     .catch((err) => {
-      console.log(err);
+      console.log(`Ошибка: ${err}`);
     })
 }

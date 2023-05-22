@@ -21,7 +21,7 @@ export const createOrder = (orderItemsId) => {
     )
     .catch((err) => {
       dispatch(returnOrderError());
-      console.log(err);
+      console.log(`Ошибка: ${err}`);
     });
   }
 };

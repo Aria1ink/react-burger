@@ -77,7 +77,7 @@ export default function BurgerConstructor () {
   },
     [cart]
   );
-  if (!cart.others || !cart.bun) {
+  if (cart.others.length <= 0 || !cart.bun) {
     return (
       <Preloader />
     );

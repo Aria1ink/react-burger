@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useDrag } from "react-dnd";
 import PropTypes from 'prop-types';
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -14,15 +15,18 @@ import { getCurrentIngredientFromStore } from "../../utils/tools";
 export default function Ingredient (props) {
   const ingredient = props.ingredient; 
   const [count, setCount] = useState(0);
-  let tempCount = 0;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  let tempCount = 0;
   const cart = useSelector(getCartFromStore);
   const selectedIngredient = useSelector(getCurrentIngredientFromStore);
   const openIngredientDetails = (ingredient) => {
     dispatch(setSelectedIngredient(ingredient));
+    navigate("/ingredients/"+ingredient._id, {replace: false, state: {from: "/"}});
   };
   const closeIngredientDetails = () => {
     dispatch(delSelectedIngredient());
+    navigate("/");
   };
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
@@ -31,9 +35,9 @@ export default function Ingredient (props) {
         isDrag: monitor.isDragging()
     })
   });
- 
+
   useEffect(() => {
-    if (cart.others.length > 0 || cart.bun !== null) {
+    if (cart.others.length > 0 && cart.bun !== null) {
       if (cart.bun._id === ingredient._id) {
         ++tempCount;
       } else {
@@ -63,7 +67,7 @@ export default function Ingredient (props) {
         <p className={style.IngredientTitle + " text text_type_main-default"}>{ingredient.name}</p>
         <Price price= {ingredient.price}/>
       </li>
-      { selectedIngredient._id &&
+      { selectedIngredient &&
           (<Modal title="Детали ингредиента" close={closeIngredientDetails}>
             <IngredientDetails />
           </Modal>)

@@ -3,7 +3,7 @@ import {
   CLEAR_INGREDIENT
 } from "../actions/ingredient";
 
-const defaultState = {};
+const defaultState = null;
 
 export default function ingredientReducer (state = defaultState, action) {
   switch (action.type) {
@@ -11,7 +11,7 @@ export default function ingredientReducer (state = defaultState, action) {
       return { ...action.ingredient };
     }
     case CLEAR_INGREDIENT: {
-      return {};
+      return null;
     }
     default:
       return state;

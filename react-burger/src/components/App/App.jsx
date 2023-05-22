@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AppHeader from "../AppHeader/AppHeader";
-import style from "./App.module.css";
+import Layout from "../Layout/Layout";
 import ConstructorPage from '../../pages/constructor/constructor';
 import LoginPage from "../../pages/login/login";
 import RegisterPage from "../../pages/register/register";
@@ -13,33 +11,26 @@ import IngredientPage from "../../pages/ingredients/ingredients";
 import PageNotFoundPage from "../../pages/page-not-found/page-not-found";
 import OnlyNoAuthRoute from "../Routes/OnlyNoAuthRoute";
 import AuthRequiredRoute from "../Routes/AuthRequiredRoute";
-import { getUserProfile } from "../../utils/user";
+import IngredientRoute from "../Routes/IngredientRoute";
 
 export default function App () {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    getUserProfile(dispatch);
-  }, [])
 
   return (
     <>
-    <Router>
-      <AppHeader />
-      <main className={style.AppMain + " pb-10"}>
+      <Router>
         <Routes>
-          <Route path="/" element={<ConstructorPage />}/>
-          <Route path="/login" element={<OnlyNoAuthRoute element={<LoginPage />} />} />
-          <Route path="/register"  element={<OnlyNoAuthRoute element={<RegisterPage />} />} />
-          <Route path="/forgot-password"  element={<OnlyNoAuthRoute element={<ForgotPasswordPage />} />} />
-          <Route path="/reset-password"  element={<OnlyNoAuthRoute element={<ResetPasswordPage />} />} />
-          <Route path="/profile"  element={<AuthRequiredRoute element={<ProfilePage />} />} />
-          <Route path="/ingredients/:id" element={<IngredientPage />}/>
-          <Route path="*" element={<PageNotFoundPage />}/>
-         </Routes>
-      </main>
-    </Router>
-      <footer></footer>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<ConstructorPage />}/>
+            <Route path="login" element={<OnlyNoAuthRoute element={<LoginPage />} />} />
+            <Route path="register"  element={<OnlyNoAuthRoute element={<RegisterPage />} />} />
+            <Route path="forgot-password"  element={<OnlyNoAuthRoute element={<ForgotPasswordPage />} />} />
+            <Route path="reset-password"  element={<OnlyNoAuthRoute element={<ResetPasswordPage />} />} />
+            <Route path="profile"  element={<AuthRequiredRoute element={<ProfilePage />} />} />
+            <Route path="ingredients/:id" element={<IngredientRoute />}/>
+            <Route path="*" element={<PageNotFoundPage />}/>
+          </Route>
+        </Routes>
+      </Router>
     </>
   );
 };

@@ -4,6 +4,7 @@ export const getIngredientById = (id, data) => {
       return data[i];
     };
   };
+  return false;
 };
 export const getIngredientByName = (name, data) => {
   for (var i=0; i < data.length; i++)  {

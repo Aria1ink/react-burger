@@ -115,10 +115,11 @@ async function checkPromiseResult (res) {
   if (res.ok) {
     console.log(res)
     if (res.status === 200) {
-      return res.json() } else {
-        Promise.reject(`Ошибка: ${res.status}`);
+      return res.json();
+    } else {
+        Promise.reject(res.status);
       };
   } else {
-    Promise.reject(`Ошибка: ${res.status}`);
+    Promise.reject(res.status);
   };
 };
