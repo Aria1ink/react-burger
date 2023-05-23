@@ -12,11 +12,11 @@ export default function AuthInputForm (props) {
   const form = props.form;
 
   return (
-    form && <div>
+    form && <div className={style.AuthInputFormContainer}>
       { form.title && (
-        <h1 className={style.title}>{form.title}</h1>
+        <h1 className="text text_type_main-medium">{form.title}</h1>
       )}
-      <form onSubmit={form.submit.onSubmit}>
+      <form className={style.AuthInputForm} onSubmit={form.submit.onSubmit}>
         { form.input.length > 0 && 
             form.input.map( (input) => {
               if (input.name === 'password') {
@@ -56,11 +56,12 @@ export default function AuthInputForm (props) {
       { form.footer &&
         form.footer.map((link) => {
           return (
-            <div key={link.key}>
-              <p>{link.linkText}</p>
-              <Link to={link.linkUrl}>
-                {link.linkName}
-              </Link>
+            <div className={style.AuthInputFormFooter + " text text_type_main-default text_color_inactive"} key={link.key}>
+              <p>{link.linkText + " "}
+                <Link className={style.AuthInputFormLink} to={link.linkUrl}>
+                  {link.linkName}
+                </Link>
+              </p>
             </div>
           )
         })

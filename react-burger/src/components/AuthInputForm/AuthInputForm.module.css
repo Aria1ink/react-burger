@@ -1,0 +1,32 @@
+.AuthInputFormContainer {
+  width: min-content;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.AuthInputForm {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding-bottom: 56px;
+}
+.AuthInputFormFooter {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.AuthInputFormLink {
+  text-decoration: none;
+  color: rgba(76, 76, 255, 1);
+}
