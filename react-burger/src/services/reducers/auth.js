@@ -6,7 +6,7 @@ import {
 } from '../actions/auth';
 
 const defaultState = {
-  isAuthenticated: false,
+  isAuthenticated: 'loading',
   error: null,
   user: {}
 }; 
@@ -14,10 +14,10 @@ const defaultState = {
 export default function authReducer (state = defaultState, action) {
   switch (action.type) {
     case LOGIN: {
-      return { ...state, isAuthenticated: true };
+      return { ...state, isAuthenticated: 'auth' };
     }
     case LOGOUT: {
-      return { ...state, isAuthenticated: false };
+      return { ...state, isAuthenticated: 'noauth' };
     }
     case SET_USER: {
       return { ...state, user: action.user };
@@ -25,6 +25,11 @@ export default function authReducer (state = defaultState, action) {
     case AUTH_ERROR: {
       return { ...state, error: action.error };
     }
+    /*
+    case RESET_AUTH_ERROR: {
+      return { ...state, error: null };
+    }
+    */
     default:
       return state;
   }

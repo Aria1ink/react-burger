@@ -26,7 +26,7 @@ export default function RegisterPage () {
         e.preventDefault();
         const result = await signUp({name: name, email: email, password: password}, dispatch);
         if (result) {
-          navigate("/", {replace: true, state: {from: location}});
+          navigate("/", {replace: true, state: {from: location.pathname}});
         }
       }
     },

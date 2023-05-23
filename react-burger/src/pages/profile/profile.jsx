@@ -7,23 +7,29 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
-import { setUserProfile } from "../../utils/user";
+import { setUserProfile, getUserProfileWithCheck } from "../../utils/user";
 import { getAuthUser } from "../../utils/tools";
 import styles from './profile.module.css';
 
 export default function ProfilePage () {
   const dispatch = useDispatch();
+  const [changingStatus, setChangingStatus] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const user = useSelector(getAuthUser);
 
   useEffect(() => {
-    if (user) {
+    fillFormDefaultValues();
+  }, []);
+  const fillFormDefaultValues = async () => {
+    const result = await getUserProfileWithCheck(dispatch);
+    if (result && user) {
       setName(user.user.name);
       setEmail(user.user.email);
-    };
-  }, []);
+      setPassword("******");
+    }
+  };
   const saveProfile = (e) => {
     e.preventDefault();
     setUserProfile({
@@ -42,22 +48,24 @@ export default function ProfilePage () {
       <ProfileMenu />
       <form>
         <Input
-          type="text"
           placeholder="Имя"
+          type="text"
           value={name}
+          icon="EditIcon"
           onChange={(e) => {setName(e.target.value)}}
           />
         <EmailInput
           placeholder="Логин"
-          onChange={(e) => {setEmail(e.target.value)}}
           value={email}
-          name={'email'}
+          icon="EditIcon"
+          onChange={(e) => {setEmail(e.target.value)}}
           extraClass="mb-2"
         />
         <PasswordInput
-          onChange={(e) => {setPassword(e.target.value)}}
+          placeholder="Пароль"
           value={password}
-          name={'password'}
+          icon="EditIcon"
+          onChange={(e) => {setPassword(e.target.value)}}
           extraClass="mb-2"
         />
       <div>

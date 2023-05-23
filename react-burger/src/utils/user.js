@@ -64,7 +64,7 @@ export const signIn = async (form, dispatch) => {
   return result;
 };
 export const signOut = async (dispatch) => {
-  dispatch(logoutUser(getRefreshToken()));
+  dispatch(logoutUser());
   setAccessToken('');
   setRefreshToken('');
 };
@@ -150,11 +150,16 @@ export const getUserProfileWithCheck = async (dispatch) => {
         if (result) {
           return true;
         } else {
+          dispatch(logoutUser());
           return false;
         }
       } else {
+        dispatch(logoutUser());
         return false;
       };
+    } else {
+      dispatch(logoutUser());
+      return false;
     };
   };
 };
