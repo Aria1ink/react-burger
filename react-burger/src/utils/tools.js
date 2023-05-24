@@ -46,7 +46,7 @@ export function setCookie(name, value, props) {
 
 export function getCookie(name) {
   const matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
-  return matches ? decodeURIComponent(matches[1]) : null;
+  return matches ? decodeURIComponent(matches[1]) : false;
 };
 export function getAccessToken () {
   return getCookie('token');
@@ -59,7 +59,7 @@ export function setAccessToken (accessToken) {
     }
   }
   if (authToken) {
-    setCookie('token', authToken);
+    setCookie('token', authToken, {expires: 20*60});
   };
 }
 export function setRefreshToken (refreshToken) {
