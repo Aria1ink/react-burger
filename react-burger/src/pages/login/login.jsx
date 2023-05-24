@@ -11,7 +11,7 @@ export default function LoginPage () {
   const location = useLocation();
   let fromPage = "/";
   if (location.state) {
-    fromPage = location.state.from.pathname;
+    fromPage = location.state.from;
   }
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

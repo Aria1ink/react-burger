@@ -11,7 +11,8 @@ import {
   getAccessToken, 
   setAccessToken, 
   setRefreshToken, 
-  getRefreshToken } from './tools';
+  getRefreshToken,
+  removeTokens } from './tools';
 
 import {
   loginUser,
@@ -65,8 +66,7 @@ export const signIn = async (form, dispatch) => {
 };
 export const signOut = async (dispatch) => {
   dispatch(logoutUser());
-  setAccessToken('');
-  setRefreshToken('');
+  removeTokens();
 };
 export const refreshUserToken = async () => {
   const refreshToken = getRefreshToken();

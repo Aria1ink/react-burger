@@ -64,9 +64,12 @@ export function setAccessToken (accessToken) {
 }
 export function setRefreshToken (refreshToken) {
   setCookie('refreshtoken', refreshToken);
-  //sessionStorage.setItem("refreshToken", refreshToken);
 }
 export function getRefreshToken () {
   return getCookie('refreshtoken');
   //return sessionStorage.getItem("refreshToken", refreshToken);
+}
+export function removeTokens () {
+  setCookie('token', '', {expires: -1});
+  setCookie('refreshtoken', '', {expires: -1});
 }

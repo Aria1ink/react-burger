@@ -1,22 +1,49 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signOut } from "../../utils/user";
+import style from "./ProfileMenu.module.css";
 
 export default function ProfileMenu () {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const onProfile = () => {
+    navigate("/profile");
+  };
+  const onOrders = () => {
+    navigate("/profile/orders");
+  };
+  const onExit = () => {
+    signOut(dispatch);
+  };
   return(
-    <ul>
+    <ul className={style.ProfileMenuContainer}>
       <li>
-        <Link to="/profile">
+        <button 
+          className={(location.pathname !== "/profile" ? "text_color_inactive" : style.ProfileMenuActive) + " text text_type_main-medium " + style.ProfileMenuButton}
+          onClick={onProfile}
+          type="button"
+        >
           Профиль
-        </Link>
+        </button>
       </li>
       <li>
-        <Link to="/profile/orders">
+        <button 
+          className={(location.pathname !== "/profile/orders" ? "text_color_inactive" : style.ProfileMenuActive) + " text text_type_main-medium " + style.ProfileMenuButton}
+          onClick={onOrders}
+          type="button"
+        >
           История заказов
-        </Link>
+        </button>
       </li>
       <li>
-        <button type="button">
+        <button 
+          type="button"
+          className={"text_color_inactive text text_type_main-medium " + style.ProfileMenuButton}
+          onClick={onExit}
+        >
           Выход
         </button>
       </li>

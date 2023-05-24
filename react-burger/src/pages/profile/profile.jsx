@@ -13,21 +13,23 @@ import styles from './profile.module.css';
 
 export default function ProfilePage () {
   const dispatch = useDispatch();
-  const [changingStatus, setChangingStatus] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const user = useSelector(getAuthUser);
+  const [name, setName] = useState({value: user.user.name, status: false});
+  const [email, setEmail] = useState({value: user.user.email, status: false});
+  const [password, setPassword] = useState({value: "******", status: false});
 
-  useEffect(() => {
-    fillFormDefaultValues();
-  }, []);
-  const fillFormDefaultValues = async () => {
+  useEffect( () => {
+    setName({value: user.user.name, status: false});
+    setEmail({value: user.user.email, status: false});
+    setPassword({value: "******", status: false});
+  }, [user]);
+
+  const resetForm = async () => {
     const result = await getUserProfileWithCheck(dispatch);
     if (result && user) {
-      setName(user.user.name);
-      setEmail(user.user.email);
-      setPassword("******");
+      setName({value: user.user.name, status: false});
+      setEmail({value: user.user.email, status: false});
+      setPassword({value: "******", status: false});
     }
   };
   const saveProfile = (e) => {
@@ -45,37 +47,50 @@ export default function ProfilePage () {
 
   return (
     <div className={styles.profileMain}>
-      <ProfileMenu />
-      <form>
+      <div className={styles.profileMenuContainer}>
+        <ProfileMenu />
+        <p className="text text_type_main-small text_color_inactive">В этом разделе вы можете
+           изменить свои персональные данные</p>
+      </div>
+      <form className={styles.profileForm}>
         <Input
           placeholder="Имя"
           type="text"
-          value={name}
+          value={name.value}
           icon="EditIcon"
-          onChange={(e) => {setName(e.target.value)}}
+          onChange={(e) => {setName({value: e.target.value, status: true})}}
           />
         <EmailInput
           placeholder="Логин"
-          value={email}
+          value={email.value}
           icon="EditIcon"
-          onChange={(e) => {setEmail(e.target.value)}}
-          extraClass="mb-2"
+          isIcon={true}
+          onChange={(e) => {setEmail({value: e.target.value, status: true})}}
         />
         <PasswordInput
           placeholder="Пароль"
-          value={password}
+          value={password.value}
           icon="EditIcon"
-          onChange={(e) => {setPassword(e.target.value)}}
-          extraClass="mb-2"
+          onChange={(e) => {setPassword({value: e.target.value, status: true})}}
         />
-      <div>
-        <button className={styles.cancelButton}>
-          Отмена
-        </button>
-        <Button htmlType="submit">
-          Сохранить
-        </Button>
-      </div>
+      {
+        (name.status || email.status || password.status) && <div>
+          <Button
+            htmlType="button"
+            size="medium"
+            type="secondary"
+            onClick={resetForm}
+          >
+            Отмена
+          </Button>
+          <Button 
+            htmlType="submit"
+            type="primary" 
+            size="medium">
+            Сохранить
+          </Button>
+        </div>
+      }
       </form>
     </div>
   );
