@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Navigate, useNavigate, useLocation } from "react-router-dom"
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
 import { resetUserPassword } from "../../utils/user";
-import styles from './forgot-password.module.css';
+import style from './forgot-password.module.css';
 
 export default function ForgotPasswordPage () {
   const [email, setEmail] = useState('');

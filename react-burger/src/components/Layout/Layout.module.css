@@ -1,5 +1,6 @@
 .AppMain {
-  width: 100%;
+  width: calc(100% - 32px);
+  padding: 0 16px;
   min-height: 70vh;
   display: flex;
   flex-direction: row;

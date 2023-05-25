@@ -8,7 +8,7 @@ import { loadIngredients } from "../../services/actions/ingredients";
 import { loadIngredientsStatus } from "../../utils/tools";
 import Preloader from "../../components/Preloader/Preloader";
 
-import styles from './constructor.module.css';
+import style from './constructor.module.css';
 
 export default function ConstructorPage () {
   const dispatch = useDispatch();

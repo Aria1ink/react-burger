@@ -5,9 +5,9 @@ import {
   getUserProfileApi, 
   resetPasswordApi, 
   saveResetPasswordApi, 
-  setUserProfileApi } from './api';
-import { 
-  setCookie, 
+  setUserProfileApi,
+  logoutUserApi } from './api';
+import {  
   getAccessToken, 
   setAccessToken, 
   setRefreshToken, 
@@ -27,7 +27,7 @@ export const signUp = async (form, dispatch) => {
         setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         if (data.success) {
-          //dispatch(setUser(data.user));
+          dispatch(setUser(data.user));
           dispatch(loginUser());
           return true;
         };
@@ -49,7 +49,7 @@ export const signIn = async (form, dispatch) => {
         setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         if (data.success) {
-          //dispatch(setUser(data.user));
+          dispatch(setUser(data.user));
           dispatch(loginUser());
           return true;
         };
@@ -65,6 +65,7 @@ export const signIn = async (form, dispatch) => {
   return result;
 };
 export const signOut = async (dispatch) => {
+  logoutUserApi(getRefreshToken());
   dispatch(logoutUser());
   removeTokens();
 };
@@ -163,10 +164,10 @@ export const getUserProfileWithCheck = async (dispatch) => {
     };
   };
 };
-export const setUserProfile = async (userData) => {
-  const status = await setUserProfileApi(userData)
+export const setUserProfile = async (userData, dispatch) => {
+  setUserProfileApi(getAccessToken(), userData)
     .then((data) => {
-      console.log('set: ' + data);
+      dispatch(setUser(data.user));
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);

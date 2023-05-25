@@ -59,7 +59,7 @@ export const getUserProfileApi = (token) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      "authorization": 'Bearer ' + token
+      'authorization': 'Bearer ' + token
     }
   })
   .then(checkPromiseResult)
@@ -70,7 +70,7 @@ export const setUserProfileApi = (token, data) => {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      "authorization": token,
+      'authorization': 'Bearer ' + token,
     },
     body: JSON.stringify(data)
   })

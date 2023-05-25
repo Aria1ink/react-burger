@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from 'react-router';
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
 import { signUp } from "../../utils/user"
-import styles from './register.module.css';
+import style from './register.module.css';
 
 export default function RegisterPage () {
   const dispatch = useDispatch();

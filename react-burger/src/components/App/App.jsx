@@ -12,6 +12,7 @@ import PageNotFoundPage from "../../pages/page-not-found/page-not-found";
 import OnlyNoAuthRoute from "../Routes/OnlyNoAuthRoute";
 import AuthRequiredRoute from "../Routes/AuthRequiredRoute";
 import IngredientRoute from "../Routes/IngredientRoute";
+import ProfileEditForm from "../ProfileEditForm/ProfileEditForm";
 
 export default function App () {
 
@@ -25,7 +26,9 @@ export default function App () {
             <Route path="register"  element={<OnlyNoAuthRoute element={<RegisterPage />} />} />
             <Route path="forgot-password"  element={<OnlyNoAuthRoute element={<ForgotPasswordPage />} />} />
             <Route path="reset-password"  element={<OnlyNoAuthRoute element={<ResetPasswordPage />} />} />
-            <Route path="profile"  element={<AuthRequiredRoute element={<ProfilePage />} />} />
+            <Route path="profile"  element={<AuthRequiredRoute element={<ProfilePage />} />}>
+              <Route index element={<ProfileEditForm />}/>
+            </Route>
             <Route path="ingredients/:id" element={<IngredientRoute />}/>
             <Route path="*" element={<PageNotFoundPage />}/>
           </Route>
