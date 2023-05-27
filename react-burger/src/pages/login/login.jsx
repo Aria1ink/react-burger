@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { signIn } from "../../utils/user";
 import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
-import style from './login.module.css';
 
 export default function LoginPage () {
   const dispatch = useDispatch();

@@ -24,3 +24,6 @@ return(
 );
 };
 
+AuthRequiredRoute.propTypes = {
+  element: PropTypes.element,
+};

@@ -34,3 +34,6 @@ return (
 );
 };
 
+OnlyNoAuthRoute.propTypes = {
+  element: PropTypes.element,
+};

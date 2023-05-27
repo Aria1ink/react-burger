@@ -5,6 +5,7 @@ import ingredientReducer from "./ingredient";
 import ingredientsReducer from "./ingredients";
 import menuReducer from "./menu";
 import authReducer from "./auth";
+import { wsReducer } from './ws';
 
 export const rootReducer = combineReducers({
   cart: constructorReducer,
@@ -12,5 +13,6 @@ export const rootReducer = combineReducers({
   ingredient: ingredientReducer,
   ingredients: ingredientsReducer,
   menu: menuReducer,
-  auth: authReducer
+  auth: authReducer,
+  ws: wsReducer
 })
