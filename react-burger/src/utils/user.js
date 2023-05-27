@@ -117,24 +117,11 @@ export const getUserProfile = async (dispatch) => {
   const result = await getUserProfileApi(token)
     .then( (data) => {
       dispatch(setUser(data.user));
-      //dispatch(loginUser());
       return true;
     })
     .catch( (err) => {
       console.log(`Ошибка: ${err}`);
       return false;
-      /*
-      if (err === 401) {
-        const refreshToken = getRefreshToken();
-        if (refreshToken) {
-          if (refreshUserToken()) {
-            getUserProfile(dispatch)
-          } else {
-            return false;
-          };
-        };
-      }
-      */
     });
   return result;
 };
