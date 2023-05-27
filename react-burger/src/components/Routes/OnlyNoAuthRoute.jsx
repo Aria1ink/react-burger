@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getAuthUser } from "../../utils/tools";
 import PropTypes from "prop-types";
 import Preloader from "../Preloader/Preloader";
@@ -8,6 +8,7 @@ import Preloader from "../Preloader/Preloader";
 export default function OnlyNoAuthRoute ({ element }) {
 const user = useSelector(getAuthUser);
 const location = useLocation();
+
 
 if (location.pathname == "/reset-password") {
   if (location.state && location.state.from === "/forgot-password"){
