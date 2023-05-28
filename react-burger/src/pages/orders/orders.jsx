@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import OrderElement from '../../components/OrderElement/OrderElement';
 import { getUserOrdersFromStore } from "../../utils/tools";
 import { connectWS } from "../../services/actions/ws";
+import OrderList from '../../components/OrderList/OrderList';
 
 export default function OrdersPage(){
   const dispatch = useDispatch();
@@ -14,11 +14,7 @@ export default function OrdersPage(){
 
   return (
     <>
-      {
-        orders.length > 0 && orders.map((order) => {
-          return( <OrderElement order={order} key= {order._id} />)
-        })
-      }
+      <OrderList orders={orders} />
     </>
   );
 }

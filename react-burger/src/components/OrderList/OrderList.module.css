@@ -1,0 +1,25 @@
+.OrderListContainer {
+  max-width: 70%;
+  height: 85vh;
+  overflow-y: scroll;
+  overflow-x:hidden;
+  scrollbar-gutter: stable;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.OrderListContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.OrderListContainer::-webkit-scrollbar-track {
+  background-color: rgba(47, 47, 55, 1);
+}
+
+.OrderListContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(133, 133, 173, 1);
+}

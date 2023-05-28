@@ -28,7 +28,7 @@ export default function AppHeader () {
             Конструктор
           </p>
         </Link>
-        <Link to="/orderList" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("orderList")}>
+        <Link to="/feed" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("orderList")}>
           <ListIcon type={current === "orderList" ? "primary" : "secondary"} />
           <p className={current !== "orderList" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
             Лента заказов

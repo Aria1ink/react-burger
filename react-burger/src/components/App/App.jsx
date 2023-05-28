@@ -13,6 +13,7 @@ import AuthRequiredRoute from "../Routes/AuthRequiredRoute";
 import IngredientRoute from "../Routes/IngredientRoute";
 import ProfileEditForm from "../ProfileEditForm/ProfileEditForm";
 import OrdersPage from "../../pages/orders/orders";
+import FeedPage from "../../pages/feed/feed";
 
 export default function App () {
 
@@ -31,6 +32,9 @@ export default function App () {
               <Route path="orders" element={<AuthRequiredRoute element={<OrdersPage />} />}></Route>
             </Route>
             <Route path="ingredients/:id" element={<IngredientRoute />}/>
+            <Route path="feed" element={<AuthRequiredRoute element={<FeedPage />} />}>
+
+            </Route>
             <Route path="*" element={<PageNotFoundPage />}/>
           </Route>
         </Routes>

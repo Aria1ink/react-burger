@@ -21,6 +21,7 @@ export const loadIngredientsStatus = store => store.ingredients.status;
 export const getOrderNumberFromStore = store => store.order;
 export const getAuthUser = store => store.auth;
 export const getUserOrdersFromStore = store => store.ws.orders.orders;
+export const getAllOrdersFromStore = store => store.ws.feed;
 
 export function setCookie(name, value, props) {
   props = props || {};
