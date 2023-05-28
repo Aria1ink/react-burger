@@ -1,0 +1,21 @@
+.imagesContainer {
+  height: 64px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.overlay{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  top: 2px;
+  height: 60px;
+  width: 60px;
+  border-radius: 100px;
+  background: rgba(28, 28, 33, 0.3);
+}

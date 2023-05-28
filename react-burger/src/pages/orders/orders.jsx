@@ -8,9 +8,9 @@ export default function OrdersPage(){
   const dispatch = useDispatch();
   const orders = useSelector(getUserOrdersFromStore);
 
-useEffect( () => {
-  dispatch(connectWS('orders'));
-}, []);
+  useEffect( () => {
+    dispatch(connectWS('orders'));
+  }, []);
 
   return (
     <>

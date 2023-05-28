@@ -65,7 +65,7 @@ export default function Ingredient (props) {
         {count > 0 && <Counter className="IngredientCounter" count={count} size="default" extraClass="m-1" />}
         <img className={style.IngredientImage} src={ingredient.image} alt={ingredient.name} />
         <p className={style.IngredientTitle + " text text_type_main-default"}>{ingredient.name}</p>
-        <Price price= {ingredient.price}/>
+        <Price price={ingredient.price}/>
       </li>
       { selectedIngredient &&
           (<Modal title="Детали ингредиента" close={closeIngredientDetails}>
