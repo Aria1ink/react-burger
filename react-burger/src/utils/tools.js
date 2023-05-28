@@ -20,6 +20,7 @@ export const getIngredientsFromStore = store => store.ingredients.ingredients;
 export const loadIngredientsStatus = store => store.ingredients.status;
 export const getOrderNumberFromStore = store => store.order;
 export const getAuthUser = store => store.auth;
+export const getUserOrdersFromStore = store => store.ws.orders.orders;
 
 export function setCookie(name, value, props) {
   props = props || {};
