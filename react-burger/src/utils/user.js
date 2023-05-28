@@ -75,6 +75,7 @@ export const refreshUserToken = async () => {
     const status = await refreshTokenApi(refreshToken)
       .then( (data) => {
         if (data.success) {
+          console.log(data)
           removeTokens();
           setAccessToken(data.accessToken)
           setRefreshToken(data.refreshToken);

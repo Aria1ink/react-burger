@@ -18,6 +18,10 @@ export default function ProfileEditForm () {
   const [password, setPassword] = useState({value: "******", status: false});
 
   useEffect( () => {
+    getUserProfileWithCheck(dispatch);
+  }, []);
+
+  useEffect( () => {
     setName({value: user.user.name, status: false});
     setEmail({value: user.user.email, status: false});
     setPassword({value: "******", status: false});

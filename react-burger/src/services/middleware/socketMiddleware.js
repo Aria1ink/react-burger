@@ -21,10 +21,11 @@ export const socketMiddleware = wsUrl => {
         const { type, payload } = action;
   
         if (type === WS_FEED_CONNECT) {
-          socketOrders = new WebSocket(wsUrl + '/all');
+          socketFeed = new WebSocket(wsUrl + '/all');
         }
         if (type === WS_ORDERS_CONNECT) {
-          socketFeed = new WebSocket(wsUrl + '?token=${' + getAccessToken() + '}');
+          console.log(getAccessToken())
+          socketOrders = new WebSocket(wsUrl + '?token=' + getAccessToken());
         }
 
         if (socketOrders) {
@@ -43,7 +44,8 @@ export const socketMiddleware = wsUrl => {
                 socketOrders.close();
                 refreshUserToken()
                   .then((status) => {
-                    if (status){
+                    console.log(status)
+                    if (status && getAccessToken()){
                       dispatch({ type: WS_ORDERS_CONNECT });
                     } else {
                       socketOrders.close();
