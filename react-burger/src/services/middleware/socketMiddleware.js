@@ -24,7 +24,6 @@ export const socketMiddleware = wsUrl => {
           socketFeed = new WebSocket(wsUrl + '/all');
         }
         if (type === WS_ORDERS_CONNECT) {
-          console.log(getAccessToken())
           socketOrders = new WebSocket(wsUrl + '?token=' + getAccessToken());
         }
 
@@ -44,7 +43,6 @@ export const socketMiddleware = wsUrl => {
                 socketOrders.close();
                 refreshUserToken()
                   .then((status) => {
-                    console.log(status)
                     if (status && getAccessToken()){
                       dispatch({ type: WS_ORDERS_CONNECT });
                     } else {

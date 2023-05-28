@@ -7,10 +7,13 @@ export const getIngredientsApi = () => {
   .then(checkPromiseResult)
 };
 
-export const setOrderApi = (orderItemsId) => {
+export const setOrderApi = (orderItemsId, token) => {
   return fetch(url + '/orders', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + token
+    },
     body: JSON.stringify({
       "ingredients": orderItemsId
     })

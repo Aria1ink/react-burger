@@ -23,6 +23,7 @@ export const getAuthUser = store => store.auth;
 
 export function setCookie(name, value, props) {
   props = props || {};
+  props.path = '/';
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
     const d = new Date();
