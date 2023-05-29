@@ -1,0 +1,37 @@
+.FeedPageContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 60px;
+}
+.feedContainer {
+  width: max-content;
+  max-width: 584px;
+  justify-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.header {
+  box-sizing: border-box;
+  width: max-content;
+}
+.counterContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 60px;
+}
+.FeedPageStatusLists {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 36px;
+}

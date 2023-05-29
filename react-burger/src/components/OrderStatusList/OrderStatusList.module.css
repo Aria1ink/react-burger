@@ -1,0 +1,14 @@
+.numbersContainer {
+  max-width: max-content;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-columns: 1fr;
+  grid-template-rows: repeat(10, max-content);
+  grid-auto-flow: column;
+  gap: 8px;
+}
+.number {
+  box-sizing: border-box;
+  max-width: max-content;
+  color: rgba(0, 204, 204, 1);
+}
