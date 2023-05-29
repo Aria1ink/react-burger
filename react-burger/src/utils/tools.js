@@ -13,6 +13,13 @@ export const getIngredientByName = (name, data) => {
     };
   };
 };
+export const sortByDate = (data) => {
+  return(
+    data.sort( (a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    })
+  );
+};
 export const getCurrentIngredientFromStore = store => store.ingredient;
 export const getCartFromStore = store => store.cart;
 export const getMenuStatusFromStore = store => store.menu;

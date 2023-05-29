@@ -5,6 +5,7 @@ import OrderList from "../../components/OrderList/OrderList";
 import OrderCounter from "../../components/OrderCounter/OrderCounter";
 import OrderStatusList from "../../components/OrderStatusList/OrderStatusList";
 import { connectWS } from "../../services/actions/ws";
+import { sortByDate } from "../../utils/tools";
 import style from "./feed.module.css";
 
 export default function FeedPage() {
@@ -12,14 +13,17 @@ export default function FeedPage() {
   const {orders, total, today} = useSelector(getAllOrdersFromStore);
   const [doneOrders, setDoneOrders] = useState([]);
   const [inWorkOrders, setInWorkOrders] = useState([]);
+  const [sortedOrders, setSortedOrders] = useState([]);
 
   useEffect( () => {
     dispatch(connectWS('feed'));
+    setSortedOrders(sortByDate(orders));
   }, []);
 
   useEffect( () => {
     let tempDoneOrders = [];
     let tempInWorkOrders = [];
+    setSortedOrders(sortByDate(orders));
     orders.map( (order) => {
       if (order.status === "done") {
         tempDoneOrders.push(order.number);
@@ -37,7 +41,7 @@ export default function FeedPage() {
     <div className={style.FeedPageContainer}>
       <div className={style.feedContainer}>
         <h1 className={style.header + " text text_type_main-large pb-5"}>Лента заказов</h1>
-        <OrderList orders={orders} />
+        <OrderList orders={sortedOrders} />
       </div>
       <div className={style.counterContainer}>
         <div className={style.FeedPageStatusLists}>
