@@ -4,6 +4,7 @@ import { getUserOrdersFromStore } from "../../utils/tools";
 import { connectWS } from "../../services/actions/ws";
 import OrderList from '../../components/OrderList/OrderList';
 import { sortByDate } from '../../utils/tools';
+import Preloader from '../../components/Preloader/Preloader';
 import style from "./orders.module.css";
 
 export default function OrdersPage(){
@@ -13,13 +14,17 @@ export default function OrdersPage(){
 
   useEffect( () => {
     dispatch(connectWS('orders'));
-    setSortedOrders(sortByDate(orders));
   }, []);
 
   useEffect( () => {
     setSortedOrders(sortByDate(orders));
   }, [orders]);
 
+  if (sortedOrders.length === 0) {
+    return(
+      <Preloader />
+    )
+  }
   return (
     <div className={style.container}>
       <OrderList orders={sortedOrders} />

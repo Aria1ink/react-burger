@@ -6,6 +6,7 @@ import OrderCounter from "../../components/OrderCounter/OrderCounter";
 import OrderStatusList from "../../components/OrderStatusList/OrderStatusList";
 import { connectWS } from "../../services/actions/ws";
 import { sortByDate } from "../../utils/tools";
+import Preloader from "../../components/Preloader/Preloader";
 import style from "./feed.module.css";
 
 export default function FeedPage() {
@@ -17,7 +18,6 @@ export default function FeedPage() {
 
   useEffect( () => {
     dispatch(connectWS('feed'));
-    setSortedOrders(sortByDate(orders));
   }, []);
 
   useEffect( () => {
@@ -36,7 +36,12 @@ export default function FeedPage() {
     tempDoneOrders = [];
     tempInWorkOrders = [];
   }, [orders]);
-
+  
+if (sortedOrders.length === 0) {
+  return(
+    <Preloader />
+  )
+}
   return (
     <div className={style.FeedPageContainer}>
       <div className={style.feedContainer}>
