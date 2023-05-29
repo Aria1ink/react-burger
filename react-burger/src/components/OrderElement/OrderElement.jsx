@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getIngredientById, getIngredientsFromStore } from "../../utils/tools";
+import { getIngredientById, getIngredientsFromStore, getSelectedOrderFromStore } from "../../utils/tools";
+import { setSelectedOrder } from "../../services/actions/selectedOrder";
+import OrderModal from "../OrderModal/OrderModal";
 import Price from "../Price/Price";
 import OrderImages from "../OrderImages/OrderImages";
 import style from "./OrderElement.module.css";
 
 export default function OrderElement({ order }) {
+  const dispatch = useDispatch();
+  const selectedOrder = useSelector(getSelectedOrderFromStore);
   const [ price, setPrice ] = useState(0);
   const [ images, setimages ] = useState([]);
   const ingredients = useSelector(getIngredientsFromStore);
   const location = useLocation();
+
+  const openModal = () => {
+    dispatch(setSelectedOrder(order))
+  };
 
   useEffect( () => {
     let tempPrice = 0;
@@ -31,7 +39,7 @@ export default function OrderElement({ order }) {
   },[]);
 
   return(
-    <div className={style.OrderElementContainer}>
+    <div className={style.OrderElementContainer} onClick={openModal}>
       <div className={style.OrderElementLine}>
         <p className={style.paragraph + " text text_type_digits-default"}>#{order.number}</p>
         <p className={style.paragraph + " text text_type_main-default text_color_inactive"}>
@@ -49,6 +57,10 @@ export default function OrderElement({ order }) {
         <OrderImages images={images} />
         <Price price={price}/>
       </div>
+
+      {
+        selectedOrder && <OrderModal />
+      }
     </div>
   );
 }

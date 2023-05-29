@@ -18,7 +18,7 @@ const initialState = {
   statusFeed: false,
 };
 
-export const wsReducer = (state = initialState, action) => {
+export default function wsReducer(state = initialState, action) {
   switch (action.type) {
     case WS_ORDERS_SUCCESS:
       return {

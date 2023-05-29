@@ -20,7 +20,27 @@ export const sortByDate = (data) => {
     })
   );
 };
+export const sortByID = (data) => {
+  const uniqueId = Array.from(new Set(data));
+  const result = [];
+  uniqueId.forEach((id) => {
+    let counter = 0;
+    data.forEach( (idData) => {
+      if (id === idData) {
+        ++counter;
+      }
+    });
+    result.push({id: id, count: counter});
+  })
+  if (result.length > 0) {
+    return result;
+  } else {
+    return false;
+  }
+};
+
 export const getCurrentIngredientFromStore = store => store.ingredient;
+export const getSelectedOrderFromStore = store => store.selectedOrder;
 export const getCartFromStore = store => store.cart;
 export const getMenuStatusFromStore = store => store.menu;
 export const getIngredientsFromStore = store => store.ingredients.ingredients;
