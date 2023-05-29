@@ -1,5 +1,6 @@
 .profileMain {
   width: 100%;
+  height: 85vh;
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 80vh;

@@ -20,3 +20,15 @@ export const connectWS = (page) => {
       return null
   };
 };
+export const disconnectWS = (page) => {
+  switch(page){
+    case 'orders': {
+      return { type: WS_ORDERS_DISCONNECT }
+    }
+    case 'feed':{
+      return { type: WS_FEED_DISCONNECT }
+    }
+    default:
+      return null
+  };
+};

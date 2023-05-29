@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getUserOrdersFromStore } from "../../utils/tools";
-import { connectWS } from "../../services/actions/ws";
+import { connectWS, disconnectWS } from "../../services/actions/ws";
 import OrderList from '../../components/OrderList/OrderList';
 import { sortByDate } from '../../utils/tools';
 import Preloader from '../../components/Preloader/Preloader';
@@ -14,6 +14,10 @@ export default function OrdersPage(){
 
   useEffect( () => {
     dispatch(connectWS('orders'));
+
+    return () => {
+      dispatch(disconnectWS('feed'));
+    };
   }, []);
 
   useEffect( () => {

@@ -2,6 +2,7 @@
   width: calc(100% - 32px);
   padding: 0 16px;
   min-height: 70vh;
+  height: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
