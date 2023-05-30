@@ -14,7 +14,7 @@ import IngredientRoute from "../Routes/IngredientRoute";
 import ProfileEditForm from "../ProfileEditForm/ProfileEditForm";
 import OrdersPage from "../../pages/orders/orders";
 import FeedPage from "../../pages/feed/feed";
-import OrderPage from "../../pages/order/order";
+import OrdersRoute from "../Routes/OrdersRoute";
 
 export default function App () {
 
@@ -30,12 +30,12 @@ export default function App () {
             <Route path="reset-password" element={<OnlyNoAuthRoute element={<ResetPasswordPage />} />} />
             <Route path="profile" element={<AuthRequiredRoute element={<ProfilePage />} />}>
               <Route index element={<ProfileEditForm />}/>
-              <Route path="orders" element={<AuthRequiredRoute element={<OrdersPage />} />}></Route>
+              <Route path="orders" element={<AuthRequiredRoute element={<OrdersPage />} />} />
+              <Route path="orders/:id" element={<OrdersRoute />}/>
             </Route>
-            <Route path="profile/orders/:id" element={<OrderPage />}/>
             <Route path="ingredients/:id" element={<IngredientRoute />}/>
             <Route path="feed" element={<AuthRequiredRoute element={<FeedPage />} />} />
-            <Route path="feed/:id" element={<OrderPage />}/>
+            <Route path="feed/:id" element={<OrdersRoute />}/>
             <Route path="*" element={<PageNotFoundPage />}/>
           </Route>
         </Routes>

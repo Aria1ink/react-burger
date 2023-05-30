@@ -18,7 +18,7 @@ export const connectWS = (page) => {
     }
     default:
       return null
-  };
+  }
 };
 export const disconnectWS = (page) => {
   switch(page){
@@ -30,5 +30,5 @@ export const disconnectWS = (page) => {
     }
     default:
       return null
-  };
+  }
 };

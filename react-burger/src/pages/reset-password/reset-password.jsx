@@ -18,7 +18,6 @@ export default function ResetPasswordPage () {
       onSubmit: async (e) => {
         e.preventDefault();
         const result = await saveResetUserPassword(password, key);
-        console.log(result)
         if (result) {
           navigate("/login");
         }

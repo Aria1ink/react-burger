@@ -1,5 +1,6 @@
-import React, { useEffect, useState} from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router";
 import OrderElement from "../OrderElement/OrderElement";
 import OrderModal from "../OrderModal/OrderModal";
 import Modal from "../Modal/Modal";
@@ -9,9 +10,17 @@ import style from "./OrderList.module.css";
 
 export default function OrderList({orders}) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const selectedOrder = useSelector(getSelectedOrderFromStore);
   const closeModal = () => {
-    dispatch(delSelectedOrder())
+    dispatch(delSelectedOrder());
+    if (location.pathname.startsWith("/feed")) {
+      navigate("/feed");
+    }
+    if (location.pathname.startsWith("/profile/orders")) {
+      navigate("/profile/orders");
+    }
   };
   
   return(

@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAuthUser } from "../../utils/tools";
 import PropTypes from "prop-types";
 import Preloader from "../Preloader/Preloader";
@@ -10,14 +10,14 @@ const user = useSelector(getAuthUser);
 const location = useLocation();
 
 
-if (location.pathname == "/reset-password") {
+if (location.pathname === "/reset-password") {
   if (location.state && location.state.from === "/forgot-password"){
     return element;
   } else {
     return (
       <Navigate to="/" replace={true}/>
     );
-  };
+  }
 };
 
 if (user.isAuthenticated !== "loading") {

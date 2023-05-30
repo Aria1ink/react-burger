@@ -15,7 +15,6 @@ export const loadIngredients = () => {
     .then(
       (data) => {
         dispatch(setIngredientsStatusLoaded(data.data));
-        console.log(data.data);
       }
     )
     .catch((err) => {

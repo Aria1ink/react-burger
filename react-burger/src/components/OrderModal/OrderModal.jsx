@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientImage from "../IngredientImage/IngredientImage";
 import { delSelectedOrder } from "../../services/actions/selectedOrder";
-import { getIngredientsFromStore, getSelectedOrderFromStore, parseIngredients, getItemById } from "../../utils/tools";
+import { getIngredientsFromStore, getSelectedOrderFromStore, parseIngredients } from "../../utils/tools";
 import Price from "../Price/Price";
 import OrderStatus from "../OrderStatus/OrderStatus";
 import style from "./OrderModal.module.css";
@@ -19,7 +19,6 @@ export default function OrderModal() {
     const [tempSortedIngredients, tempSumm] = parseIngredients(order.ingredients, ingredients);
     setSortedIngredients(tempSortedIngredients);
     setSummPrice(tempSumm);
-    console.log(tempSortedIngredients)
     return () => {
       dispatch(delSelectedOrder());
     }

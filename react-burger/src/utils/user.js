@@ -146,12 +146,12 @@ export const getUserProfileWithCheck = async (dispatch) => {
       } else {
         dispatch(logoutUser());
         return false;
-      };
+      }
     } else {
       dispatch(logoutUser());
       return false;
-    };
-  };
+    }
+  }
 };
 export const setUserProfile = async (userData, dispatch) => {
   setUserProfileApi(getAccessToken(), userData)

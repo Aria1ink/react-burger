@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { getSelectedOrderFromStore, getUserOrdersFromStore, getAllOrdersFromStore, getItemById } from "../../utils/tools";
 import { connectWS, disconnectWS } from "../../services/actions/ws";
 import { setSelectedOrder } from "../../services/actions/selectedOrder";
@@ -10,7 +10,8 @@ import Preloader from "../../components/Preloader/Preloader";
 export default function OrderPage() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const params = useParams();
+  const { id } = useParams();
+  const navigate = useNavigate();
   const order = useSelector(getSelectedOrderFromStore);
   const userOrders = useSelector(getUserOrdersFromStore);
   const { orders, } = useSelector(getAllOrdersFromStore);
@@ -26,16 +27,24 @@ export default function OrderPage() {
 
   useEffect( () => {
     if (orders && orders.length > 0) {
-      tempOrder = getItemById(params.id, orders);
-      dispatch(setSelectedOrder(tempOrder));
+      tempOrder = getItemById(id, orders);
+      if (!tempOrder) {
+        navigate("/feed");
+      } else {
+        dispatch(setSelectedOrder(tempOrder));
+      }
       dispatch(disconnectWS("feed"));
     }
   }, [orders]);
   
   useEffect( () => {
     if (userOrders && userOrders.length > 0) {
-      tempOrder = getItemById(params.id, userOrders);
-      dispatch(setSelectedOrder(tempOrder));
+      tempOrder = getItemById(id, userOrders);
+      if (!tempOrder) {
+        navigate("/profile/orders");
+      } else {
+        dispatch(setSelectedOrder(tempOrder));
+      }
       dispatch(disconnectWS("orders"));
     }
   }, [userOrders]);

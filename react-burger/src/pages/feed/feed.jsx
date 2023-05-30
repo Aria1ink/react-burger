@@ -28,7 +28,7 @@ export default function FeedPage() {
     let tempDoneOrders = [];
     let tempInWorkOrders = [];
     setSortedOrders(sortByDate(orders));
-    orders.map( (order) => {
+    orders.forEach( (order) => {
       if (order.status === "done") {
         tempDoneOrders.push(order.number);
       } else {
@@ -41,11 +41,11 @@ export default function FeedPage() {
     tempInWorkOrders = [];
   }, [orders]);
 
-if (sortedOrders.length === 0) {
-  return(
-    <Preloader />
-  )
-}
+  if (sortedOrders.length === 0) {
+    return(
+      <Preloader />
+    )
+  }
   return (
     <div className={style.FeedPageContainer}>
       <div className={style.feedContainer}>

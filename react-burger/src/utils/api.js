@@ -116,13 +116,12 @@ export const logoutUserApi = (token) => {
 
 async function checkPromiseResult (res) {
   if (res.ok) {
-    console.log(res)
     if (res.status === 200) {
       return res.json();
     } else {
         return Promise.reject(res.status);
-      };
+      }
   } else {
     return Promise.reject(res.status);
-  };
+  }
 };

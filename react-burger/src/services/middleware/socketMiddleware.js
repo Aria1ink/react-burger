@@ -17,8 +17,8 @@ export const socketMiddleware = wsUrl => {
       let socketFeed = null;
 
       return next => action => {
-        const { dispatch, getState } = store;
-        const { type, payload } = action;
+        const { dispatch,  } = store;
+        const { type,  } = action;
   
         if (type === WS_FEED_CONNECT) {
           socketFeed = new WebSocket(wsUrl + '/all');
@@ -37,7 +37,6 @@ export const socketMiddleware = wsUrl => {
           };
           socketOrders.onmessage = event => {
             let data = JSON.parse(event.data);
-            console.log(data)
             if (!data.success) {
               if (data.message === 'Invalid or missing token') {
                 socketOrders.close();
@@ -81,7 +80,6 @@ export const socketMiddleware = wsUrl => {
           };
           socketFeed.onmessage = event => {
             let data = JSON.parse(event.data);
-            console.log(data)
             if (!data.success) {
               if (data.message === 'Invalid or missing token') {
                 socketFeed.close();

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAuthUser, getRefreshToken } from "../../utils/tools";
 import Preloader from "../Preloader/Preloader";
 import PropTypes from "prop-types";
@@ -16,7 +16,7 @@ export default function AuthRequiredRoute ({ element }) {
     )
   } else {
     return element;
-  };
+  }
 };
 return(
   <Preloader />

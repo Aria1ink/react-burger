@@ -5,7 +5,6 @@ import IngredientPage from "../../pages/ingredients/ingredients";
 
 export default function IngredientRoute() {
   const location = useLocation();
-  console.log(location)
   if (location.state && location.state.from === "/") {
     return (
       <ConstructorPage />

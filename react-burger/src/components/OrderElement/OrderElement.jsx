@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getItemById, getIngredientsFromStore, getSelectedOrderFromStore } from "../../utils/tools";
+import { getItemById, getIngredientsFromStore } from "../../utils/tools";
 import { setSelectedOrder } from "../../services/actions/selectedOrder";
 import Price from "../Price/Price";
 import OrderStatus from "../OrderStatus/OrderStatus";
@@ -25,7 +25,7 @@ export default function OrderElement({ order }) {
   useEffect( () => {
     let tempPrice = 0;
     let tempImages = [];
-    order.ingredients.map( (id, index) => {
+    order.ingredients.forEach( (id, index) => {
       const ingredient = getItemById(id, ingredients);
       if (ingredient) {
         tempPrice += ingredient.price;

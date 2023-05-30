@@ -1,12 +1,20 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import style from "./IngredientDetails.module.css";
 import FoodEnergy from  '../FoodEnergy/FoodEnergy';
+import { delSelectedIngredient } from "../../services/actions/ingredient";
 import { getCurrentIngredientFromStore } from "../../utils/tools";
 
 
 export default function IngredientDetails () {
   const ingredient = useSelector(getCurrentIngredientFromStore);
+  const dispatch = useDispatch();
+
+  useEffect( () => {
+    return () => {
+      dispatch(delSelectedIngredient());
+    }
+  }, [])
 
   return (
     <div className={style.IngredientDetailsContainer} >
