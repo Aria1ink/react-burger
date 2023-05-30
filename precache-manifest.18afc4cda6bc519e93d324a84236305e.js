@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "5a6b3d987d7a0442f81f",
+    "revision": "6e64eef31490d0e872e8",
     "url": "./static/css/main.7f6b5ac4.chunk.css"
   },
   {
-    "revision": "5a6b3d987d7a0442f81f",
-    "url": "./static/js/main.5a6b3d98.chunk.js"
+    "revision": "6e64eef31490d0e872e8",
+    "url": "./static/js/main.6e64eef3.chunk.js"
   },
   {
     "revision": "c393abbf457eea4e0aad",
@@ -36,6 +36,10 @@ self.__precacheManifest = [
     "url": "./static/media/JetBrainsMono-Regular.21ba2c11.woff2"
   },
   {
+    "revision": "2fe9a2bdaa6daf61e770a2edb7252040",
+    "url": "./static/media/JetBrainsMono-Regular.2fe9a2bd.woff"
+  },
+  {
     "revision": "a492f7427b1561cc96ace88f5756d94e",
     "url": "./static/media/JetBrainsMono-Bold.a492f742.woff2"
   },
@@ -48,15 +52,11 @@ self.__precacheManifest = [
     "url": "./static/media/iceland.44e2d48c.woff2"
   },
   {
-    "revision": "2fe9a2bdaa6daf61e770a2edb7252040",
-    "url": "./static/media/JetBrainsMono-Regular.2fe9a2bd.woff"
-  },
-  {
     "revision": "df042be2e40babc665f1f8a2d67d0f86",
     "url": "./static/media/iceland.df042be2.woff"
   },
   {
-    "revision": "f50ea956c96485dc7777f2cd34c78385",
+    "revision": "324c4966a46dbdf5775a23ba86f2058f",
     "url": "./index.html"
   }
 ];
