@@ -34,7 +34,7 @@ export default function App () {
               <Route path="orders/:id" element={<OrdersRoute />}/>
             </Route>
             <Route path="ingredients/:id" element={<IngredientRoute />}/>
-            <Route path="feed" element={<AuthRequiredRoute element={<FeedPage />} />} />
+            <Route path="feed" element={<FeedPage />} />
             <Route path="feed/:id" element={<OrdersRoute />}/>
             <Route path="*" element={<PageNotFoundPage />}/>
           </Route>
