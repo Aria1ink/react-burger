@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import IngredientImage from "../IngredientImage/IngredientImage";
 import { v4 as uuidv4 } from "uuid";
 import style from "./OrderImages.module.css";
 
 export default function OrderImages({ images }) {
- 
+
   return(
     <div className={style.imagesContainer}>
       {

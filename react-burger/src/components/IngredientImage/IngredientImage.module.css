@@ -8,10 +8,28 @@
 .imageContainer {
   height: 64px;
   width: 64px;
-  margin-left: -10px;
+  margin-right: -10px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(50deg, rgba(128, 26, 178, 1), rgba(76, 76, 255, 1)) border-box;
   border-radius: 50%;
+}
+.imageContainer:nth-child(1){
+  z-index: 6;
+}
+.imageContainer:nth-child(2){
+  z-index: 5;
+}
+.imageContainer:nth-child(3){
+  z-index: 4;
+}
+.imageContainer:nth-child(4){
+  z-index: 3;
+}
+.imageContainer:nth-child(5){
+  z-index: 2;
+}
+.imageContainer:nth-child(6){
+  z-index: 1;
 }
