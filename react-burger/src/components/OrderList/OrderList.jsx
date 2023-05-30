@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router";
 import OrderElement from "../OrderElement/OrderElement";
@@ -39,3 +40,7 @@ export default function OrderList({orders}) {
     </div>
   )
 }
+
+OrderList.propTypes = {
+  orders: PropTypes.array.isRequired
+}; 

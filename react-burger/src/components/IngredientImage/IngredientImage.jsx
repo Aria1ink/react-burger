@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import style from "./IngredientImage.module.css";
 
-export default function IngredientImage({url, custom}) {
+export default function IngredientImage({url}) {
 
   return(
     <div className={style.imageContainer } >
@@ -9,3 +10,7 @@ export default function IngredientImage({url, custom}) {
     </div>
   );
 }
+
+IngredientImage.propTypes = {
+  url: PropTypes.string.isRequired,
+}; 

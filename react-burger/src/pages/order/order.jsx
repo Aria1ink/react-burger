@@ -6,6 +6,7 @@ import { connectWS, disconnectWS } from "../../services/actions/ws";
 import { setSelectedOrder } from "../../services/actions/selectedOrder";
 import OrderModal from "../../components/OrderModal/OrderModal";
 import Preloader from "../../components/Preloader/Preloader";
+import style from "./order.module.css";
 
 export default function OrderPage() {
   const location = useLocation();
@@ -51,7 +52,9 @@ export default function OrderPage() {
 
   if (order) {
     return(
-      <OrderModal />
+      <div className={style.orderContainer}>
+        <OrderModal />
+      </div>
     );
   }
 

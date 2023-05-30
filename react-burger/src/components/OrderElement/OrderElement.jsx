@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -57,3 +58,7 @@ export default function OrderElement({ order }) {
     </div>
   );
 }
+
+OrderElement.propTypes = {
+  order: PropTypes.object.isRequired
+}; 

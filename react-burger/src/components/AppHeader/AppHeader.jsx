@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Logo, 
+  BurgerIcon, 
+  ListIcon, 
+  ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./AppHeader.module.css";
 
 export default function AppHeader () {

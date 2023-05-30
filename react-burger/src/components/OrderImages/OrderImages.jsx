@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import IngredientImage from "../IngredientImage/IngredientImage";
 import { v4 as uuidv4 } from "uuid";
 import style from "./OrderImages.module.css";
@@ -31,3 +32,7 @@ export default function OrderImages({ images }) {
     </div>
   );
 }
+
+OrderImages.propTypes = {
+  images: PropTypes.array.isRequired
+}; 
