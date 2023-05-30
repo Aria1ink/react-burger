@@ -1,4 +1,4 @@
-export const getIngredientById = (id, data) => {
+export const getItemById = (id, data) => {
   for (var i=0; i < data.length; i++)  {
     if (data[i]._id === id) {
       return data[i];
@@ -31,7 +31,7 @@ export const parseIngredients = (order, ingredients) => {
         ++counter;
       }
     });
-    const element = getIngredientById(idUnique, ingredients);
+    const element = getItemById(idUnique, ingredients);
     summ = summ + element.price * counter;
     if (element.type === 'bun') {
       result.unshift({element: element, count: counter});

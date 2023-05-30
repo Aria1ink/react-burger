@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useParams } from 'react-router-dom';
 import AppHeader from "../AppHeader/AppHeader";
 import { loadIngredients } from "../../services/actions/ingredients";
-import { getIngredientById, getIngredientsFromStore } from "../../utils/tools";
+import { getItemById, getIngredientsFromStore } from "../../utils/tools";
 import { setSelectedIngredient } from "../../services/actions/ingredient";
 import { loginUser } from "../../services/actions/auth";
 import style from "./Layout.module.css";
@@ -29,7 +29,7 @@ export default function Layout() {
 
   useEffect(() => {
     if (id && infredients.length > 0) {
-      dispatch(setSelectedIngredient(getIngredientById(id, infredients)));
+      dispatch(setSelectedIngredient(getItemById(id, infredients)));
     };
   }, [infredients]);
 

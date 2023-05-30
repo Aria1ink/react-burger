@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientImage from "../IngredientImage/IngredientImage";
-import { getIngredientsFromStore, getSelectedOrderFromStore, parseIngredients, getIngredientById } from "../../utils/tools";
+import { delSelectedOrder } from "../../services/actions/selectedOrder";
+import { getIngredientsFromStore, getSelectedOrderFromStore, parseIngredients, getItemById } from "../../utils/tools";
 import Price from "../Price/Price";
 import OrderStatus from "../OrderStatus/OrderStatus";
 import style from "./OrderModal.module.css";
 
 export default function OrderModal() {
+  const dispatch = useDispatch();
   const ingredients = useSelector(getIngredientsFromStore);
   const order = useSelector(getSelectedOrderFromStore);
   const [sortedIngredients, setSortedIngredients] = useState([]);
@@ -18,6 +20,9 @@ export default function OrderModal() {
     setSortedIngredients(tempSortedIngredients);
     setSummPrice(tempSumm);
     console.log(tempSortedIngredients)
+    return () => {
+      dispatch(delSelectedOrder());
+    }
   }, []);
 
   return(

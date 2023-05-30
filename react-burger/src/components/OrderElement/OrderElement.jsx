@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getIngredientById, getIngredientsFromStore, getSelectedOrderFromStore } from "../../utils/tools";
+import { getItemById, getIngredientsFromStore, getSelectedOrderFromStore } from "../../utils/tools";
 import { setSelectedOrder } from "../../services/actions/selectedOrder";
 import Price from "../Price/Price";
 import OrderStatus from "../OrderStatus/OrderStatus";
@@ -15,16 +15,18 @@ export default function OrderElement({ order }) {
   const [ images, setimages ] = useState([]);
   const ingredients = useSelector(getIngredientsFromStore);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const openModal = () => {
-    dispatch(setSelectedOrder(order))
+    dispatch(setSelectedOrder(order));
+    navigate(location.pathname+"/"+order._id, {replace: false, state: {from: location.pathname}});
   };
 
   useEffect( () => {
     let tempPrice = 0;
     let tempImages = [];
     order.ingredients.map( (id, index) => {
-      const ingredient = getIngredientById(id, ingredients);
+      const ingredient = getItemById(id, ingredients);
       if (ingredient) {
         tempPrice += ingredient.price;
         tempImages.push(ingredient.image);

@@ -13,7 +13,7 @@ export default function OrderList({orders}) {
   const closeModal = () => {
     dispatch(delSelectedOrder())
   };
-
+  
   return(
     <div className={style.OrderListContainer}>
       {

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import Preloader from '../../components/Preloader/Preloader';
 import { setSelectedIngredient } from "../../services/actions/ingredient";
-import { getIngredientById, getCurrentIngredientFromStore, getIngredientsFromStore} from '../../utils/tools';
+import { getItemById, getCurrentIngredientFromStore, getIngredientsFromStore} from '../../utils/tools';
 import style from './ingredients.module.css';
 
 export default function IngredientPage () {
@@ -16,7 +16,7 @@ export default function IngredientPage () {
 
   useEffect( () => {
     if (ingredients.length > 0) {
-      const ingredient = getIngredientById(id, ingredients);
+      const ingredient = getItemById(id, ingredients);
       if (ingredient) {
         dispatch(setSelectedIngredient(ingredient));
       } else {
