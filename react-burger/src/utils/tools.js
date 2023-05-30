@@ -33,7 +33,11 @@ export const parseIngredients = (order, ingredients) => {
     });
     const element = getIngredientById(idUnique, ingredients);
     summ = summ + element.price * counter;
-    result.push({element: element, count: counter});
+    if (element.type === 'bun') {
+      result.unshift({element: element, count: counter});
+    } else {
+      result.push({element: element, count: counter});
+    }
   })
   if (result.length > 0) {
     return [result, summ];

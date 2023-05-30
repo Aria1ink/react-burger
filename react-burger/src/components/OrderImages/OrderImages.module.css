@@ -14,8 +14,9 @@
   justify-content: center;
   text-align: center;
   top: 2px;
+  right: 2px;
   height: 60px;
   width: 60px;
   border-radius: 100px;
-  background: rgba(28, 28, 33, 0.3);
+  background: rgba(28, 28, 33, 0.6);
 }

@@ -5,6 +5,7 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import { getIngredientById, getIngredientsFromStore, getSelectedOrderFromStore } from "../../utils/tools";
 import { setSelectedOrder } from "../../services/actions/selectedOrder";
 import Price from "../Price/Price";
+import OrderStatus from "../OrderStatus/OrderStatus";
 import OrderImages from "../OrderImages/OrderImages";
 import style from "./OrderElement.module.css";
 
@@ -46,11 +47,7 @@ export default function OrderElement({ order }) {
         </p>
       </div>
       <p className="text text_type_main-medium"> {order.name} </p>
-      {location.pathname === "/profile/orders" && <p className="text text_type_main-default">{
-        order.status === "done" && "Выполнен" ||
-        order.status === "created" && "Создан" ||
-        order.status === "pending" && "Готовится"
-      }</p>}
+      {location.pathname === "/profile/orders" && <OrderStatus status={order.status} />}
       <div className={style.OrderElementLine}>
         <OrderImages images={images} />
         <Price price={price}/>
