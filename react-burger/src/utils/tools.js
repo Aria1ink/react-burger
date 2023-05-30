@@ -20,20 +20,23 @@ export const sortByDate = (data) => {
     })
   );
 };
-export const sortByID = (data) => {
-  const uniqueId = Array.from(new Set(data));
+export const parseIngredients = (order, ingredients) => {
+  const uniqueId = Array.from(new Set(order));
   const result = [];
-  uniqueId.forEach((id) => {
+  let summ = 0;
+  uniqueId.forEach((idUnique) => {
     let counter = 0;
-    data.forEach( (idData) => {
-      if (id === idData) {
+    order.forEach( (id) => {
+      if (idUnique === id) {
         ++counter;
       }
     });
-    result.push({id: id, count: counter});
+    const element = getIngredientById(idUnique, ingredients);
+    summ = summ + element.price * counter;
+    result.push({element: element, count: counter});
   })
   if (result.length > 0) {
-    return result;
+    return [result, summ];
   } else {
     return false;
   }

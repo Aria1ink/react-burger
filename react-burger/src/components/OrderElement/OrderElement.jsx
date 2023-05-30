@@ -4,14 +4,12 @@ import { useLocation } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getIngredientById, getIngredientsFromStore, getSelectedOrderFromStore } from "../../utils/tools";
 import { setSelectedOrder } from "../../services/actions/selectedOrder";
-import OrderModal from "../OrderModal/OrderModal";
 import Price from "../Price/Price";
 import OrderImages from "../OrderImages/OrderImages";
 import style from "./OrderElement.module.css";
 
 export default function OrderElement({ order }) {
   const dispatch = useDispatch();
-  const selectedOrder = useSelector(getSelectedOrderFromStore);
   const [ price, setPrice ] = useState(0);
   const [ images, setimages ] = useState([]);
   const ingredients = useSelector(getIngredientsFromStore);
@@ -57,10 +55,6 @@ export default function OrderElement({ order }) {
         <OrderImages images={images} />
         <Price price={price}/>
       </div>
-
-      {
-        selectedOrder && <OrderModal />
-      }
     </div>
   );
 }

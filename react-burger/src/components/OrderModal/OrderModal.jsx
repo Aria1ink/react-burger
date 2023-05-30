@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientImage from "../IngredientImage/IngredientImage";
-import { getIngredientsFromStore, getSelectedOrderFromStore, sortByID, getIngredientById } from "../../utils/tools";
+import { getIngredientsFromStore, getSelectedOrderFromStore, parseIngredients, getIngredientById } from "../../utils/tools";
 import Price from "../Price/Price";
 
 export default function OrderModal() {
-  const infredients = useSelector(getIngredientsFromStore);
+  const ingredients = useSelector(getIngredientsFromStore);
   const order = useSelector(getSelectedOrderFromStore);
   const [sortedIngredients, setSortedIngredients] = useState([]);
   const [summPrice, setSummPrice] = useState(0);
 
   useEffect( () => {
-    const tempIngredients = [];
-    const result = sortByID(order.ingredients);
-    console.log(result)
-    //setSortedIngredients(sortByType(tempIngredients));
+    const [tempSortedIngredients, tempSumm] = parseIngredients(order.ingredients, ingredients);
+    setSortedIngredients(tempSortedIngredients);
+    setSummPrice(tempSumm);
+    console.log(tempSortedIngredients)
   }, []);
 
   return(
@@ -28,12 +28,12 @@ export default function OrderModal() {
         {
           sortedIngredients.map( (ingredient, index) => {
             return(
-              <div>
-                <IngredientImage url={ingredient.image} />
-                <p> {ingredient.name} </p>
+              <div key={ingredient.element._id}>
+                <IngredientImage url={ingredient.element.image} />
+                <p> {ingredient.element.name} </p>
                 <div>
-                  <p> x </p>
-                  <Price price={ingredient.price} />
+                  <p> {ingredient.count} x </p>
+                  <Price price={ingredient.element.price} />
                 </div>
 
               </div>
