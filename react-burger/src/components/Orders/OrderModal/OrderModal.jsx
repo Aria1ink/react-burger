@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderIngredientImage from "../OrderIngredientImage/OrderIngredientImage";
 import { delSelectedOrder } from "../../../services/actions/selectedOrder";
@@ -11,6 +12,7 @@ import style from "./OrderModal.module.css";
 
 export default function OrderModal() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const ingredients = useSelector(getIngredientsFromStore);
   const order = useSelector(getSelectedOrderFromStore);
   const [sortedIngredients, setSortedIngredients] = useState([]);
@@ -27,8 +29,8 @@ export default function OrderModal() {
 
   return(
     <div className={style.orderContainer}>
-      <p className={style.orderNumber + " text text_type_digits-default pb-10"}> #{ order.number } </p>
-      <h2 className="text text_type_main-medium pb-3"> { order.name } </h2>
+      {!location.state && <p className={style.orderNumber + " text text_type_digits-default pb-10"}> #{ order.number } </p>}
+      <h2 className={"text text_type_main-medium pb-3" }> { order.name } </h2>
       <OrderStatus status={order.status} />
       <p className="text text_type_main-medium pt-15 pb-6"> Состав: </p>
       <div className={style.ingredientsContainer + " pr-6"}>

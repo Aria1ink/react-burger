@@ -33,7 +33,7 @@ export default function OrderList({orders}) {
       }
       {
         selectedOrder && 
-          <Modal title="" close={closeModal}>
+          <Modal title={"#" + selectedOrder.number} close={closeModal}>
             <OrderModal />
           </Modal>
       }
