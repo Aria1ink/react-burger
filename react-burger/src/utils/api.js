@@ -1,116 +1,60 @@
 import { urlHttps as url } from "../variables/connection";
 
 export const getIngredientsApi = () => {
-  return fetch(url + '/ingredients', {
-    headers: {'Content-Type': 'application/json'}
-  })
-  .then(checkPromiseResult)
+  return makeRequest('/ingredients','GET', null, null);
 };
 
 export const setOrderApi = (orderItemsId, token) => {
-  return fetch(url + '/orders', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'authorization': 'Bearer ' + token
-    },
-    body: JSON.stringify({
-      "ingredients": orderItemsId
-    })
-  })
-  .then(checkPromiseResult)
+  return makeRequest('/orders','POST', {'authorization': 'Bearer ' + token}, {"ingredients": orderItemsId});
 };
 
 export const registerUserApi = async (email, password, name) => {
-  return await fetch(url + '/auth/register', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      "email": email, 
-      "password": password, 
-      "name": name 
-    })
-  })
-  .then(await checkPromiseResult)
+  return makeRequest('/auth/register','POST', null, {"email": email, "password": password, "name": name });
 };
 
 export const loginUserApi = (email, password) => {
-  return fetch(url + '/auth/login', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      "email": email, 
-      "password": password
-    })
-  })
-  .then(checkPromiseResult)
+  return makeRequest('/auth/login','POST', null, {"email": email, "password": password});
 };
 
 export const refreshTokenApi = (token) => {
-  return fetch(url + '/auth/token', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      "token": token
-    })
-  })
-  .then(checkPromiseResult)
+  return makeRequest('/auth/token','POST', null, {"token": token});
 };
 
 export const getUserProfileApi = (token) => {
-  return fetch(url + '/auth/user', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'authorization': 'Bearer ' + token
-    }
-  })
-  .then(checkPromiseResult)
+  return makeRequest('/auth/user', 'GET', {'authorization': 'Bearer ' + token}, null);
 };
 
 export const setUserProfileApi = (token, data) => {
-  return fetch(url + '/auth/user', {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      'authorization': 'Bearer ' + token,
-    },
-    body: JSON.stringify(data)
-  })
-  .then(checkPromiseResult)
+  return makeRequest('/auth/user', 'PATCH', {'authorization': 'Bearer ' + token}, data);
 };
 
 export const resetPasswordApi = (email) => {
-  return fetch(url + '/password-reset', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      "email": email
-    })
-  })
-  .then(checkPromiseResult)
+  return makeRequest('/password-reset', 'POST', null, {"email": email});
 };
 
 export const saveResetPasswordApi = async (password, token) => {
-  return fetch(url + '/password-reset/reset', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      "password": password,
-      "token": token
-    })
-  })
-  .then(checkPromiseResult)
+  return makeRequest('/password-reset/reset', 'POST', null, {"password": password, "token": token});
 };
 
 export const logoutUserApi = (token) => {
-  return fetch(url + '/auth/logout', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      "token": token
-    })
-  })
+  return makeRequest('/auth/logout','POST', null, {"token": token});
+};
+
+const makeRequest = async (urlParams, method, headers, body) => {
+  let params = {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  if (headers) {
+    params.headers = {...params.headers, ...headers}
+  }
+  if (body) {
+    params.body = JSON.stringify(body);
+    };
+
+  return fetch(url + urlParams, params)
   .then(checkPromiseResult)
 };
 
