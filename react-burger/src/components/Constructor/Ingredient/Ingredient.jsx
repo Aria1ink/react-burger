@@ -6,11 +6,8 @@ import PropTypes from 'prop-types';
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import Price from "../../Price/Price";
 import style from "./Ingredient.module.css";
-import Modal from "../../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { setSelectedIngredient, delSelectedIngredient } from '../../../services/actions/ingredient';
+import { setSelectedIngredient } from '../../../services/actions/ingredient';
 import { getCartFromStore } from "../../../utils/tools/storeTools";
-import { getCurrentIngredientFromStore } from "../../../utils/tools/storeTools";
 
 export default function Ingredient (props) {
   const ingredient = props.ingredient; 
@@ -19,14 +16,9 @@ export default function Ingredient (props) {
   const dispatch = useDispatch();
   let tempCount = 0;
   const cart = useSelector(getCartFromStore);
-  const selectedIngredient = useSelector(getCurrentIngredientFromStore);
   const openIngredientDetails = (ingredient) => {
     dispatch(setSelectedIngredient(ingredient));
     navigate("/ingredients/"+ingredient._id, {replace: false, state: {from: "/"}});
-  };
-  const closeIngredientDetails = () => {
-    dispatch(delSelectedIngredient());
-    navigate("/");
   };
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
@@ -53,26 +45,19 @@ export default function Ingredient (props) {
   }, [cart]);
 
   return (
-    <>
-      <li 
-        ref={dragRef}
-        className={style.Ingredient + " pl-4 pb-4 pr-4"} 
-        key={ingredient._id} 
-        id= {ingredient._id} 
-        onClick={() => {openIngredientDetails(ingredient)}}
-        style={ !isDrag ? {opacity: "1"} : {opacity: "0.4", cursor: "grab"} }
-      >
-        {count > 0 && <Counter className="IngredientCounter" count={count} size="default" extraClass="m-1" />}
-        <img className={style.OrderIngredientImage} src={ingredient.image} alt={ingredient.name} />
-        <p className={style.IngredientTitle + " text text_type_main-default"}>{ingredient.name}</p>
-        <Price price={ingredient.price}/>
-      </li>
-      { selectedIngredient &&
-          (<Modal title="Детали ингредиента" close={closeIngredientDetails}>
-            <IngredientDetails />
-          </Modal>)
-        }
-    </>
+    <li 
+      ref={dragRef}
+      className={style.Ingredient + " pl-4 pb-4 pr-4"} 
+      key={ingredient._id} 
+      id= {ingredient._id} 
+      onClick={() => {openIngredientDetails(ingredient)}}
+      style={ !isDrag ? {opacity: "1"} : {opacity: "0.4", cursor: "grab"} }
+    >
+      {count > 0 && <Counter className="IngredientCounter" count={count} size="default" extraClass="m-1" />}
+      <img className={style.OrderIngredientImage} src={ingredient.image} alt={ingredient.name} />
+      <p className={style.IngredientTitle + " text text_type_main-default"}>{ingredient.name}</p>
+      <Price price={ingredient.price}/>
+    </li>
   );
 };
 
