@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
+import IngredientDetails from "../../components/Constructor/IngredientDetails/IngredientDetails";
 import Preloader from '../../components/Preloader/Preloader';
 import { setSelectedIngredient } from "../../services/actions/ingredient";
 import { getItemById, getCurrentIngredientFromStore, getIngredientsFromStore} from '../../utils/tools';

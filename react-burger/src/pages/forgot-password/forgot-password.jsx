@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigate, useLocation } from "react-router-dom"
-import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
+import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
 import { resetUserPassword } from "../../utils/user";
 
 export default function ForgotPasswordPage () {

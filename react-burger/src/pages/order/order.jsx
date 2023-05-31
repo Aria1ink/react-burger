@@ -4,7 +4,7 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { getSelectedOrderFromStore, getUserOrdersFromStore, getAllOrdersFromStore, getItemById } from "../../utils/tools";
 import { connectWS, disconnectWS } from "../../services/actions/ws";
 import { setSelectedOrder } from "../../services/actions/selectedOrder";
-import OrderModal from "../../components/OrderModal/OrderModal";
+import OrderModal from "../../components/Orders/OrderModal/OrderModal";
 import Preloader from "../../components/Preloader/Preloader";
 import style from "./order.module.css";
 

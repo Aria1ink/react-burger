@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { saveResetUserPassword } from "../../utils/user";
-import AuthInputForm from "../../components/AuthInputForm/AuthInputForm";
+import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
 
 export default function ResetPasswordPage () {
   const navigate = useNavigate();

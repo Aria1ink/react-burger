@@ -1,4 +1,4 @@
-const url = 'https://norma.nomoreparties.space/api';
+import { urlHttps as url } from "../variables/connection";
 
 export const getIngredientsApi = () => {
   return fetch(url + '/ingredients', {

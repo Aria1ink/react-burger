@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOrdersFromStore } from "../../utils/tools";
-import OrderList from "../../components/OrderList/OrderList";
-import OrderCounter from "../../components/OrderCounter/OrderCounter";
-import OrderStatusList from "../../components/OrderStatusList/OrderStatusList";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getAllOrdersFromStore, getItemById } from "../../utils/tools";
+import OrderList from "../../components/Orders/OrderList/OrderList";
+import OrderCounter from "../../components/Orders/OrderCounter/OrderCounter";
+import OrderStatusList from "../../components/Orders/OrderStatusList/OrderStatusList";
 import { connectWS, disconnectWS } from "../../services/actions/ws";
 import { sortByDate } from "../../utils/tools";
+import { setSelectedOrder } from "../../services/actions/selectedOrder";
 import Preloader from "../../components/Preloader/Preloader";
 import style from "./feed.module.css";
 
 export default function FeedPage() {
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const {orders, total, today} = useSelector(getAllOrdersFromStore);
   const [doneOrders, setDoneOrders] = useState([]);
   const [inWorkOrders, setInWorkOrders] = useState([]);
@@ -27,6 +32,14 @@ export default function FeedPage() {
   useEffect( () => {
     let tempDoneOrders = [];
     let tempInWorkOrders = [];
+    if (location.pathname.startsWith("/feed") && id && orders.length > 0) {
+      const tempOrder = getItemById(id, orders);
+      if (tempOrder) {
+        dispatch(setSelectedOrder(tempOrder));
+      } else {
+        navigate("/feed");
+      }
+    };
     setSortedOrders(sortByDate(orders));
     orders.forEach( (order) => {
       if (order.status === "done") {

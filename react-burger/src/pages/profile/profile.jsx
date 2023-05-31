@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
-import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
+import ProfileMenu from "../../components/Profile/ProfileMenu/ProfileMenu";
 import style from './profile.module.css';
 
 export default function ProfilePage () {

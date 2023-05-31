@@ -11,7 +11,7 @@ import PageNotFoundPage from "../../pages/page-not-found/page-not-found";
 import OnlyNoAuthRoute from "../Routes/OnlyNoAuthRoute";
 import AuthRequiredRoute from "../Routes/AuthRequiredRoute";
 import IngredientRoute from "../Routes/IngredientRoute";
-import ProfileEditForm from "../ProfileEditForm/ProfileEditForm";
+import ProfileEditForm from "../Profile/ProfileEditForm/ProfileEditForm";
 import OrdersPage from "../../pages/orders/orders";
 import FeedPage from "../../pages/feed/feed";
 import OrdersRoute from "../Routes/OrdersRoute";
