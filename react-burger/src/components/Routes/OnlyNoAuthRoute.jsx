@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getAuthUser } from "../../utils/tools";
+import { getAuthUser } from "../../utils/tools/storeTools";
 import PropTypes from "prop-types";
 import Preloader from "../Preloader/Preloader";
 

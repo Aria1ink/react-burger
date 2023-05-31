@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ChapterPanel.module.css";
 import { setActiveMenuTab } from "../../../services/actions/menu";
-import { getMenuStatusFromStore } from "../../../utils/tools";
+import { getMenuStatusFromStore } from "../../../utils/tools/storeTools";
 
 export default function ChapterPanel (props) {
   const currentMenu = useSelector(getMenuStatusFromStore);

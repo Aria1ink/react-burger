@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { signIn } from "../../utils/user";
+import { signIn } from "../../utils/tools/userTools";
 import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
 
 export default function LoginPage () {

@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import IngredientDetails from "../../components/Constructor/IngredientDetails/IngredientDetails";
 import Preloader from '../../components/Preloader/Preloader';
 import { setSelectedIngredient } from "../../services/actions/ingredient";
-import { getItemById, getCurrentIngredientFromStore, getIngredientsFromStore} from '../../utils/tools';
+import { getItemById } from '../../utils/tools/dataTools';
+import { getCurrentIngredientFromStore, getIngredientsFromStore} from '../../utils/tools/storeTools';
 
 export default function IngredientPage () {
   const { id } = useParams();

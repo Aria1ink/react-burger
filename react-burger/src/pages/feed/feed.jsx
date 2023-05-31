@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getAllOrdersFromStore, getItemById } from "../../utils/tools";
+import { getItemById } from "../../utils/tools/dataTools";
+import { getAllOrdersFromStore } from "../../utils/tools/storeTools";
 import OrderList from "../../components/Orders/OrderList/OrderList";
 import OrderCounter from "../../components/Orders/OrderCounter/OrderCounter";
 import OrderStatusList from "../../components/Orders/OrderStatusList/OrderStatusList";
 import { connectWS, disconnectWS } from "../../services/actions/ws";
-import { sortByDate } from "../../utils/tools";
+import { sortByDate } from "../../utils/tools/dataTools";
 import { setSelectedOrder } from "../../services/actions/selectedOrder";
 import Preloader from "../../components/Preloader/Preloader";
 import style from "./feed.module.css";

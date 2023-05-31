@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from 'react-router';
 import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
-import { signUp } from "../../utils/user"
+import { signUp } from "../../utils/tools/userTools"
 
 export default function RegisterPage () {
   const dispatch = useDispatch();

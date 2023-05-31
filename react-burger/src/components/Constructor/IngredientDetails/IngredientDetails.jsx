@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import style from "./IngredientDetails.module.css";
 import FoodEnergy from  '../FoodEnergy/FoodEnergy';
 import { delSelectedIngredient } from "../../../services/actions/ingredient";
-import { getCurrentIngredientFromStore } from "../../../utils/tools";
+import { getCurrentIngredientFromStore } from "../../../utils/tools/storeTools";
 
 
 export default function IngredientDetails () {

@@ -1,7 +1,8 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getAuthUser, getRefreshToken } from "../../utils/tools";
+import { getRefreshToken } from "../../utils/tools/tokenTools";
+import { getAuthUser } from "../../utils/tools/storeTools";
 import Preloader from "../Preloader/Preloader";
 import PropTypes from "prop-types";
 

@@ -5,7 +5,7 @@ import AppHeader from "../AppHeader/AppHeader";
 import { loadIngredients } from "../../services/actions/ingredients";
 import { loginUser } from "../../services/actions/auth";
 import style from "./Layout.module.css";
-import { getUserProfileWithCheck } from "../../utils/user";
+import { getUserProfileWithCheck } from "../../utils/tools/userTools";
 
 export default function Layout() {
   const dispatch = useDispatch();

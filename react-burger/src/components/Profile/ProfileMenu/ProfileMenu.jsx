@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signOut } from "../../../utils/user";
+import { signOut } from "../../../utils/tools/userTools";
 import style from "./ProfileMenu.module.css";
 
 export default function ProfileMenu () {

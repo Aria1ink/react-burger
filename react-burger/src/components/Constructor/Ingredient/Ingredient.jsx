@@ -9,8 +9,8 @@ import style from "./Ingredient.module.css";
 import Modal from "../../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { setSelectedIngredient, delSelectedIngredient } from '../../../services/actions/ingredient';
-import { getCartFromStore } from "../../../utils/tools";
-import { getCurrentIngredientFromStore } from "../../../utils/tools";
+import { getCartFromStore } from "../../../utils/tools/storeTools";
+import { getCurrentIngredientFromStore } from "../../../utils/tools/storeTools";
 
 export default function Ingredient (props) {
   const ingredient = props.ingredient; 

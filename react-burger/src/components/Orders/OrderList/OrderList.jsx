@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router";
 import OrderElement from "../OrderElement/OrderElement";
 import OrderModal from "../OrderModal/OrderModal";
 import Modal from "../../Modal/Modal";
-import { getSelectedOrderFromStore } from "../../../utils/tools";
+import { getSelectedOrderFromStore } from "../../../utils/tools/storeTools";
 import { delSelectedOrder } from "../../../services/actions/selectedOrder";
 import style from "./OrderList.module.css";
 

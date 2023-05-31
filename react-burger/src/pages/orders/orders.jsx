@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getUserOrdersFromStore } from "../../utils/tools";
+import { getUserOrdersFromStore } from "../../utils/tools/storeTools";
 import { connectWS, disconnectWS } from "../../services/actions/ws";
 import OrderList from '../../components/Orders/OrderList/OrderList';
-import { sortByDate, getItemById } from '../../utils/tools';
+import { sortByDate, getItemById } from '../../utils/tools/dataTools';
 import { setSelectedOrder } from '../../services/actions/selectedOrder';
 import Preloader from '../../components/Preloader/Preloader';
 import style from "./orders.module.css";

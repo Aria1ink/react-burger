@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getIngredientByName } from "../../../utils/tools";
+import { getIngredientByName } from "../../../utils/tools/dataTools";
 import Price from "../../Price/Price";
 import CartElement from "../CartElement/CartElement";
 import style from "./BurgerConstructor.module.css";
@@ -14,9 +14,7 @@ import OrderDetails from "../../Orders/OrderDetails/OrderDetails";
 import Preloader from "../../Preloader/Preloader";
 import { setCartDefault, setCartBun, addCartIngredient } from "../../../services/actions/cart";
 import { hideOrderModal } from "../../../services/actions/order";
-import { getIngredientsFromStore } from "../../../utils/tools";
-import { getOrderNumberFromStore } from "../../../utils/tools";
-import { getCartFromStore } from "../../../utils/tools";
+import { getCartFromStore, getIngredientsFromStore, getOrderNumberFromStore } from "../../../utils/tools/storeTools";
 
 export default function BurgerConstructor () {
   const [summ, setSumm] = useState(0);

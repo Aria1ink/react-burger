@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import Ingredient from "../Ingredient/Ingredient";
 import style from "./Chapter.module.css";
-import { getIngredientsFromStore } from "../../../utils/tools";
+import { getIngredientsFromStore } from "../../../utils/tools/storeTools";
 
 export default function Chapter (props) {
   const ingredients = useSelector(getIngredientsFromStore);

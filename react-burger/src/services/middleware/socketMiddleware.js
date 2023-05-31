@@ -1,5 +1,5 @@
-import { getAccessToken } from '../../utils/tools';
-import { refreshUserToken } from '../../utils/user';
+import { getAccessToken } from '../../utils/tools/tokenTools';
+import { refreshUserToken } from '../../utils/tools/userTools';
 import {
   WS_ORDERS_CONNECT,
   WS_ORDERS_SUCCESS,

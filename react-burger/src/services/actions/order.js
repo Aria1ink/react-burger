@@ -1,5 +1,5 @@
 import { setOrderApi } from '../../utils/api';
-import { getAccessToken } from '../../utils/tools';
+import { getAccessToken } from '../../utils/tools/tokenTools';
 
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const HIDE_ORDER = 'HIDE_ORDER';

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import { getSelectedOrderFromStore, getUserOrdersFromStore, getAllOrdersFromStore, getItemById } from "../../utils/tools";
+import { getItemById } from "../../utils/tools/dataTools";
+import { getSelectedOrderFromStore, getUserOrdersFromStore, getAllOrdersFromStore } from "../../utils/tools/storeTools";
 import { connectWS, disconnectWS } from "../../services/actions/ws";
 import { setSelectedOrder } from "../../services/actions/selectedOrder";
 import OrderModal from "../../components/Orders/OrderModal/OrderModal";

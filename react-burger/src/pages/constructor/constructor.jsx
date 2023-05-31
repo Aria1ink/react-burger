@@ -5,7 +5,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerIngredients from "../../components/Constructor/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../../components/Constructor/BurgerConstructor/BurgerConstructor";
-import { loadIngredientsStatus, getIngredientsFromStore, getItemById } from "../../utils/tools";
+import { loadIngredientsStatus, getIngredientsFromStore } from "../../utils/tools/storeTools";
+import { getItemById } from "../../utils/tools/dataTools";
 import { setSelectedIngredient } from "../../services/actions/ingredient";
 import Preloader from "../../components/Preloader/Preloader";
 

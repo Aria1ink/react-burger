@@ -6,8 +6,8 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { setUserProfile, getUserProfileWithCheck } from "../../../utils/user";
-import { getAuthUser } from "../../../utils/tools";
+import { setUserProfile, getUserProfileWithCheck } from "../../../utils/tools/userTools";
+import { getAuthUser } from "../../../utils/tools/storeTools";
 import style from './ProfileEditForm.module.css';
 
 export default function ProfileEditForm () {

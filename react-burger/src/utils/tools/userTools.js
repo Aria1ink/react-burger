@@ -6,19 +6,19 @@ import {
   resetPasswordApi, 
   saveResetPasswordApi, 
   setUserProfileApi,
-  logoutUserApi } from './api';
+  logoutUserApi } from '../api';
 import {  
   getAccessToken, 
   setAccessToken, 
   setRefreshToken, 
   getRefreshToken,
-  removeTokens } from './tools';
+  removeTokens } from './tokenTools';
 
 import {
   loginUser,
   logoutUser,
   setUser,
-  setAuthError } from '../services/actions/auth';
+  setAuthError } from '../../services/actions/auth';
 
 export const signUp = async (form, dispatch) => {
   const result = await registerUserApi(form.email, form.password, form.name)

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
-import { saveResetUserPassword } from "../../utils/user";
+import { saveResetUserPassword } from "../../utils/tools/userTools";
 import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
 
 export default function ResetPasswordPage () {
