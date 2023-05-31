@@ -6,7 +6,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { setUserProfile, getUserProfileWithCheck } from "../../../utils/tools/userTools";
+import { setUserProfile, getUserProfile, checkRequestToken } from "../../../utils/tools/userTools";
 import { getAuthUser } from "../../../utils/tools/storeTools";
 import style from './ProfileEditForm.module.css';
 
@@ -18,7 +18,7 @@ export default function ProfileEditForm () {
   const [password, setPassword] = useState({value: "******", status: false});
 
   useEffect( () => {
-    getUserProfileWithCheck(dispatch);
+    checkRequestToken(getUserProfile, dispatch);
   }, []);
 
   useEffect( () => {
@@ -38,7 +38,7 @@ export default function ProfileEditForm () {
     if (name.status) profile.name = name.value;
     if (email.status) profile.email = email.value;
     if (password.status) profile.password = password.value;
-    setUserProfile(profile, dispatch);
+    checkRequestToken(setUserProfile, dispatch, profile);
   };
 
   return (

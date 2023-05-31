@@ -75,7 +75,6 @@ export const refreshUserToken = async () => {
     const status = await refreshTokenApi(refreshToken)
       .then( (data) => {
         if (data.success) {
-          console.log(data)
           removeTokens();
           setAccessToken(data.accessToken)
           setRefreshToken(data.refreshToken);
@@ -102,9 +101,9 @@ export const resetUserPassword = async (email) => {
     })
     return status;
 };
-export const saveResetUserPassword = async (password, token) => {
-  token = token.replaceAll(' ','');
-  const status = await saveResetPasswordApi(password, token)
+export const saveResetUserPassword = async (password, emailToken) => {
+  emailToken = emailToken.replaceAll(' ','');
+  const status = await saveResetPasswordApi(password, emailToken)
     .then((data) => {
       return data && data.success === true;
     })
@@ -127,8 +126,8 @@ export const getUserProfile = async (dispatch) => {
     });
   return result;
 };
-export const getUserProfileWithCheck = async (dispatch) => {
-  let result = await getUserProfile(dispatch);
+export const checkRequestToken = async (callback, dispatch, params) => {
+  let result = await callback(dispatch, params);
   if (result) {
     return true;
   } else {
@@ -136,7 +135,7 @@ export const getUserProfileWithCheck = async (dispatch) => {
     if (refreshToken) {
       const refreshStatus = await refreshUserToken();
       if (refreshStatus) {
-        result = await getUserProfile(dispatch);
+        result = await callback(dispatch, params);
         if (result) {
           return true;
         } else {
@@ -152,8 +151,8 @@ export const getUserProfileWithCheck = async (dispatch) => {
       return false;
     }
   }
-};
-export const setUserProfile = async (userData, dispatch) => {
+}
+export const setUserProfile = async (dispatch, userData) => {
   setUserProfileApi(getAccessToken(), userData)
     .then((data) => {
       dispatch(setUser(data.user));

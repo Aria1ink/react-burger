@@ -5,14 +5,14 @@ import AppHeader from "../AppHeader/AppHeader";
 import { loadIngredients } from "../../services/actions/ingredients";
 import { loginUser } from "../../services/actions/auth";
 import style from "./Layout.module.css";
-import { getUserProfileWithCheck } from "../../utils/tools/userTools";
+import { getUserProfile, checkRequestToken } from "../../utils/tools/userTools";
 
 export default function Layout() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(loadIngredients());
-    getUserProfileWithCheck(dispatch)
+    checkRequestToken(getUserProfile, dispatch)
       .then( (result) => {
         if (result) {
           dispatch(loginUser());
