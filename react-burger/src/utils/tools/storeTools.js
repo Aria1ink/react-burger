@@ -8,3 +8,4 @@ export const getOrderNumberFromStore = store => store.order;
 export const getAuthUser = store => store.auth;
 export const getUserOrdersFromStore = store => store.ws.orders.orders;
 export const getAllOrdersFromStore = store => store.ws.feed;
+export const getWSStatusFromStore = store => store.ws.status;

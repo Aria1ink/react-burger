@@ -1,120 +1,76 @@
 import { getAccessToken } from '../../utils/tools/tokenTools';
 import { refreshUserToken } from '../../utils/tools/userTools';
-import {
-  WS_ORDERS_CONNECT,
-  WS_ORDERS_SUCCESS,
-  WS_ORDERS_DISCONNECT,
-  WS_ORDERS_GET_MESSAGE,
-  WS_FEED_CONNECT,
-  WS_FEED_SUCCESS,
-  WS_FEED_DISCONNECT,
-  WS_FEED_GET_MESSAGE
-} from '../actions/ws';
+import { signOut } from '../../utils/tools/userTools';
 
-export const socketMiddleware = wsUrl => {
+export const socketMiddleware = (wsUrl, wsActions) => {
     return store => {
-      let socketOrders = null;
-      let socketFeed = null;
+      let socket = null
 
-      return next => action => {
-        const { dispatch,  } = store;
-        const { type,  } = action;
+      return (next) => (action) => {
+        const { dispatch } = store;
+        const { type, } = action;
+        const { wsInit, onOpen, onClose, onMessage } =
+          wsActions;
   
-        if (type === WS_FEED_CONNECT) {
-          socketFeed = new WebSocket(wsUrl + '/all');
-        }
-        if (type === WS_ORDERS_CONNECT) {
-          socketOrders = new WebSocket(wsUrl + '?token=' + getAccessToken());
-        }
-
-        if (socketOrders) {
-          socketOrders.onopen = event => {
-            dispatch({ type: WS_ORDERS_SUCCESS, payload: event });
-          };
-          socketOrders.onerror = event => {
-            console.log(event);
-            socketOrders.close();
-          };
-          socketOrders.onmessage = event => {
-            let data = JSON.parse(event.data);
-            if (!data.success) {
-              if (data.message === 'Invalid or missing token') {
-                socketOrders.close();
-                refreshUserToken()
-                  .then((status) => {
-                    if (status && getAccessToken()){
-                      dispatch({ type: WS_ORDERS_CONNECT });
-                    } else {
-                      socketOrders.close();
-                    };
-                  })
-                  .catch((e) => {
-                    console.log(e);
-                  });
-              };
-            } else {
-              if (data.orders.length > 0) {
-                let orders = data.orders.reverse();
-                dispatch({
-                  type: WS_ORDERS_GET_MESSAGE,
-                  payload: orders,
-                });
-            };
-            };
-          };
-          socketOrders.onclose = () => {
-            dispatch({ type: WS_ORDERS_DISCONNECT });
-          };
-
-          if (type === WS_ORDERS_DISCONNECT) {
-            socketOrders.close();
-          };
-        };
-        if (socketFeed) {
-          socketFeed.onopen = event => {
-            dispatch({ type: WS_FEED_SUCCESS, payload: event });
-          };
-          socketFeed.onerror = event => {
-            console.log(event);
-            socketFeed.close();
-          };
-          socketFeed.onmessage = event => {
-            let data = JSON.parse(event.data);
-            if (!data.success) {
-              if (data.message === 'Invalid or missing token') {
-                socketFeed.close();
-                refreshUserToken()
-                  .then((status) => {
-                    if (status){
-                      dispatch({ type: WS_FEED_CONNECT });
-                    } else {
-                      socketFeed.close();
-                    };
-                  })
-                  .catch((e) => {
-                    console.log(e);
-                  });
-              };
-            } else {
-              if (data.orders.length > 0) {
-                let orders = data.orders.reverse();
-                dispatch({
-                  type: WS_FEED_GET_MESSAGE,
-                  payload: {orders: orders, total: data.total, today: data.totalToday},
-                });
-            };
-            };
-          };
-          socketFeed.onclose = event => {
-            dispatch({ type: WS_FEED_DISCONNECT });
-          };
-
-          if (type === WS_FEED_DISCONNECT) {
-            socketFeed.close();
+        if (type === wsInit) {
+          if (wsInit === "WS_ORDERS_CONNECT") {
+            wsUrl = wsUrl + '?token=' + getAccessToken();
           }
-        };
+          if (socket) {
+            console.log('close')
+            socket.close();
+          }
+          socket = new WebSocket(wsUrl);
+        }
+  
+        if (socket) {
+          socket.onopen = (event) => {
+            dispatch({ type: onOpen, payload: event });
+          };
+  
+          socket.onerror = (event) => {
+            socket.close();
+          };
+  
+          socket.onmessage = (event) => {
+            console.log(onMessage)
+            let data = JSON.parse(event.data);
+            if (!data.success) {
+              if (data.message === 'Invalid or missing token') {
+                socket.close();
+                refreshUserToken()
+                  .then((status) => {
+                    console.log(status)
+                    if (status && getAccessToken()){
+                      console.log('ok')
+                      dispatch({ type: wsInit });
+                    } else {
+                      socket.close();
+                      signOut(dispatch);
+                    };
+                  })
+                  .catch((e) => {
+                    console.log(e);
+                  });
+              };
+            } else {
+              if (data.orders.length > 0) {
+                dispatch({ type: onMessage, payload: data });
+            };
+            };  
+          };
+  
+          socket.onclose = (event) => {
+            console.log(onClose)
+            dispatch({ type: onClose, payload: event });
+          };
 
+          if (type === onClose) {
+            socket.close();
+          };
+        }
+  
         next(action);
       };
     };
-}; 
+};

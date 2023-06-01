@@ -17,11 +17,11 @@ export default function OrderList({orders}) {
   const closeModal = () => {
     dispatch(delSelectedOrder());
     if (location.pathname.startsWith("/feed")) {
-      navigate("/feed");
+      navigate("/feed", {state: {from: "modal"}} );
     }
     if (location.pathname.startsWith("/profile/orders")) {
-      navigate("/profile/orders");
-    }
+      navigate("/profile/orders", {state: {from: "modal"}});
+    } 
   };
   
   return(

@@ -139,15 +139,15 @@ export const checkRequestToken = async (callback, dispatch, params) => {
         if (result) {
           return true;
         } else {
-          dispatch(logoutUser());
+          signOut(dispatch);
           return false;
         }
       } else {
-        dispatch(logoutUser());
+        signOut(dispatch);
         return false;
       }
     } else {
-      dispatch(logoutUser());
+      signOut(dispatch);
       return false;
     }
   }

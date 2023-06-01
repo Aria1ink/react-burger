@@ -21,7 +21,7 @@ export default function OrdersPage(){
     dispatch(connectWS('orders'));
 
     return () => {
-      dispatch(disconnectWS('feed'));
+      dispatch(disconnectWS('orders'));
     };
   }, []);
 
