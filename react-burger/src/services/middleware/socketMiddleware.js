@@ -17,7 +17,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
             wsUrl = wsUrl + '?token=' + getAccessToken();
           }
           if (socket) {
-            console.log('close')
             socket.close();
           }
           socket = new WebSocket(wsUrl);
@@ -33,16 +32,13 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           };
   
           socket.onmessage = (event) => {
-            console.log(onMessage)
             let data = JSON.parse(event.data);
             if (!data.success) {
               if (data.message === 'Invalid or missing token') {
                 socket.close();
                 refreshUserToken()
                   .then((status) => {
-                    console.log(status)
                     if (status && getAccessToken()){
-                      console.log('ok')
                       dispatch({ type: wsInit });
                     } else {
                       socket.close();
@@ -61,7 +57,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           };
   
           socket.onclose = (event) => {
-            console.log(onClose)
             dispatch({ type: onClose, payload: event });
           };
 
