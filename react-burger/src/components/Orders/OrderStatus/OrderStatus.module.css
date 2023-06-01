@@ -1,0 +1,9 @@
+.done {
+  box-sizing: border-box;
+  width: max-content;
+  color: rgba(0, 204, 204, 1);
+}
+.paragraph {
+  box-sizing: border-box;
+  width: max-content;
+}

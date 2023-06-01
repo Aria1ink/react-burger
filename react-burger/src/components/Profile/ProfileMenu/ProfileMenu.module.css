@@ -1,0 +1,24 @@
+.ProfileMenuActive {
+  color: rgba(242, 242, 243, 1);
+}
+.ProfileMenuButton {
+  background-color: transparent;
+  text-decoration: none;
+  border: none;
+  height: 64px;
+  text-align: left;
+}
+.ProfileMenuButton:hover {
+  cursor: pointer;
+  color: rgba(242, 242, 243, 1);
+}
+.ProfileMenuContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-decoration: none;
+  list-style: none;
+  padding-bottom: 80px;
+  padding-top: 120px;
+}

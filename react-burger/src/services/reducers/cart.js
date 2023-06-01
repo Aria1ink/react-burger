@@ -7,11 +7,8 @@ import {
 } from '../actions/cart';
 
 const defaultState = {
-  bun: {},
-  others: [
-    { cartId: '',
-      ingredient: {}
-    }]
+  bun: null,
+  others: []
 };
 
 export default function constructorReducer (state = defaultState, action) {

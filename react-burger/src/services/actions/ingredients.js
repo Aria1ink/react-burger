@@ -19,7 +19,7 @@ export const loadIngredients = () => {
     )
     .catch((err) => {
       dispatch(setIngredientsStatusFail());
-      console.log(err);
+      console.log(`Ошибка: ${err}`);
     });
   }
 };

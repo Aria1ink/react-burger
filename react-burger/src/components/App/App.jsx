@@ -1,35 +1,45 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import style from "./App.module.css";
-import { loadIngredients } from "../../services/actions/ingredients";
-import { loadIngredientsStatus } from "../../utils/tools";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from "../Layout/Layout";
+import ConstructorPage from '../../pages/constructor/constructor';
+import LoginPage from "../../pages/login/login";
+import RegisterPage from "../../pages/register/register";
+import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
+import ResetPasswordPage from "../../pages/reset-password/reset-password";
+import ProfilePage from "../../pages/profile/profile";
+import PageNotFoundPage from "../../pages/page-not-found/page-not-found";
+import OnlyNoAuthRoute from "../Routes/OnlyNoAuthRoute";
+import AuthRequiredRoute from "../Routes/AuthRequiredRoute";
+import IngredientRoute from "../Routes/IngredientRoute";
+import ProfileEditForm from "../Profile/ProfileEditForm/ProfileEditForm";
+import OrdersPage from "../../pages/orders/orders";
+import FeedPage from "../../pages/feed/feed";
+import OrdersRoute from "../Routes/OrdersRoute";
 
 export default function App () {
-  const dispatch = useDispatch();
-  const status = useSelector(loadIngredientsStatus);
-
-  useEffect(() => {
-    dispatch(loadIngredients());
-  }, []);
-
-  if (status === 'loading') return (<div>Загрузка...</div>);
-  if (status === 'failed') return (<div>Ошибка подключения к базе данных.</div>);
 
   return (
     <>
-      <AppHeader />
-      <main className={style.AppMain + " pb-10"}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
-      <footer></footer>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<ConstructorPage />}/>
+            <Route path="login" element={<OnlyNoAuthRoute element={<LoginPage />} />} />
+            <Route path="register" element={<OnlyNoAuthRoute element={<RegisterPage />} />} />
+            <Route path="forgot-password" element={<OnlyNoAuthRoute element={<ForgotPasswordPage />} />} />
+            <Route path="reset-password" element={<OnlyNoAuthRoute element={<ResetPasswordPage />} />} />
+            <Route path="profile" element={<AuthRequiredRoute element={<ProfilePage />} />}>
+              <Route index element={<ProfileEditForm />}/>
+              <Route path="orders" element={<AuthRequiredRoute element={<OrdersPage />} />} />
+              <Route path="orders/:id" element={<OrdersRoute />}/>
+            </Route>
+            <Route path="ingredients/:id" element={<IngredientRoute />}/>
+            <Route path="feed" element={<FeedPage />} />
+            <Route path="feed/:id" element={<OrdersRoute />}/>
+            <Route path="*" element={<PageNotFoundPage />}/>
+          </Route>
+        </Routes>
+      </Router>
     </>
   );
 };
