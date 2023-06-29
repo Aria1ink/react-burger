@@ -12,8 +12,8 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         const { wsInit, onOpen, onClose, onMessage } =
           wsActions;
   
-        if (type === wsInit) {
-          if (wsInit === "WS_ORDERS_CONNECT") {
+        if (type === wsInit.type) {
+          if (wsInit.type === "ws/wsOrdersConnect") {
             wsUrl = wsUrl + '?token=' + getAccessToken();
           }
           if (socket) {
@@ -24,7 +24,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
   
         if (socket) {
           socket.onopen = (event) => {
-            dispatch({ type: onOpen, payload: event });
+            dispatch(onOpen());
           };
   
           socket.onerror = (event) => {
@@ -39,7 +39,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
                 refreshUserToken()
                   .then((status) => {
                     if (status && getAccessToken()){
-                      dispatch({ type: wsInit });
+                      dispatch(wsInit());
                     } else {
                       socket.close();
                       signOut(dispatch);
@@ -51,16 +51,17 @@ export const socketMiddleware = (wsUrl, wsActions) => {
               };
             } else {
               if (data.orders.length > 0) {
-                dispatch({ type: onMessage, payload: data });
+                console.log(data)
+                dispatch(onMessage(data));
             };
             };  
           };
   
           socket.onclose = (event) => {
-            dispatch({ type: onClose, payload: event });
+            dispatch(onClose());
           };
 
-          if (type === onClose) {
+          if (type === onClose.type) {
             socket.close();
           };
         }

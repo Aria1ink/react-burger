@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getItemById } from "../../../utils/tools/dataTools";
 import { getIngredientsFromStore } from "../../../utils/tools/storeTools";
-import { setSelectedOrder } from "../../../services/actions/selectedOrder";
+import { setSelectedOrder } from "../../../services/slices/selectedOrder";
 import Price from "../../Price/Price";
 import OrderStatus from "../OrderStatus/OrderStatus";
 import OrderImages from "../OrderImages/OrderImages";

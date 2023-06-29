@@ -3,10 +3,21 @@ import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { delCartIngredient, moveCartIngredient } from "../../../services/actions/cart";
+import { removeIngredient, moveIngredient } from "../../../services/slices/cart";
 import style from "./CartElement.module.css";
-
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-export default function CartElement(props) {
+import { CartIngredient, Ingredient } from "../../../services/types/ingredients";
+type props = {
+  className?: string;
+  key: string;
+  type?: "top" | "bottom";
+  isLocked: boolean;
+  item: Ingredient;
+  addStyle?: string;
+  id?: string;
+};
+
+export default function CartElement(props: props) {
   const ingredient = props.item;
   const cartId = props.id;
   const dispatch = useDispatch();
@@ -19,15 +30,17 @@ export default function CartElement(props) {
   });
   const [, dropTarget] = useDrop({
     accept: "cartItem",
-    drop(item) {
+    drop(item: CartIngredient) {
       onDropHandler(item);
     },
   });
-  const onDropHandler = (item) => {
-    dispatch(moveCartIngredient(item.cartId, cartId, item));
+  const onDropHandler = (item: CartIngredient) => {
+    if (cartId) {
+      dispatch(moveIngredient({from: item.cartId, to: cartId, ingredient: item}));
+    };
   };
-  const removeCartItem = (cartId) => {
-    dispatch(delCartIngredient(cartId));
+  const removeCartItem = (cartId: string) => {
+    dispatch(removeIngredient(cartId));
   };
 
   return (              
@@ -41,16 +54,13 @@ export default function CartElement(props) {
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
-        className={props.addStyle}
-        handleClose=
-        { ingredient.type !== "bun" && (() => {removeCartItem(cartId, ingredient._id)})}
+        //className={props.addStyle || undefined}   ???????
+        handleClose= {(() => {
+          if (cartId) {
+          removeCartItem(cartId);
+          }
+        })}
       />
     </li>
   );
 };
-CartElement.propTypes = {
-  type: PropTypes.string.isRequired,
-  addStyle: PropTypes.string,
-  isLocked: PropTypes.bool.isRequired,
-  item: PropTypes.object.isRequired
-}; 

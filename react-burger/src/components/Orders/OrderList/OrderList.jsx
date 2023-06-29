@@ -7,6 +7,7 @@ import OrderModal from "../OrderModal/OrderModal";
 import Modal from "../../Modal/Modal";
 import { getSelectedOrderFromStore } from "../../../utils/tools/storeTools";
 import { delSelectedOrder } from "../../../services/actions/selectedOrder";
+import { clearSelectedOrder } from "../../../services/slices/selectedOrder";
 import style from "./OrderList.module.css";
 
 export default function OrderList({orders}) {
@@ -15,7 +16,7 @@ export default function OrderList({orders}) {
   const location = useLocation();
   const selectedOrder = useSelector(getSelectedOrderFromStore);
   const closeModal = () => {
-    dispatch(delSelectedOrder());
+    dispatch(clearSelectedOrder());
     if (location.pathname.startsWith("/feed")) {
       navigate("/feed", {state: {from: "modal"}} );
     }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Logo, 
@@ -8,7 +8,7 @@ import {
 import style from "./AppHeader.module.css";
 
 export default function AppHeader () {
-  const [current, setCurrent] = React.useState("constructor");
+  const [current, setCurrent] = useState<string>("constructor");
   const location = useLocation();
 
   useEffect(() => {

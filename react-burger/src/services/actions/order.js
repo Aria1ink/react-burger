@@ -1,5 +1,6 @@
 import { setOrderApi } from '../../utils/api';
 import { getAccessToken } from '../../utils/tools/tokenTools';
+import { getOrderSuccess, setOrderError, setOrderRequest } from '../slices/order';
 
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const HIDE_ORDER = 'HIDE_ORDER';
@@ -13,15 +14,15 @@ export const uploadOrder = () => ({ type: GET_ORDER_REQUEST });
 
 export const createOrder = (orderItemsId) => {
   return (dispatch) => {
-    dispatch(uploadOrder());
+    dispatch(setOrderRequest());
     setOrderApi(orderItemsId, getAccessToken())
     .then(
       (data) => {
-        dispatch(setOrderId(data.order.number));
+        dispatch(getOrderSuccess(data.order.number));
       }
     )
     .catch((err) => {
-      dispatch(returnOrderError());
+      dispatch(setOrderError());
       console.log(`Ошибка: ${err}`);
     });
   }

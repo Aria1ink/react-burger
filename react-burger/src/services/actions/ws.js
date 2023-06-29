@@ -7,7 +7,7 @@ export const WS_ORDERS_DISCONNECT = 'WS_ORDERS_DISCONNECT';
 export const WS_FEED_DISCONNECT = 'WS_FEED_DISCONNECT';
 export const WS_FEED_CONNECT = 'WS_FEED_CONNECT';
 export const WS_FEED_GET_MESSAGE = 'WS_FEED_GET_MESSAGE';
-
+/*
 export const userOrdersActions = {
   wsInit: WS_ORDERS_CONNECT,
   onOpen: WS_ORDERS_SUCCESS, 
@@ -19,6 +19,19 @@ export const allOrdersActions = {
   onOpen: WS_FEED_SUCCESS, 
   onClose: WS_FEED_DISCONNECT, 
   onMessage: WS_FEED_GET_MESSAGE, 
+};
+*/
+export const userOrdersActions = {
+  wsInit: "ws/wsOrdersConnect",
+  onOpen: "ws/wsOrdersSuccess", 
+  onClose: "ws/wsOrdersDisconnect", 
+  onMessage: "ws/wsOrdersGetMessage", 
+};
+export const allOrdersActions = {
+  wsInit: "ws/wsFeedConnect",
+  onOpen: "ws/wsFeedSuccess", 
+  onClose: "ws/wsFeedDisconnect", 
+  onMessage: "ws/wsFeedGetMessage", 
 };
 
 export const connectWS = (page) => {

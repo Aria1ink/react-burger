@@ -13,12 +13,11 @@ import {
   setRefreshToken, 
   getRefreshToken,
   removeTokens } from './tokenTools';
+import { login, logout, setUser, setAuthError } from '../../services/slices/auth';
 
 import {
   loginUser,
-  logoutUser,
-  setUser,
-  setAuthError } from '../../services/actions/auth';
+  logoutUser } from '../../services/actions/auth';
 
 export const signUp = async (form, dispatch) => {
   const result = await registerUserApi(form.email, form.password, form.name)
@@ -28,7 +27,7 @@ export const signUp = async (form, dispatch) => {
         setRefreshToken(data.refreshToken);
         if (data.success) {
           dispatch(setUser(data.user));
-          dispatch(loginUser());
+          dispatch(login());
           return true;
         };
       };
@@ -50,7 +49,7 @@ export const signIn = async (form, dispatch) => {
         setRefreshToken(data.refreshToken);
         if (data.success) {
           dispatch(setUser(data.user));
-          dispatch(loginUser());
+          dispatch(login());
           return true;
         };
       };
@@ -66,7 +65,7 @@ export const signIn = async (form, dispatch) => {
 };
 export const signOut = async (dispatch) => {
   logoutUserApi(getRefreshToken());
-  dispatch(logoutUser());
+  dispatch(logout());
   removeTokens();
 };
 export const refreshUserToken = async () => {

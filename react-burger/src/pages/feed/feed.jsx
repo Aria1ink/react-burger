@@ -8,8 +8,9 @@ import OrderCounter from "../../components/Orders/OrderCounter/OrderCounter";
 import OrderStatusList from "../../components/Orders/OrderStatusList/OrderStatusList";
 import { connectWS, disconnectWS } from "../../services/actions/ws";
 import { sortByDate } from "../../utils/tools/dataTools";
-import { setSelectedOrder } from "../../services/actions/selectedOrder";
+import { setSelectedOrder } from "../../services/slices/selectedOrder";
 import Preloader from "../../components/Preloader/Preloader";
+import { wsFeedConnect, wsFeedDisconnect } from "../../services/slices/ws";
 import style from "./feed.module.css";
 
 export default function FeedPage() {
@@ -17,16 +18,16 @@ export default function FeedPage() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const {orders, total, today} = useSelector(getAllOrdersFromStore);
+  const {orders, total, totalToday} = useSelector(getAllOrdersFromStore);
   const [doneOrders, setDoneOrders] = useState([]);
   const [inWorkOrders, setInWorkOrders] = useState([]);
   const [sortedOrders, setSortedOrders] = useState([]);
 
   useEffect( () => {
-    dispatch(connectWS('feed'));
+    dispatch(wsFeedConnect());
 
     return () => {
-      dispatch(disconnectWS('feed'));
+      dispatch(wsFeedDisconnect());
     };
   }, []);
 
@@ -41,18 +42,20 @@ export default function FeedPage() {
         navigate("/feed");
       }
     };
-    setSortedOrders(sortByDate(orders));
-    orders.forEach( (order) => {
-      if (order.status === "done") {
-        tempDoneOrders.push(order.number);
-      } else {
-        tempInWorkOrders.push(order.number);
-      }
-    });
-    setDoneOrders(tempDoneOrders);
-    setInWorkOrders(tempInWorkOrders);
-    tempDoneOrders = [];
-    tempInWorkOrders = [];
+    if (orders?.length > 0) {
+      setSortedOrders(sortByDate(orders));
+      orders.forEach( (order) => {
+        if (order.status === "done") {
+          tempDoneOrders.push(order.number);
+        } else {
+          tempInWorkOrders.push(order.number);
+        }
+      });
+      setDoneOrders(tempDoneOrders);
+      setInWorkOrders(tempInWorkOrders);
+      tempDoneOrders = [];
+      tempInWorkOrders = [];
+    }
   }, [orders]);
 
   if (sortedOrders.length === 0) {
@@ -72,7 +75,7 @@ export default function FeedPage() {
           <OrderStatusList title="В работе:" numbers={ inWorkOrders } />
         </div>
         <OrderCounter title="Выполнено за все время:" number={total} />
-        <OrderCounter title="Выполнено за сегодня:" number={today} />
+        <OrderCounter title="Выполнено за сегодня:" number={totalToday} />
       </div>
     </div>
   );

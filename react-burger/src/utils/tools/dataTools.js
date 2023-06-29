@@ -13,7 +13,8 @@ export const getIngredientByName = (name, data) => {
     };
   };
 };
-export const sortByDate = (data) => {
+export const sortByDate = (arr) => {
+  const data = [...arr];
   return(
     data.sort( (a, b) => {
       return new Date(b.createdAt) - new Date(a.createdAt);

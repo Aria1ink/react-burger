@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import IngredientDetails from "../../components/Constructor/IngredientDetails/IngredientDetails";
 import Preloader from '../../components/Preloader/Preloader';
 import { setSelectedIngredient } from "../../services/actions/ingredient";
+import { setIngredient } from '../../services/slices/ingredient';
 import { getItemById } from '../../utils/tools/dataTools';
 import { getCurrentIngredientFromStore, getIngredientsFromStore} from '../../utils/tools/storeTools';
 
@@ -18,7 +19,7 @@ export default function IngredientPage () {
     if (ingredients.length > 0) {
       const ingredient = getItemById(id, ingredients);
       if (ingredient) {
-        dispatch(setSelectedIngredient(ingredient));
+        dispatch(setIngredient(ingredient));
       } else {
         navigate("/");
       }

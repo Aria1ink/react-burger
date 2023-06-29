@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderIngredientImage from "../OrderIngredientImage/OrderIngredientImage";
 import { delSelectedOrder } from "../../../services/actions/selectedOrder";
+import { clearSelectedOrder } from "../../../services/slices/selectedOrder";
 import { parseIngredients } from "../../../utils/tools/dataTools";
 import { getIngredientsFromStore, getSelectedOrderFromStore } from "../../../utils/tools/storeTools";
 import Price from "../../Price/Price";
@@ -23,7 +24,7 @@ export default function OrderModal() {
     setSortedIngredients(tempSortedIngredients);
     setSummPrice(tempSumm);
     return () => {
-      dispatch(delSelectedOrder());
+      dispatch(clearSelectedOrder());
     }
   }, []);
 

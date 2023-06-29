@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import style from "./IngredientDetails.module.css";
 import FoodEnergy from  '../FoodEnergy/FoodEnergy';
+import { clearIngredient } from "../../../services/slices/ingredient";
 import { delSelectedIngredient } from "../../../services/actions/ingredient";
 import { getCurrentIngredientFromStore } from "../../../utils/tools/storeTools";
 
@@ -12,7 +13,7 @@ export default function IngredientDetails () {
 
   useEffect( () => {
     return () => {
-      dispatch(delSelectedIngredient());
+      dispatch(clearIngredient());
     }
   }, [])
 

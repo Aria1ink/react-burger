@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import Price from "../../Price/Price";
 import style from "./Ingredient.module.css";
+import { setIngredient } from "../../../services/slices/ingredient";
 import { setSelectedIngredient } from '../../../services/actions/ingredient';
 import { getCartFromStore } from "../../../utils/tools/storeTools";
 
@@ -17,7 +18,7 @@ export default function Ingredient (props) {
   let tempCount = 0;
   const cart = useSelector(getCartFromStore);
   const openIngredientDetails = (ingredient) => {
-    dispatch(setSelectedIngredient(ingredient));
+    dispatch(setIngredient(ingredient));
     navigate("/ingredients/"+ingredient._id, {replace: false, state: {from: "/"}});
   };
   const [{isDrag}, dragRef] = useDrag({
@@ -29,7 +30,7 @@ export default function Ingredient (props) {
   });
 
   useEffect(() => {
-    if (cart.others.length > 0 && cart.bun !== null) {
+    if (cart.others?.length > 0 && cart.bun !== null) {
       if (cart.bun._id === ingredient._id) {
         ++tempCount;
       } else {

@@ -4,9 +4,10 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { getItemById } from "../../utils/tools/dataTools";
 import { getSelectedOrderFromStore, getUserOrdersFromStore, getAllOrdersFromStore } from "../../utils/tools/storeTools";
 import { connectWS, disconnectWS } from "../../services/actions/ws";
-import { setSelectedOrder } from "../../services/actions/selectedOrder";
+import { setSelectedOrder } from "../../services/slices/selectedOrder";
 import OrderModal from "../../components/Orders/OrderModal/OrderModal";
 import Preloader from "../../components/Preloader/Preloader";
+import { wsFeedConnect, wsFeedDisconnect, wsOrdersConnect, wsOrdersDisconnect } from "../../services/slices/ws";
 import style from "./order.module.css";
 
 export default function OrderPage() {
@@ -21,9 +22,9 @@ export default function OrderPage() {
 
   useEffect( () => {
     if (location.pathname.startsWith("/feed")) {
-      dispatch(connectWS("feed"));
+      dispatch(wsFeedConnect());
     } else if (location.pathname.startsWith("/profile/orders")) {
-      dispatch(connectWS("orders"));
+      dispatch(wsOrdersConnect());
     }
   }, []);
 
@@ -35,7 +36,7 @@ export default function OrderPage() {
       } else {
         dispatch(setSelectedOrder(tempOrder));
       }
-      dispatch(disconnectWS("feed"));
+      dispatch(wsFeedDisconnect());
     }
   }, [orders]);
   
@@ -47,7 +48,7 @@ export default function OrderPage() {
       } else {
         dispatch(setSelectedOrder(tempOrder));
       }
-      dispatch(disconnectWS("orders"));
+      dispatch(wsOrdersDisconnect());
     }
   }, [userOrders]);
 

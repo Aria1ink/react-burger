@@ -5,8 +5,9 @@ import { getUserOrdersFromStore } from "../../utils/tools/storeTools";
 import { connectWS, disconnectWS } from "../../services/actions/ws";
 import OrderList from '../../components/Orders/OrderList/OrderList';
 import { sortByDate, getItemById } from '../../utils/tools/dataTools';
-import { setSelectedOrder } from '../../services/actions/selectedOrder';
+import { setSelectedOrder } from '../../services/slices/selectedOrder';
 import Preloader from '../../components/Preloader/Preloader';
+import { wsOrdersConnect, wsOrdersDisconnect } from '../../services/slices/ws';
 import style from "./orders.module.css";
 
 export default function OrdersPage(){
@@ -18,15 +19,17 @@ export default function OrdersPage(){
   const [sortedOrders, setSortedOrders] = useState([]);
 
   useEffect( () => {
-    dispatch(connectWS('orders'));
+    dispatch(wsOrdersConnect());
 
     return () => {
-      dispatch(disconnectWS('orders'));
+      dispatch(wsOrdersDisconnect());
     };
   }, []);
 
   useEffect( () => {
-    setSortedOrders(sortByDate(orders));
+    if (orders?.length > 0) {
+      setSortedOrders(sortByDate(orders));
+    }
     if (location.pathname.startsWith("/profile/orders") && id && orders.length > 0) {
       const tempOrder = getItemById(id, orders);
       if (tempOrder) {

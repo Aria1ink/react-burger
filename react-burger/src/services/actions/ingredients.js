@@ -1,4 +1,5 @@
 import { getIngredientsApi } from '../../utils/api';
+import { setIngredientsSuccess, setIngredientsRequest, setIngredientsError } from '../slices/ingredients';
 
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR';
@@ -10,15 +11,15 @@ export const setIngredientsStatusFail = () => ({ type: GET_INGREDIENTS_REQUEST})
 
 export const loadIngredients = () => {
   return (dispatch) => {
-    dispatch(setIngredientsStatusLoading());
+    dispatch(setIngredientsRequest());
     getIngredientsApi()
     .then(
       (data) => {
-        dispatch(setIngredientsStatusLoaded(data.data));
+        dispatch(setIngredientsSuccess(data.data));
       }
     )
     .catch((err) => {
-      dispatch(setIngredientsStatusFail());
+      dispatch(setIngredientsError());
       console.log(`Ошибка: ${err}`);
     });
   }

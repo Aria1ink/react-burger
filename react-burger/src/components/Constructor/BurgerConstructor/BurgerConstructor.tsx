@@ -1,4 +1,5 @@
 import React, {useEffect, useState } from "react";
+import type { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
@@ -8,66 +9,70 @@ import Price from "../../Price/Price";
 import CartElement from "../CartElement/CartElement";
 import style from "./BurgerConstructor.module.css";
 import { selectedIngredient } from "../../../variables/data";
-import { createOrder } from "../../../services/actions/order";
+//import { createOrder } from "../../../services/slices/order";
 import Modal from "../../Modal/Modal";
 import OrderDetails from "../../Orders/OrderDetails/OrderDetails";
 import Preloader from "../../Preloader/Preloader";
-import { setCartDefault, setCartBun, addCartIngredient } from "../../../services/actions/cart";
-import { hideOrderModal } from "../../../services/actions/order";
+import { setBun, defaultIngredients, addIngredient } from "../../../services/slices/cart";
+import { hideOrder } from "../../../services/slices/order";
 import { getCartFromStore, getIngredientsFromStore, getOrderNumberFromStore } from "../../../utils/tools/storeTools";
+import { CartIngredient, Ingredient } from "../../../services/types/ingredients";
+
 
 export default function BurgerConstructor () {
-  const [summ, setSumm] = useState(0);
+  type collectedProps = {
+    [name: string]: unknown;
+  }
+  type tempCart = CartIngredient[];
+  const [summ, setSumm] = useState<number>(0);
   const dispatch = useDispatch();
   const ingredients = useSelector(getIngredientsFromStore);
   const orderNumber =  useSelector(getOrderNumberFromStore);
   const cart = useSelector(getCartFromStore);
-  const [{isHover}, dropTarget] = useDrop({
+  const [{isHover}, dropTarget] = useDrop<Ingredient, unknown, collectedProps>({
     accept: "ingredient",
-    drop(item) {
+    drop: (item) => {
       onDropHandler(item);
     },
   });
-  const onDropHandler = (item) => {
+
+  const onDropHandler = (item: Ingredient) => {
       item.type === "bun" ?
-      dispatch(setCartBun(item)) :
-      dispatch(addCartIngredient(item, uuidv4()));
+      dispatch(setBun(item)) :
+      dispatch(addIngredient({cartId: uuidv4(), ingredient: item}));
   };
 
   const openOrderModal = () => {
-    let orderItemsId = [];
+    let orderItemsId: string[] = [];
     orderItemsId.push(cart.bun._id);
-    cart.others.forEach( (ingredient) => {
+    cart.others.forEach( (ingredient: CartIngredient) => {
       orderItemsId.push(ingredient.ingredient._id);
     });
     orderItemsId.push(cart.bun._id);
-    dispatch(createOrder(orderItemsId));
+    //dispatch(createOrder(orderItemsId));
   };
 
   useEffect( () => {
-    let tempCart = { 
-      bun: {},
-      others: []
-    };
+    let tempCart: tempCart = [];
     selectedIngredient.forEach((name) => {
       const ingredient = getIngredientByName(name, ingredients);
       if (ingredient) {
         if (ingredient.type === "bun") {
-          dispatch(setCartBun(ingredient));
+          dispatch(setBun(ingredient));
         } else {
-          tempCart.others.push({cartId: uuidv4(), ingredient: ingredient});
+          tempCart.push({cartId: uuidv4(), ingredient: ingredient});
         };
       };
     });
-    dispatch(setCartDefault(tempCart.others));
+    dispatch(defaultIngredients(tempCart));
   }, []);
 
   useEffect( () => {
     let priceSumm = 0;
-    if (cart.others.length > 0 || cart.bun !== null) {
-      cart.others.forEach( (ingredient) => {
+    if (cart.others?.length > 0 || cart.bun !== null) {
+      cart.others.forEach( (ingredient: CartIngredient) => {
         priceSumm = priceSumm + ingredient.ingredient.price;
-        ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.ingredient.price);
+        ingredient.ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.ingredient.price);
       })
       priceSumm = priceSumm + cart.bun.price * 2;
       setSumm(priceSumm);
@@ -75,14 +80,14 @@ export default function BurgerConstructor () {
   },
     [cart]
   );
-  if (cart.others.length <= 0 || !cart.bun) {
+  if (!cart.others || cart.others?.length <= 0 || !cart.bun) {
     return (
       <Preloader />
     );
   }
 
   return (
-    <>
+    <React.Fragment>
       <div className={style.BurgerConstructor + " pt-25 pl-4"} >
         <ul ref={dropTarget} style={isHover ? {opacity: "0.5"} : {opacity: "1"}}>
           <CartElement 
@@ -91,15 +96,15 @@ export default function BurgerConstructor () {
             type="top"
             isLocked={true}
             item={cart.bun}
-            addSstyle="pt-4"
+            addStyle="pt-4"
           />
           <div className={style.ConstructorContainer + " pr-2"}>
             {
-              cart.others.map( (ingredient) => 
-                ingredient.type !== "bun"&&
+              cart.others.map( (ingredient: CartIngredient) => 
+                ingredient.ingredient.type !== "bun"&&
                 <CartElement 
                   key={ uuidv4() }
-                  type="undefined"
+                  type={ undefined }
                   isLocked={false}
                   item={ingredient.ingredient}
                   id={ingredient.cartId}
@@ -127,10 +132,10 @@ export default function BurgerConstructor () {
         </div>
       </div>
       { orderNumber !== 0 && orderNumber !== 'error' &&
-          (<Modal title='' close={() => {dispatch(hideOrderModal())}}>
+          (<Modal title='' close={() => {dispatch(hideOrder())}}>
             <OrderDetails number={orderNumber} />
           </Modal>)
         }
-    </>
+    </React.Fragment>
   );
 };

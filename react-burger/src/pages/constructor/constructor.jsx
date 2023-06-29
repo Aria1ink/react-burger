@@ -8,6 +8,7 @@ import BurgerConstructor from "../../components/Constructor/BurgerConstructor/Bu
 import { loadIngredientsStatus, getIngredientsFromStore, getCurrentIngredientFromStore } from "../../utils/tools/storeTools";
 import { getItemById } from "../../utils/tools/dataTools";
 import { setSelectedIngredient, delSelectedIngredient } from "../../services/actions/ingredient";
+import { setIngredient, clearIngredient } from "../../services/slices/ingredient";
 import IngredientDetails from "../../components/Constructor/IngredientDetails/IngredientDetails";
 import Modal from "../../components/Modal/Modal";
 import Preloader from "../../components/Preloader/Preloader";
@@ -17,7 +18,7 @@ export default function ConstructorPage () {
   const ingredients = useSelector(getIngredientsFromStore);
   const selectedIngredient = useSelector(getCurrentIngredientFromStore);
   const closeIngredientDetails = () => {
-    dispatch(delSelectedIngredient());
+    dispatch(clearIngredient());
     navigate("/");
   };
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function ConstructorPage () {
     if (location.pathname.startsWith("/ingredients") && id && ingredients.length > 0) {
       const tempIngredient = getItemById(id, ingredients);
       if (tempIngredient) {
-        dispatch(setSelectedIngredient(tempIngredient));
+        dispatch(setIngredient(tempIngredient));
       } else {
         navigate("/");
       }

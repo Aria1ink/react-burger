@@ -5,6 +5,7 @@ import style from "./BurgerIngredients.module.css";
 import ChapterPanel from "../ChapterPanel/ChapterPanel";
 import {chapters} from "../../../variables/data";
 import { setActiveMenuTab } from "../../../services/actions/menu";
+import { setActiveTabMenu } from "../../../services/slices/menu";
 
 export default function BurgerIngredients () {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export default function BurgerIngredients () {
       threshold: 0
     };
     const callback = function(entries, observer) {
-      dispatch(setActiveMenuTab((entries[0].target.id)));
+      dispatch(setActiveTabMenu(entries[0].target.id));
     };
     const observer = new IntersectionObserver(callback, observerOptions);
     const chapterBun = document.querySelector('#bun');
