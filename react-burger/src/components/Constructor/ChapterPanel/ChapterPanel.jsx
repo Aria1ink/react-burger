@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ChapterPanel.module.css";
-import { setActiveMenuTab } from "../../../services/actions/menu";
+import { setActiveTabMenu } from "../../../services/slices/menu";
 import { getMenuStatusFromStore } from "../../../utils/tools/storeTools";
 
 export default function ChapterPanel (props) {
   const currentMenu = useSelector(getMenuStatusFromStore);
   const dispatch = useDispatch();
   const handleClick = (target) => {
-    dispatch(setActiveMenuTab(target));
+    dispatch(setActiveTabMenu(target));
     const chapter = document.getElementById(target);
     if (chapter) {
       chapter.scrollIntoView({ behavior: "smooth" });
