@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import IngredientDetails from "../../components/Constructor/IngredientDetails/IngredientDetails";
 import Preloader from '../../components/Preloader/Preloader';
-import { setSelectedIngredient } from "../../services/actions/ingredient";
 import { setIngredient } from '../../services/slices/ingredient';
 import { getItemById } from '../../utils/tools/dataTools';
 import { getCurrentIngredientFromStore, getIngredientsFromStore} from '../../utils/tools/storeTools';

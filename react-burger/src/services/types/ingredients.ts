@@ -16,3 +16,7 @@ export type CartIngredient = {
   cartId: string;
   ingredient: Ingredient;
 }
+export type Chapter = {
+  title: string;
+  type: string;
+};

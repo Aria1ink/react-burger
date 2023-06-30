@@ -1,10 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 import OrderIngredientImage from "../OrderIngredientImage/OrderIngredientImage";
 import { v4 as uuidv4 } from "uuid";
 import style from "./OrderImages.module.css";
 
-export default function OrderImages({ images }) {
+type Props = {
+  images: string[]
+}
+export default function OrderImages({ images }: Props) {
 
   return(
     <div className={style.imagesContainer}>
@@ -32,7 +34,3 @@ export default function OrderImages({ images }) {
     </div>
   );
 }
-
-OrderImages.propTypes = {
-  images: PropTypes.array.isRequired
-}; 

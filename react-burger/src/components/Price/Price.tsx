@@ -1,9 +1,15 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./Price.module.css";
 import currencyIconMedium from '../../image/currency.svg';
-export default function Price (props) {
+
+type Props = {
+  price: number;
+  type?: 'secondary' | 'primary' | 'error' | 'success';
+  font?: string;
+};
+
+export default function Price (props: Props) {
 
   return (
     <div className={style.Price}>
@@ -12,9 +18,3 @@ export default function Price (props) {
     </div>
   );
 }
-
-Price.propTypes = {
-  price: PropTypes.number.isRequired,
-  type: PropTypes.string,
-  font: PropTypes.string
-}; 

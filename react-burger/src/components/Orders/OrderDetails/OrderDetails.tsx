@@ -1,9 +1,12 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import style from "./OrderDetails.module.css";
 import imgDone from "../../../image/done.svg";
 
-export default function OrderDetails (props) {
+type Props = {
+  number: number
+};
+
+export default function OrderDetails (props: Props) {
 
   return (
     <div className={style.OrderDetails}>
@@ -15,9 +18,3 @@ export default function OrderDetails (props) {
     </div>
   );
 };
-
-OrderDetails.propTypes = {
-  number: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.number.isRequired])
-}; 

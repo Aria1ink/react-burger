@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Outlet } from 'react-router-dom';
 import AppHeader from "../AppHeader/AppHeader";
 import { loadIngredients } from "../../utils/tools/storeTools";
-import { loginUser } from "../../services/actions/auth";
 import { login } from "../../services/slices/auth";
 import style from "./Layout.module.css";
 import { getUserProfile, checkRequestToken } from "../../utils/tools/userTools";

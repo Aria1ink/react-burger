@@ -1,11 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import PropTypes from 'prop-types';
-import Ingredient from "../Ingredient/Ingredient";
+import IngredientElement from "../IngredientElement/IngredientElement";
 import style from "./Chapter.module.css";
 import { getIngredientsFromStore } from "../../../utils/tools/storeTools";
 
-export default function Chapter (props) {
+type Props = {
+  type: string;
+  name: string;
+};
+
+export default function Chapter (props: Props) {
   const ingredients = useSelector(getIngredientsFromStore);
 
   return (
@@ -15,13 +19,12 @@ export default function Chapter (props) {
       </h2>
       <ul className={style.Chapter + " pt-6 pb-10 pl-4 pr-4"}>
         {
-          ingredients.map( (ingredient) =>
+          ingredients && ingredients.map( (ingredient) =>
           {
             if (ingredient.type === props.type)
-              return (<Ingredient 
+              return (<IngredientElement 
                       {...props}
                       key={ingredient._id} 
-                      id={ingredient._id} 
                       ingredient={ingredient} 
                     />)
             return ""
@@ -32,8 +35,3 @@ export default function Chapter (props) {
     </>
   );
 };
-
-Chapter.propTypes = {
-  type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
-}; 

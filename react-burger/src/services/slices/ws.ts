@@ -4,7 +4,7 @@ import { Orders, Feed, socketData } from '../types/store';
 
 export type WSState  = {
   orders: {
-    orders: Orders[];
+    orders: Orders;
   };
   feed: Feed;
   statusOrders: boolean;

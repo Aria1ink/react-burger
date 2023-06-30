@@ -51,7 +51,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
               };
             } else {
               if (data.orders.length > 0) {
-                console.log(data)
                 dispatch(onMessage(data));
             };
             };  

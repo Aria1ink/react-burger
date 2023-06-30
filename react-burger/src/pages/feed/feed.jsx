@@ -6,7 +6,6 @@ import { getAllOrdersFromStore } from "../../utils/tools/storeTools";
 import OrderList from "../../components/Orders/OrderList/OrderList";
 import OrderCounter from "../../components/Orders/OrderCounter/OrderCounter";
 import OrderStatusList from "../../components/Orders/OrderStatusList/OrderStatusList";
-import { connectWS, disconnectWS } from "../../services/actions/ws";
 import { sortByDate } from "../../utils/tools/dataTools";
 import { setSelectedOrder } from "../../services/slices/selectedOrder";
 import Preloader from "../../components/Preloader/Preloader";

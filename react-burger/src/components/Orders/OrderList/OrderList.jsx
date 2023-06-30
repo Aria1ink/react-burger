@@ -6,7 +6,6 @@ import OrderElement from "../OrderElement/OrderElement";
 import OrderModal from "../OrderModal/OrderModal";
 import Modal from "../../Modal/Modal";
 import { getSelectedOrderFromStore } from "../../../utils/tools/storeTools";
-import { delSelectedOrder } from "../../../services/actions/selectedOrder";
 import { clearSelectedOrder } from "../../../services/slices/selectedOrder";
 import style from "./OrderList.module.css";
 

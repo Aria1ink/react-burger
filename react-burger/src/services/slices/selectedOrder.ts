@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { Order } from '../types/store';
 
 export type SelectedOrderState  = {
-  current: string[] | null
+  current: Order | null
 };
 
 const initialState: SelectedOrderState = {
@@ -13,7 +14,7 @@ export const selectedOrderSlice = createSlice({
   name: 'selectedOrder',
   initialState,
   reducers: {
-    setSelectedOrder: (state: SelectedOrderState, action: PayloadAction<string[]>) => {
+    setSelectedOrder: (state: SelectedOrderState, action: PayloadAction<Order>) => {
       state.current = action.payload;
     },
     clearSelectedOrder: (state: SelectedOrderState) => {

@@ -1,9 +1,20 @@
 import type { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { ActionFromReducer } from "redux";
+import { Ingredient } from "./ingredients";
 
-export type Orders = string[];
+export type Order = {
+  createdAt: string;
+  ingredients: string[];
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+  _id: string;
+}
+export type OrderIngredients = {element: Ingredient, count: number }[];
+export type Orders = Order[];
 export type Feed = {
-  orders: Orders[];
+  orders: Orders;
   total: number;
   totalToday: number;
 };
@@ -15,7 +26,7 @@ export type ActionsForSocket = {
 }
 
 export type socketData = {
-  orders: Orders[];
+  orders: Orders;
   success: boolean;
   total?: number;
   totalToday?: number;

@@ -5,13 +5,13 @@ import type { User } from '../types/user';
 export type AuthState  = {
   isAuthenticated: 'loading' | 'auth' | 'noauth';
   error: string | null;
-  user: User | null;
+  user: User;
 };
 
 const initialState: AuthState = {
   isAuthenticated: 'loading',
   error: null,
-  user: null,
+  user: {},
 }
 
 export const authSlice = createSlice({

@@ -1,16 +1,20 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ChapterPanel.module.css";
-import { setActiveTabMenu } from "../../../services/slices/menu";
+import { MenuState, setActiveTabMenu } from "../../../services/slices/menu";
 import { getMenuStatusFromStore } from "../../../utils/tools/storeTools";
+import { Chapter } from "../../../services/types/ingredients";
 
-export default function ChapterPanel (props) {
+type Props = {
+  chapters: Chapter[]
+};
+
+export default function ChapterPanel (props: Props) {
   const currentMenu = useSelector(getMenuStatusFromStore);
   const dispatch = useDispatch();
-  const handleClick = (target) => {
-    dispatch(setActiveTabMenu(target));
+  const handleClick = (target: string) => {
+    dispatch(setActiveTabMenu(target as MenuState));
     const chapter = document.getElementById(target);
     if (chapter) {
       chapter.scrollIntoView({ behavior: "smooth" });
@@ -29,7 +33,3 @@ export default function ChapterPanel (props) {
     </div>
   );
 };
-
-ChapterPanel.propTypes = {
-  chapters: PropTypes.array.isRequired
-}; 

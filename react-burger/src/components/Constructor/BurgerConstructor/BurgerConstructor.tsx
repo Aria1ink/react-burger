@@ -1,5 +1,4 @@
 import React, {useEffect, useState } from "react";
-import type { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
@@ -9,7 +8,7 @@ import Price from "../../Price/Price";
 import CartElement from "../CartElement/CartElement";
 import style from "./BurgerConstructor.module.css";
 import { selectedIngredient } from "../../../variables/data";
-//import { createOrder } from "../../../services/slices/order";
+import { createOrder } from "../../../utils/tools/storeTools";
 import Modal from "../../Modal/Modal";
 import OrderDetails from "../../Orders/OrderDetails/OrderDetails";
 import Preloader from "../../Preloader/Preloader";
@@ -17,6 +16,7 @@ import { setBun, defaultIngredients, addIngredient } from "../../../services/sli
 import { hideOrder } from "../../../services/slices/order";
 import { getCartFromStore, getIngredientsFromStore, getOrderNumberFromStore } from "../../../utils/tools/storeTools";
 import { CartIngredient, Ingredient } from "../../../services/types/ingredients";
+import { AppDispatch } from "../../../services/store";
 
 
 export default function BurgerConstructor () {
@@ -25,7 +25,7 @@ export default function BurgerConstructor () {
   }
   type tempCart = CartIngredient[];
   const [summ, setSumm] = useState<number>(0);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const ingredients = useSelector(getIngredientsFromStore);
   const orderNumber =  useSelector(getOrderNumberFromStore);
   const cart = useSelector(getCartFromStore);
@@ -44,32 +44,36 @@ export default function BurgerConstructor () {
 
   const openOrderModal = () => {
     let orderItemsId: string[] = [];
-    orderItemsId.push(cart.bun._id);
-    cart.others.forEach( (ingredient: CartIngredient) => {
-      orderItemsId.push(ingredient.ingredient._id);
-    });
-    orderItemsId.push(cart.bun._id);
-    //dispatch(createOrder(orderItemsId));
+    if (cart.bun && cart.others && cart.others?.length > 0) {
+      orderItemsId.push(cart.bun._id);
+      cart.others.forEach( (ingredient: CartIngredient) => {
+        orderItemsId.push(ingredient.ingredient._id);
+      });
+      orderItemsId.push(cart.bun._id);
+      dispatch(createOrder(orderItemsId));
+    }
   };
 
   useEffect( () => {
     let tempCart: tempCart = [];
-    selectedIngredient.forEach((name) => {
-      const ingredient = getIngredientByName(name, ingredients);
-      if (ingredient) {
-        if (ingredient.type === "bun") {
-          dispatch(setBun(ingredient));
-        } else {
-          tempCart.push({cartId: uuidv4(), ingredient: ingredient});
+    if (ingredients) {
+      selectedIngredient.forEach((name) => {
+        const ingredient = getIngredientByName(name, ingredients);
+        if (ingredient) {
+          if (ingredient.type === "bun") {
+            dispatch(setBun(ingredient));
+          } else {
+            tempCart.push({cartId: uuidv4(), ingredient: ingredient});
+          };
         };
-      };
-    });
-    dispatch(defaultIngredients(tempCart));
+      });
+      dispatch(defaultIngredients(tempCart));
+    }
   }, []);
 
   useEffect( () => {
     let priceSumm = 0;
-    if (cart.others?.length > 0 || cart.bun !== null) {
+    if (cart.bun && cart.others && cart.others?.length > 0 ) {
       cart.others.forEach( (ingredient: CartIngredient) => {
         priceSumm = priceSumm + ingredient.ingredient.price;
         ingredient.ingredient.type === "bun" && (priceSumm = priceSumm + ingredient.ingredient.price);
@@ -87,7 +91,7 @@ export default function BurgerConstructor () {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div className={style.BurgerConstructor + " pt-25 pl-4"} >
         <ul ref={dropTarget} style={isHover ? {opacity: "0.5"} : {opacity: "1"}}>
           <CartElement 
@@ -131,11 +135,11 @@ export default function BurgerConstructor () {
           </Button>
         </div>
       </div>
-      { orderNumber !== 0 && orderNumber !== 'error' &&
+      { orderNumber !== 0 &&
           (<Modal title='' close={() => {dispatch(hideOrder())}}>
             <OrderDetails number={orderNumber} />
           </Modal>)
         }
-    </React.Fragment>
+    </>
   );
 };

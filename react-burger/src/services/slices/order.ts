@@ -30,23 +30,7 @@ export const orderSlice = createSlice({
     },
   },
 });
-/*
-export const createOrder = (orderItemsId: string[]) => {
-  return (dispatch: AppDispatch) => {
-    dispatch(setOrderRequest());
-    setOrderApi(orderItemsId, getAccessToken())
-    .then(
-      (data) => {
-        dispatch(getOrderSuccess(data.order.number));
-      }
-    )
-    .catch((err) => {
-      dispatch(setOrderError());
-      console.log(`Ошибка: ${err}`);
-    });
-  }
-};
-*/
+
 export const { getOrderSuccess, setOrderRequest, setOrderError, hideOrder } = orderSlice.actions;
 
 export default orderSlice.reducer;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,11 +9,16 @@ import Price from "../../Price/Price";
 import OrderStatus from "../OrderStatus/OrderStatus";
 import OrderImages from "../OrderImages/OrderImages";
 import style from "./OrderElement.module.css";
+import { Order } from "../../../services/types/store";
 
-export default function OrderElement({ order }) {
+type Props = {
+  order: Order
+};
+
+export default function OrderElement({ order }: Props) {
   const dispatch = useDispatch();
   const [ price, setPrice ] = useState(0);
-  const [ images, setimages ] = useState([]);
+  const [ images, setimages ] = useState<string[]>([]);
   const ingredients = useSelector(getIngredientsFromStore);
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,19 +30,21 @@ export default function OrderElement({ order }) {
 
   useEffect( () => {
     let tempPrice = 0;
-    let tempImages = [];
-    order.ingredients.forEach( (id, index) => {
-      const ingredient = getItemById(id, ingredients);
-      if (ingredient) {
-        tempPrice += ingredient.price;
-        tempImages.push(ingredient.image);
-        if (index === order.ingredients.length && ingredient.type === "bun") {
-          tempImages.pop();
+    let tempImages: string[] = [];
+    if (ingredients) {
+      order.ingredients.forEach( (id, index) => {
+        const ingredient = getItemById(id, ingredients);
+        if (ingredient) {
+          tempPrice += ingredient.price;
+          tempImages.push(ingredient.image);
+          if (index === order.ingredients.length && ingredient.type === "bun") {
+            tempImages.pop();
+          }
         }
-      }
-    });
-    setPrice(tempPrice);
-    setimages(tempImages);
+      });
+      setPrice(tempPrice);
+      setimages(tempImages);
+    }
   },[]);
 
   return(
@@ -59,7 +65,3 @@ export default function OrderElement({ order }) {
     </div>
   );
 }
-
-OrderElement.propTypes = {
-  order: PropTypes.object.isRequired
-}; 

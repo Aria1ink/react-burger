@@ -7,8 +7,13 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./AuthInputForm.module.css";
+import { FormAuth } from "../../../services/types/data";
 
-export default function AuthInputForm (props) {
+type Props = {
+  form: FormAuth
+};
+
+export default function AuthInputForm (props: Props) {
   const form = props.form;
 
   return (

@@ -7,7 +7,6 @@ import BurgerIngredients from "../../components/Constructor/BurgerIngredients/Bu
 import BurgerConstructor from "../../components/Constructor/BurgerConstructor/BurgerConstructor";
 import { loadIngredientsStatus, getIngredientsFromStore, getCurrentIngredientFromStore } from "../../utils/tools/storeTools";
 import { getItemById } from "../../utils/tools/dataTools";
-import { setSelectedIngredient, delSelectedIngredient } from "../../services/actions/ingredient";
 import { setIngredient, clearIngredient } from "../../services/slices/ingredient";
 import IngredientDetails from "../../components/Constructor/IngredientDetails/IngredientDetails";
 import Modal from "../../components/Modal/Modal";

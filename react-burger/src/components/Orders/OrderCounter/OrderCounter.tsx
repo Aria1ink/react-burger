@@ -1,8 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 import style from "./OrderCounter.module.css";
 
-export default function OrderCounter({title, number}) {
+type Props = {
+  title: string,
+  number: number
+};
+
+export default function OrderCounter({title, number}: Props) {
 
   return(
     <div className={style.OrderCounterContainer}>
@@ -13,8 +17,3 @@ export default function OrderCounter({title, number}) {
     </div>
   );
 }
-
-OrderCounter.propTypes = {
-  title: PropTypes.string.isRequired,
-  number: PropTypes.number.isRequired
-}; 

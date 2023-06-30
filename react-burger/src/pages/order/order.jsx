@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { getItemById } from "../../utils/tools/dataTools";
 import { getSelectedOrderFromStore, getUserOrdersFromStore, getAllOrdersFromStore } from "../../utils/tools/storeTools";
-import { connectWS, disconnectWS } from "../../services/actions/ws";
 import { setSelectedOrder } from "../../services/slices/selectedOrder";
 import OrderModal from "../../components/Orders/OrderModal/OrderModal";
 import Preloader from "../../components/Preloader/Preloader";

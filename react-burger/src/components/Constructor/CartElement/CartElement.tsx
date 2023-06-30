@@ -1,8 +1,6 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { delCartIngredient, moveCartIngredient } from "../../../services/actions/cart";
 import { removeIngredient, moveIngredient } from "../../../services/slices/cart";
 import style from "./CartElement.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
