@@ -4,7 +4,6 @@ import Chapter from "../Chapter/Chapter";
 import style from "./BurgerIngredients.module.css";
 import ChapterPanel from "../ChapterPanel/ChapterPanel";
 import {chapters} from "../../../variables/data";
-import { setActiveMenuTab } from "../../../services/actions/menu";
 import { setActiveTabMenu } from "../../../services/slices/menu";
 
 export default function BurgerIngredients () {
@@ -13,8 +12,8 @@ export default function BurgerIngredients () {
   useEffect( () => {
     const observerOptions = {
       root: document.querySelector('#scrollContainer'),
-      rootMargin: '0px 0px 30% 0px',
-      threshold: 0
+      rootMargin: '0px 0px -60% 0px',
+      threshold: [0]
     };
     const callback = function(entries, observer) {
       dispatch(setActiveTabMenu(entries[0].target.id));
