@@ -25,7 +25,7 @@ export const sortByDate = (arr: Orders): Orders => {
     })
   );
 };
-export const parseIngredients = (order: string[], ingredients: Ingredient[]): [OrderIngredients, number] | false => {
+export const parseIngredients = (order: string[], ingredients: Ingredient[]): [OrderIngredients, number] => {
   const uniqueId = Array.from(new Set(order));
   const result: OrderIngredients = [];
   let summ = 0;
@@ -46,9 +46,6 @@ export const parseIngredients = (order: string[], ingredients: Ingredient[]): [O
       }
     }
   })
-  if (result.length > 0) {
-    return [result, summ];
-  } else {
-    return false;
-  }
+  return [result, summ];
+
 };

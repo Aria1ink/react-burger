@@ -1,8 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
 import style from "./OrderStatus.module.css";
 
-export default function OrderStatus({status}) {
+type Props = {
+  status: string;
+};
+
+export default function OrderStatus({status}: Props) {
 
   if (status === "done"){
     return(
@@ -20,7 +23,3 @@ export default function OrderStatus({status}) {
     <p className={style.paragraph + " text text_type_main-default"}> Готовится </p>
   );
 }
-
-OrderStatus.propTypes = {
-  status: PropTypes.string.isRequired
-}; 

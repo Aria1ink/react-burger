@@ -1,8 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 import style from "./OrderStatusList.module.css";
 
-export default function OrderStatusList({title, numbers}) {
+type Props = {
+  title: string;
+  numbers: number[];
+};
+
+export default function OrderStatusList({title, numbers}: Props) {
 
   return(
     <div>
@@ -17,8 +21,3 @@ export default function OrderStatusList({title, numbers}) {
     </div>
   );
 }
-
-OrderStatusList.propTypes = {
-  title: PropTypes.string.isRequired,
-  numbers: PropTypes.array.isRequired
-}; 

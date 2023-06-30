@@ -9,33 +9,43 @@ import { getIngredientsFromStore, getSelectedOrderFromStore } from "../../../uti
 import Price from "../../Price/Price";
 import OrderStatus from "../OrderStatus/OrderStatus";
 import style from "./OrderModal.module.css";
+import { Order, OrderIngredients } from "../../../services/types/store";
+import { AppDispatch } from "../../../services/store";
+import Preloader from "../../Preloader/Preloader";
 
 export default function OrderModal() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const ingredients = useSelector(getIngredientsFromStore);
   const order = useSelector(getSelectedOrderFromStore);
-  const [sortedIngredients, setSortedIngredients] = useState([]);
-  const [summPrice, setSummPrice] = useState(0);
+  const [sortedIngredients, setSortedIngredients] = useState<OrderIngredients>([]);
+  const [summPrice, setSummPrice] = useState<number>(0);
+  let tempSortedIngredients: OrderIngredients = [];
+  let tempSumm: number = 0;
 
   useEffect( () => {
-    const [tempSortedIngredients, tempSumm] = parseIngredients(order.ingredients, ingredients);
-    setSortedIngredients(tempSortedIngredients);
-    setSummPrice(tempSumm);
+    if (order && ingredients) {
+      [tempSortedIngredients, tempSumm] = parseIngredients(order.ingredients, ingredients);
+      setSortedIngredients(tempSortedIngredients);
+      setSummPrice(tempSumm);
+    }
     return () => {
       dispatch(clearSelectedOrder());
     }
   }, []);
-
+  if (!order) {
+    return (<Preloader />);
+  }
+  
   return(
     <div className={style.orderContainer}>
-      {!location.state && <p className={style.orderNumber + " text text_type_digits-default pb-10"}> #{ order.number } </p>}
-      <h2 className={"text text_type_main-medium pb-3" }> { order.name } </h2>
-      <OrderStatus status={order.status} />
+      {!location.state && <p className={style.orderNumber + " text text_type_digits-default pb-10"}> #{ order?.number } </p>}
+      <h2 className={"text text_type_main-medium pb-3" }> { order?.name } </h2>
+      <OrderStatus status={order?.status as string} />
       <p className="text text_type_main-medium pt-15 pb-6"> Состав: </p>
       <div className={style.ingredientsContainer + " pr-6"}>
         {
-          sortedIngredients.map( (ingredient, index) => {
+          sortedIngredients.map( (ingredient) => {
             return(
               <div className={style.ingredient} key={ingredient.element._id}>
                 <OrderIngredientImage url={ingredient.element.image} />
