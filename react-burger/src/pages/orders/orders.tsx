@@ -23,6 +23,7 @@ export default function OrdersPage(){
     return () => {
       dispatch(wsOrdersDisconnect());
     };
+    // Запуск только при монтировании элемента
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,6 +39,7 @@ export default function OrdersPage(){
         navigate("/profile/orders");
       }
     };
+    // сортировка массива заказов при изменении массива
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders]);
 

@@ -1,2 +1,2 @@
-export const urlHttps = 'https://norma.nomoreparties.space/api';
-export const urlWss = 'wss://norma.nomoreparties.space/orders';
+export const URL_HTTPS = 'https://norma.nomoreparties.space/api';
+export const URL_WSS = 'wss://norma.nomoreparties.space/orders';

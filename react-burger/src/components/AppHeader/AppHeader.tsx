@@ -17,6 +17,7 @@ export default function AppHeader () {
     if (path){
       setCurrent(path);
     };
+    // Запуск только при монтировании элемента
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []
   )

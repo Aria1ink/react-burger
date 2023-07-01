@@ -15,6 +15,7 @@ export default function IngredientDetails () {
     return () => {
       dispatch(clearIngredient());
     }
+    // Запуск только при монтировании элемента
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

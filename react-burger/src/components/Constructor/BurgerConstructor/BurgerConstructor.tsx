@@ -17,12 +17,14 @@ import { getCartFromStore, getIngredientsFromStore, getOrderNumberFromStore } fr
 import { CartIngredient, Ingredient } from "../../../services/types/ingredients";
 import { useAppDispatch, useAppSelector } from "../../../utils/tools/hooks";
 
+type collectedProps = {
+  canDrop: boolean; 
+  dragItem: Ingredient; 
+  isHover: boolean
+};
+type tempCart = CartIngredient[];
 
 export default function BurgerConstructor () {
-  type collectedProps = {
-    [name: string]: unknown;
-  }
-  type tempCart = CartIngredient[];
   const [summ, setSumm] = useState<number>(0);
   const dispatch = useAppDispatch();
   const ingredients = useAppSelector(getIngredientsFromStore);
@@ -68,6 +70,8 @@ export default function BurgerConstructor () {
       });
       dispatch(defaultIngredients(tempCart));
     }
+    // Запуск только при монтировании элемента
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect( () => {
@@ -81,6 +85,8 @@ export default function BurgerConstructor () {
       setSumm(priceSumm);
     };
   },
+  // Пересчет суммы при изменении корзины, нужно следить только за корзиной
+  // eslint-disable-next-line react-hooks/exhaustive-deps
     [cart]
   );
   if (!cart.others || cart.others?.length <= 0 || !cart.bun) {
@@ -95,7 +101,7 @@ export default function BurgerConstructor () {
         <ul ref={dropTarget} style={isHover ? {opacity: "0.5"} : {opacity: "1"}}>
           <CartElement 
             className="pr-4 pb-4"
-            key={ uuidv4() }
+            key={ cart.bun + "top" }
             type="top"
             isLocked={true}
             item={cart.bun}
@@ -106,7 +112,7 @@ export default function BurgerConstructor () {
               cart.others.map( (ingredient: CartIngredient) => 
                 ingredient.ingredient.type !== "bun"&&
                 <CartElement 
-                  key={ uuidv4() }
+                  key={ ingredient.cartId }
                   type={ undefined }
                   isLocked={false}
                   item={ingredient.ingredient}
@@ -117,7 +123,7 @@ export default function BurgerConstructor () {
           </div>
           <CartElement 
             className="pr-4 pt-4"
-            key={ uuidv4() }
+            key={ cart.bun + "bottom" }
             type="bottom"
             isLocked={true}
             item={cart.bun}

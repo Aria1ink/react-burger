@@ -22,6 +22,7 @@ export default function IngredientPage () {
         navigate("/");
       }
   };
+  // получение выбранного ингредиента когда массив ингредиентов загружен
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ingredients]);
 

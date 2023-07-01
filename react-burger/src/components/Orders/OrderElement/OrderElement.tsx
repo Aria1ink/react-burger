@@ -44,6 +44,7 @@ export default function OrderElement({ order }: Props) {
       setPrice(tempPrice);
       setimages(tempImages);
     }
+    // Запуск только при монтировании элемента
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 

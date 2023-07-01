@@ -25,6 +25,7 @@ export default function BurgerIngredients () {
     observer.observe(chapterBun);
     observer.observe(chapterMain);
     observer.observe(chapterSauce);
+    // Запуск только при монтировании элемента
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

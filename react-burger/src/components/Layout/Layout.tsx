@@ -21,6 +21,7 @@ export default function Layout() {
       .catch( (err) => {
         console.log(err);
       })
+      // Запуск только при монтировании элемента
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

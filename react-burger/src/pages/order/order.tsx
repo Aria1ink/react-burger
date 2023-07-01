@@ -25,6 +25,7 @@ export default function OrderPage() {
     } else if (location.pathname.startsWith("/profile/orders")) {
       dispatch(wsOrdersConnect());
     }
+    // Запуск только при монтировании элемента
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,6 +39,7 @@ export default function OrderPage() {
       }
       dispatch(wsFeedDisconnect());
     }
+    // получение текущего заказа когда массив заказов загружен
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders]);
   
@@ -51,6 +53,7 @@ export default function OrderPage() {
       }
       dispatch(wsOrdersDisconnect());
     }
+    // получение текущего заказа когда массив заказов загружен
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userOrders]);
 

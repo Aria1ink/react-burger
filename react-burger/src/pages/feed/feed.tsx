@@ -28,6 +28,7 @@ export default function FeedPage() {
     return () => {
       dispatch(wsFeedDisconnect());
     };
+    // Запуск только при монтировании элемента
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -56,6 +57,7 @@ export default function FeedPage() {
       tempDoneOrders = [];
       tempInWorkOrders = [];
     }
+    // обновление списков заказов при изменении массива заказов
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders]);
 
