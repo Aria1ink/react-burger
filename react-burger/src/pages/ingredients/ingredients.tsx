@@ -22,6 +22,7 @@ export default function IngredientPage () {
         navigate("/");
       }
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ingredients]);
 
   if (currentIngredient) {

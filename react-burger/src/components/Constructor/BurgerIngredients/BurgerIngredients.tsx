@@ -25,6 +25,7 @@ export default function BurgerIngredients () {
     observer.observe(chapterBun);
     observer.observe(chapterMain);
     observer.observe(chapterSauce);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -17,6 +17,7 @@ export default function AppHeader () {
     if (path){
       setCurrent(path);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []
   )
 

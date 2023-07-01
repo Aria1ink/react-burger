@@ -44,6 +44,7 @@ export default function OrderElement({ order }: Props) {
       setPrice(tempPrice);
       setimages(tempImages);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   return(

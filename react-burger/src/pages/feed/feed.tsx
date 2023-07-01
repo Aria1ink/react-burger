@@ -28,6 +28,7 @@ export default function FeedPage() {
     return () => {
       dispatch(wsFeedDisconnect());
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect( () => {
@@ -55,6 +56,7 @@ export default function FeedPage() {
       tempDoneOrders = [];
       tempInWorkOrders = [];
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders]);
 
   if (sortedOrders.length === 0) {

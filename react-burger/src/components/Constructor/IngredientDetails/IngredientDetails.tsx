@@ -15,6 +15,7 @@ export default function IngredientDetails () {
     return () => {
       dispatch(clearIngredient());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!ingredient) {
