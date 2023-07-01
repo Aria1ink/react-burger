@@ -25,6 +25,7 @@ export default function OrderPage() {
     } else if (location.pathname.startsWith("/profile/orders")) {
       dispatch(wsOrdersConnect());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect( () => {
@@ -37,6 +38,7 @@ export default function OrderPage() {
       }
       dispatch(wsFeedDisconnect());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders]);
   
   useEffect( () => {
@@ -49,6 +51,7 @@ export default function OrderPage() {
       }
       dispatch(wsOrdersDisconnect());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userOrders]);
 
   if (order) {
