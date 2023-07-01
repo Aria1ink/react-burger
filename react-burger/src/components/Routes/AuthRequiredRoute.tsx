@@ -1,12 +1,15 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getRefreshToken } from "../../utils/tools/tokenTools";
 import { getAuthUser } from "../../utils/tools/storeTools";
 import Preloader from "../Preloader/Preloader";
-import PropTypes from "prop-types";
 
-export default function AuthRequiredRoute ({ element }) {
+type Props = {
+  element: React.JSX.Element ;
+};
+
+export default function AuthRequiredRoute ({ element }: Props): React.JSX.Element {
   const location = useLocation();
   const user = useSelector(getAuthUser);
 
@@ -22,8 +25,4 @@ export default function AuthRequiredRoute ({ element }) {
 return(
   <Preloader />
 );
-};
-
-AuthRequiredRoute.propTypes = {
-  element: PropTypes.element,
 };

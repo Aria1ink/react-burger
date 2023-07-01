@@ -8,14 +8,14 @@ import { getItemById } from '../../utils/tools/dataTools';
 import { getCurrentIngredientFromStore, getIngredientsFromStore} from '../../utils/tools/storeTools';
 
 export default function IngredientPage () {
-  const { id } = useParams();
+  const { id } = useParams<string>();
   const dispatch = useDispatch();
   const ingredients = useSelector(getIngredientsFromStore);
   const currentIngredient = useSelector(getCurrentIngredientFromStore);
   const navigate = useNavigate();
 
   useEffect( () => {
-    if (ingredients.length > 0) {
+    if (ingredients && id && ingredients.length > 0) {
       const ingredient = getItemById(id, ingredients);
       if (ingredient) {
         dispatch(setIngredient(ingredient));

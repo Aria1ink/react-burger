@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from 'react-router';
 import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
 import { signUp } from "../../utils/tools/userTools"
+import { FormAuth } from '../../services/types/data';
 
 export default function RegisterPage () {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ export default function RegisterPage () {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const formRegister = {
+  const formRegister: FormAuth = {
     title: 'Регистрация',
     input: [
       {name: 'name', placeHolder: 'Имя', state: { value: name, setValue: setName }, key: 'inputName'},

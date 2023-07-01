@@ -4,10 +4,11 @@ import Chapter from "../Chapter/Chapter";
 import style from "./BurgerIngredients.module.css";
 import ChapterPanel from "../ChapterPanel/ChapterPanel";
 import {chapters} from "../../../variables/data";
-import { setActiveTabMenu } from "../../../services/slices/menu";
+import { MenuState, setActiveTabMenu } from "../../../services/slices/menu";
+import { AppDispatch } from "../../../services/store";
 
 export default function BurgerIngredients () {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect( () => {
     const observerOptions = {
@@ -15,13 +16,13 @@ export default function BurgerIngredients () {
       rootMargin: '0px 0px -60% 0px',
       threshold: [0]
     };
-    const callback = function(entries, observer) {
-      dispatch(setActiveTabMenu(entries[0].target.id));
+    const callback: IntersectionObserverCallback = function(entries) {
+      dispatch(setActiveTabMenu(entries[0].target.id as MenuState));
     };
     const observer = new IntersectionObserver(callback, observerOptions);
-    const chapterBun = document.querySelector('#bun');
-    const chapterMain = document.querySelector('#main');
-    const chapterSauce = document.querySelector('#sauce');
+    const chapterBun = document.querySelector('#bun') as Element;
+    const chapterMain = document.querySelector('#main') as Element;
+    const chapterSauce = document.querySelector('#sauce') as Element;
     observer.observe(chapterBun);
     observer.observe(chapterMain);
     observer.observe(chapterSauce);
@@ -36,7 +37,6 @@ export default function BurgerIngredients () {
           chapters.map( (chapter) => 
           <Chapter 
             key={"chapter-" + chapter.type} 
-            title={chapter.title} 
             type={chapter.type} 
             name={chapter.title}>
           </Chapter>

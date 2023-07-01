@@ -11,6 +11,7 @@ import { setIngredient, clearIngredient } from "../../services/slices/ingredient
 import IngredientDetails from "../../components/Constructor/IngredientDetails/IngredientDetails";
 import Modal from "../../components/Modal/Modal";
 import Preloader from "../../components/Preloader/Preloader";
+import { AppDispatch } from "../../services/store";
 
 export default function ConstructorPage () {
   const status = useSelector(loadIngredientsStatus);
@@ -20,13 +21,13 @@ export default function ConstructorPage () {
     dispatch(clearIngredient());
     navigate("/");
   };
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.pathname.startsWith("/ingredients") && id && ingredients.length > 0) {
+    if (ingredients && location.pathname.startsWith("/ingredients") && id && ingredients.length > 0) {
       const tempIngredient = getItemById(id, ingredients);
       if (tempIngredient) {
         dispatch(setIngredient(tempIngredient));

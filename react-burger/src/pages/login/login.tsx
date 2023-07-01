@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { signIn } from "../../utils/tools/userTools";
 import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
+import { FormAuth } from '../../services/types/data';
 
 export default function LoginPage () {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ export default function LoginPage () {
   }
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const formLogin = {
+  const formLogin: FormAuth = {
     title: 'Вход',
     input: [
       {name: 'email', placeHolder: 'E-mail', state: { value: email, setValue: setEmail }, key: "inputEmail"},

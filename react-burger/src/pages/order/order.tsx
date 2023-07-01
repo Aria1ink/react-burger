@@ -8,16 +8,17 @@ import OrderModal from "../../components/Orders/OrderModal/OrderModal";
 import Preloader from "../../components/Preloader/Preloader";
 import { wsFeedConnect, wsFeedDisconnect, wsOrdersConnect, wsOrdersDisconnect } from "../../services/slices/ws";
 import style from "./order.module.css";
+import { Order } from "../../services/types/store";
 
 export default function OrderPage() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = useParams<string>();
   const navigate = useNavigate();
   const order = useSelector(getSelectedOrderFromStore);
   const userOrders = useSelector(getUserOrdersFromStore);
   const { orders, } = useSelector(getAllOrdersFromStore);
-  let tempOrder = {};
+  let tempOrder: Order | boolean = false;
 
   useEffect( () => {
     if (location.pathname.startsWith("/feed")) {
@@ -28,7 +29,7 @@ export default function OrderPage() {
   }, []);
 
   useEffect( () => {
-    if (orders && orders.length > 0) {
+    if (id && orders && orders.length > 0) {
       tempOrder = getItemById(id, orders);
       if (!tempOrder) {
         navigate("/feed");
@@ -40,7 +41,7 @@ export default function OrderPage() {
   }, [orders]);
   
   useEffect( () => {
-    if (userOrders && userOrders.length > 0) {
+    if (id && userOrders && userOrders.length > 0) {
       tempOrder = getItemById(id, userOrders);
       if (!tempOrder) {
         navigate("/profile/orders");

@@ -1,8 +1,12 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import style from './FoodEnergy.module.css';
 
-export default function FoodEnergy (props) {
+type Props = {
+  title: string;
+  value: number;
+};
+
+export default function FoodEnergy (props: Props) {
 
   return ( 
     <div className={style.FoodEnergy} >
@@ -11,8 +15,3 @@ export default function FoodEnergy (props) {
     </div>
   );
 };
-
-FoodEnergy.propTypes = {
-  title: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired
-}; 

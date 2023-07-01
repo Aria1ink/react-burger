@@ -11,6 +11,7 @@ import { setSelectedOrder } from "../../services/slices/selectedOrder";
 import Preloader from "../../components/Preloader/Preloader";
 import { wsFeedConnect, wsFeedDisconnect } from "../../services/slices/ws";
 import style from "./feed.module.css";
+import { Orders } from "../../services/types/store";
 
 export default function FeedPage() {
   const dispatch = useDispatch();
@@ -18,9 +19,9 @@ export default function FeedPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const {orders, total, totalToday} = useSelector(getAllOrdersFromStore);
-  const [doneOrders, setDoneOrders] = useState([]);
-  const [inWorkOrders, setInWorkOrders] = useState([]);
-  const [sortedOrders, setSortedOrders] = useState([]);
+  const [doneOrders, setDoneOrders] = useState<number[]>([]);
+  const [inWorkOrders, setInWorkOrders] = useState<number[]>([]);
+  const [sortedOrders, setSortedOrders] = useState<Orders>([]);
 
   useEffect( () => {
     dispatch(wsFeedConnect());
@@ -31,8 +32,8 @@ export default function FeedPage() {
   }, []);
 
   useEffect( () => {
-    let tempDoneOrders = [];
-    let tempInWorkOrders = [];
+    let tempDoneOrders: number[] = [];
+    let tempInWorkOrders: number[] = [];
     if (location.pathname.startsWith("/feed") && id && orders.length > 0) {
       const tempOrder = getItemById(id, orders);
       if (tempOrder) {
@@ -41,7 +42,7 @@ export default function FeedPage() {
         navigate("/feed");
       }
     };
-    if (orders?.length > 0) {
+    if (orders && orders?.length > 0) {
       setSortedOrders(sortByDate(orders));
       orders.forEach( (order) => {
         if (order.status === "done") {

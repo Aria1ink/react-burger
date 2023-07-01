@@ -6,12 +6,18 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./Modal.module.css"
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 
-export default function Modal (props) {
-  const modalRoot = document.getElementById("react-modals");
+type Props = {
+  children: React.ReactNode;
+  title: string;
+  close: () => void;
+};
+
+export default function Modal (props: Props) {
+  const modalRoot = document.getElementById("react-modals") as Element;
   const location = useLocation();
 
   useEffect(()=>{ 
-    const closeModalByEsc = (evt) => { 
+    const closeModalByEsc = (evt: KeyboardEvent) => { 
       if (evt.key === "Escape") { 
         props.close(); 
       } 

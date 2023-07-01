@@ -8,6 +8,7 @@ import { setSelectedOrder } from '../../services/slices/selectedOrder';
 import Preloader from '../../components/Preloader/Preloader';
 import { wsOrdersConnect, wsOrdersDisconnect } from '../../services/slices/ws';
 import style from "./orders.module.css";
+import { Orders } from '../../services/types/store';
 
 export default function OrdersPage(){
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export default function OrdersPage(){
   const location = useLocation();
   const navigate = useNavigate();
   const orders = useSelector(getUserOrdersFromStore);
-  const [sortedOrders, setSortedOrders] = useState([]);
+  const [sortedOrders, setSortedOrders] = useState<Orders>([]);
 
   useEffect( () => {
     dispatch(wsOrdersConnect());
@@ -26,7 +27,7 @@ export default function OrdersPage(){
   }, []);
 
   useEffect( () => {
-    if (orders?.length > 0) {
+    if (orders && orders?.length > 0) {
       setSortedOrders(sortByDate(orders));
     }
     if (location.pathname.startsWith("/profile/orders") && id && orders.length > 0) {

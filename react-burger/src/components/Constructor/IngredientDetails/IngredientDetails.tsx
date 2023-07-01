@@ -4,6 +4,7 @@ import style from "./IngredientDetails.module.css";
 import FoodEnergy from  '../FoodEnergy/FoodEnergy';
 import { clearIngredient } from "../../../services/slices/ingredient";
 import { getCurrentIngredientFromStore } from "../../../utils/tools/storeTools";
+import Preloader from "../../Preloader/Preloader";
 
 
 export default function IngredientDetails () {
@@ -15,6 +16,10 @@ export default function IngredientDetails () {
       dispatch(clearIngredient());
     }
   }, [])
+
+  if (!ingredient) {
+    return( <Preloader />);
+  }
 
   return (
     <div className={style.IngredientDetailsContainer} >

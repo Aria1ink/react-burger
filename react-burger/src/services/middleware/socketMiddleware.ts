@@ -1,10 +1,12 @@
+import { Middleware } from '@reduxjs/toolkit';
 import { getAccessToken } from '../../utils/tools/tokenTools';
 import { refreshUserToken } from '../../utils/tools/userTools';
 import { signOut } from '../../utils/tools/userTools';
+import { ActionsForSocket } from '../types/store';
 
-export const socketMiddleware = (wsUrl, wsActions) => {
+export const socketMiddleware = (wsUrl: string, wsActions: ActionsForSocket): Middleware => {
     return store => {
-      let socket = null
+      let socket: WebSocket | null = null
 
       return (next) => (action) => {
         const { dispatch } = store;
@@ -28,20 +30,20 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           };
   
           socket.onerror = (event) => {
-            socket.close();
+            socket?.close();
           };
   
           socket.onmessage = (event) => {
             let data = JSON.parse(event.data);
             if (!data.success) {
               if (data.message === 'Invalid or missing token') {
-                socket.close();
+                socket?.close();
                 refreshUserToken()
                   .then((status) => {
                     if (status && getAccessToken()){
                       dispatch(wsInit());
                     } else {
-                      socket.close();
+                      socket?.close();
                       signOut(dispatch);
                     };
                   })

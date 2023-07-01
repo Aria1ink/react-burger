@@ -5,7 +5,11 @@ import { getAuthUser } from "../../utils/tools/storeTools";
 import PropTypes from "prop-types";
 import Preloader from "../Preloader/Preloader";
 
-export default function OnlyNoAuthRoute ({ element }) {
+type Props = {
+  element: React.JSX.Element;
+};
+
+export default function OnlyNoAuthRoute ({ element }: Props) {
 const user = useSelector(getAuthUser);
 const location = useLocation();
 
