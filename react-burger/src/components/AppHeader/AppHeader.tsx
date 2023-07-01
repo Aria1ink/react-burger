@@ -1,0 +1,53 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  Logo, 
+  BurgerIcon, 
+  ListIcon, 
+  ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import style from "./AppHeader.module.css";
+import { useAppLocation } from "../../utils/tools/hooks";
+
+export default function AppHeader () {
+  const [current, setCurrent] = useState<string>("constructor");
+  const location = useAppLocation();
+
+  useEffect(() => {
+    const path = location.pathname.replace('/','');
+    if (path){
+      setCurrent(path);
+    };
+    // Запуск только при монтировании элемента
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []
+  )
+
+  return (
+    <header className={style.AppHeader + " p-4 mb-10"}>
+      <nav className={style.HeaderMenuContainer} >
+        <Link 
+          to="/" 
+          className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5" } 
+          onClick={() => setCurrent("constructor")}>
+          <BurgerIcon type={current === "constructor" ? "primary" : "secondary"} />
+          <p className={current !== "constructor" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
+            Конструктор
+          </p>
+        </Link>
+        <Link to="/feed" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("orderList")}>
+          <ListIcon type={current === "orderList" ? "primary" : "secondary"} />
+          <p className={current !== "orderList" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
+            Лента заказов
+          </p>
+        </Link>
+      </nav>
+      <Logo />
+      <Link to="/profile" className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5"} onClick={() => setCurrent("profile")}>
+        <ProfileIcon type={current === "profile" ? "primary" : "secondary"} />
+        <p className={current !== "profile" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
+          Личный кабинет
+        </p>
+      </Link>
+    </header>
+  );
+};
