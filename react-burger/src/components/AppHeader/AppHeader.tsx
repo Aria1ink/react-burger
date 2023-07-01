@@ -26,7 +26,7 @@ export default function AppHeader () {
         <Link 
           to="/" 
           className={style.AppHeaderLink + " pt-4 pb-4 pr-5 pl-5" } 
-          onClick={(e) => setCurrent("constructor")}>
+          onClick={() => setCurrent("constructor")}>
           <BurgerIcon type={current === "constructor" ? "primary" : "secondary"} />
           <p className={current !== "constructor" ? "text text_type_main-default pl-2 text_color_inactive" : "text text_type_main-default pl-2"}>
             Конструктор

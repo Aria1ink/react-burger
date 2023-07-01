@@ -5,7 +5,6 @@ import { loadIngredients } from "../../utils/tools/storeTools";
 import { login } from "../../services/slices/auth";
 import style from "./Layout.module.css";
 import { getUserProfile, checkRequestToken } from "../../utils/tools/userTools";
-import { AppDispatch } from "../../services/store";
 import { useAppDispatch } from "../../utils/tools/hooks";
 
 export default function Layout() {

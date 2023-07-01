@@ -12,8 +12,8 @@ export default function LoginPage () {
   if (location.state) {
     fromPage = location.state.from;
   }
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const formLogin: FormAuth = {
     title: 'Вход',
     input: [

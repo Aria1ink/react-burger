@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
 import style from "./ModalOverlay.module.css";
 
 type Props = {

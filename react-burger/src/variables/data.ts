@@ -1,4 +1,6 @@
-export const selectedIngredient = [
+import { Chapter } from "../services/types/ingredients";
+
+export const selectedIngredient: string[] = [
   "Краторная булка N-200i",
   "Хрустящие минеральные кольца",
   "Соус фирменный Space Sauce",
@@ -8,7 +10,7 @@ export const selectedIngredient = [
   "Биокотлета из марсианской Магнолии",
   "Хрустящие минеральные кольца"
 ];
-export const chapters = [
+export const chapters: Chapter[] = [
   {title: "Булки", type: "bun"},
   {title: "Соусы", type: "sauce"},
   {title: "Начинки", type: "main"}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent, SyntheticEvent } from 'react';
+import React, { useState, useEffect, SyntheticEvent } from 'react';
 import {
   Button,
   EmailInput,

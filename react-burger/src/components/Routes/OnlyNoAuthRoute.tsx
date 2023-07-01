@@ -1,7 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { getAuthUser } from "../../utils/tools/storeTools";
-import PropTypes from "prop-types";
 import Preloader from "../Preloader/Preloader";
 import { useAppLocation, useAppSelector } from "../../utils/tools/hooks";
 
@@ -37,8 +36,4 @@ if (user.isAuthenticated !== "loading") {
 return (
   <Preloader />
 );
-};
-
-OnlyNoAuthRoute.propTypes = {
-  element: PropTypes.element,
 };

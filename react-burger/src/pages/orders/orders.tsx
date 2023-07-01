@@ -23,6 +23,7 @@ export default function OrdersPage(){
     return () => {
       dispatch(wsOrdersDisconnect());
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect( () => {
@@ -37,6 +38,7 @@ export default function OrdersPage(){
         navigate("/profile/orders");
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orders]);
 
   if (sortedOrders.length === 0) {

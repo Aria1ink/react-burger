@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import PropTypes from 'prop-types';
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./Modal.module.css"
@@ -46,9 +45,3 @@ export default function Modal (props: Props) {
   ), modalRoot
   );
 };
-
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  close: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
-}; 

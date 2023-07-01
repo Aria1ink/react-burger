@@ -6,8 +6,8 @@ import { useAppNavigate } from '../../utils/tools/hooks';
 
 export default function ResetPasswordPage () {
   const navigate = useAppNavigate();
-  const [password, setPassword] = useState('');
-  const [key, setKey] = useState('');
+  const [password, setPassword] = useState<string>('');
+  const [key, setKey] = useState<string>('');
   const formResetPassword: FormAuth = {
     title: 'Восстановление пароля',
     input: [

@@ -16,7 +16,7 @@ type Props = {
 
 export default function OrderElement({ order }: Props) {
   const dispatch = useAppDispatch();
-  const [ price, setPrice ] = useState(0);
+  const [ price, setPrice ] = useState<number>(0);
   const [ images, setimages ] = useState<string[]>([]);
   const ingredients = useAppSelector(getIngredientsFromStore);
   const location = useAppLocation();

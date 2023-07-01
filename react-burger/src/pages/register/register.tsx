@@ -8,9 +8,9 @@ export default function RegisterPage () {
   const dispatch = useAppDispatch();
   const navigate = useAppNavigate();
   const location = useAppLocation();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const formRegister: FormAuth = {
     title: 'Регистрация',

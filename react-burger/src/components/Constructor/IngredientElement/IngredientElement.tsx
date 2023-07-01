@@ -14,7 +14,7 @@ type Props = {
 
 export default function IngredientElement (props: Props) {
   const ingredient = props.ingredient; 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number>(0);
   const navigate = useAppNavigate();
   const dispatch = useAppDispatch();
   let tempCount = 0;
