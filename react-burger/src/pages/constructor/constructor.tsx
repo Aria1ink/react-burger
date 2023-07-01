@@ -33,6 +33,7 @@ export default function ConstructorPage () {
         navigate("/");
       }
     };
+    // Когда загрузятся ингредиенты получить выбранный
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ingredients]);
 
