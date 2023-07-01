@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from "react-dom";
-import { useLocation } from "react-router-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./Modal.module.css"
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import { useAppLocation } from "../../utils/tools/hooks";
 
 type Props = {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ type Props = {
 
 export default function Modal (props: Props) {
   const modalRoot = document.getElementById("react-modals") as Element;
-  const location = useLocation();
+  const location = useAppLocation();
 
   useEffect(()=>{ 
     const closeModalByEsc = (evt: KeyboardEvent) => { 

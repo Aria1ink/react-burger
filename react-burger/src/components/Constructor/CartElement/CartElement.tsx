@@ -1,10 +1,10 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { removeIngredient, moveIngredient } from "../../../services/slices/cart";
 import style from "./CartElement.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CartIngredient, Ingredient } from "../../../services/types/ingredients";
+import { useAppDispatch } from "../../../utils/tools/hooks";
 type props = {
   className?: string;
   key: string;
@@ -18,7 +18,7 @@ type props = {
 export default function CartElement(props: props) {
   const ingredient = props.item;
   const cartId = props.id;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [{isDrag}, dragRef] = useDrag({
     type: "cartItem",
     item: {cartId: cartId, ingredient: ingredient},

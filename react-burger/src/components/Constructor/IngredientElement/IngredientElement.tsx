@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useDrag } from "react-dnd";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import Price from "../../Price/Price";
@@ -8,6 +6,7 @@ import style from "./IngredientElement.module.css";
 import { setIngredient } from "../../../services/slices/ingredient";
 import { getCartFromStore } from "../../../utils/tools/storeTools";
 import { Ingredient } from "../../../services/types/ingredients";
+import { useAppDispatch, useAppNavigate, useAppSelector } from "../../../utils/tools/hooks";
 
 type Props = {
   ingredient: Ingredient;
@@ -16,10 +15,10 @@ type Props = {
 export default function IngredientElement (props: Props) {
   const ingredient = props.ingredient; 
   const [count, setCount] = useState(0);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useAppNavigate();
+  const dispatch = useAppDispatch();
   let tempCount = 0;
-  const cart = useSelector(getCartFromStore);
+  const cart = useAppSelector(getCartFromStore);
 
   const openIngredientDetails = (ingredient: Ingredient) => {
     dispatch(setIngredient(ingredient));

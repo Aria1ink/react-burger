@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderIngredientImage from "../OrderIngredientImage/OrderIngredientImage";
 import { clearSelectedOrder } from "../../../services/slices/selectedOrder";
@@ -9,15 +7,15 @@ import { getIngredientsFromStore, getSelectedOrderFromStore } from "../../../uti
 import Price from "../../Price/Price";
 import OrderStatus from "../OrderStatus/OrderStatus";
 import style from "./OrderModal.module.css";
-import { Order, OrderIngredients } from "../../../services/types/store";
-import { AppDispatch } from "../../../services/store";
+import { OrderIngredients } from "../../../services/types/store";
 import Preloader from "../../Preloader/Preloader";
+import { useAppDispatch, useAppLocation, useAppSelector } from "../../../utils/tools/hooks";
 
 export default function OrderModal() {
-  const dispatch = useDispatch<AppDispatch>();
-  const location = useLocation();
-  const ingredients = useSelector(getIngredientsFromStore);
-  const order = useSelector(getSelectedOrderFromStore);
+  const dispatch = useAppDispatch();
+  const location = useAppLocation();
+  const ingredients = useAppSelector(getIngredientsFromStore);
+  const order = useAppSelector(getSelectedOrderFromStore);
   const [sortedIngredients, setSortedIngredients] = useState<OrderIngredients>([]);
   const [summPrice, setSummPrice] = useState<number>(0);
   let tempSortedIngredients: OrderIngredients = [];

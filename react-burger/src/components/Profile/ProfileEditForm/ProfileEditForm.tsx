@@ -1,5 +1,4 @@
 import React, { useState, useEffect, FormEvent, SyntheticEvent } from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   EmailInput,
@@ -10,6 +9,7 @@ import { setUserProfile, getUserProfile, checkRequestToken } from "../../../util
 import { getAuthUser } from "../../../utils/tools/storeTools";
 import style from './ProfileEditForm.module.css';
 import { User } from '../../../services/types/user';
+import { useAppDispatch, useAppSelector } from '../../../utils/tools/hooks';
 
 type State = {
   value: string | undefined; 
@@ -18,8 +18,8 @@ type State = {
 
 export default function ProfileEditForm () {
 
-  const dispatch = useDispatch();
-  const user = useSelector(getAuthUser);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(getAuthUser);
   const [name, setName] = useState<State>({value: user.user.name, status: false});
   const [email, setEmail] = useState<State>({value: user.user.email, status: false});
   const [password, setPassword] = useState<State>({value: "******", status: false});

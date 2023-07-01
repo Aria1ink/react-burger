@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Logo, 
   BurgerIcon, 
   ListIcon, 
   ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./AppHeader.module.css";
+import { useAppLocation } from "../../utils/tools/hooks";
 
 export default function AppHeader () {
   const [current, setCurrent] = useState<string>("constructor");
-  const location = useLocation();
+  const location = useAppLocation();
 
   useEffect(() => {
     const path = location.pathname.replace('/','');

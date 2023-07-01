@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getUserOrdersFromStore } from "../../utils/tools/storeTools";
 import OrderList from '../../components/Orders/OrderList/OrderList';
 import { sortByDate, getItemById } from '../../utils/tools/dataTools';
@@ -9,13 +7,14 @@ import Preloader from '../../components/Preloader/Preloader';
 import { wsOrdersConnect, wsOrdersDisconnect } from '../../services/slices/ws';
 import style from "./orders.module.css";
 import { Orders } from '../../services/types/store';
+import { useAppDispatch, useAppLocation, useAppNavigate, useAppParams, useAppSelector } from '../../utils/tools/hooks';
 
 export default function OrdersPage(){
-  const dispatch = useDispatch();
-  const { id } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const orders = useSelector(getUserOrdersFromStore);
+  const dispatch = useAppDispatch();
+  const { id } = useAppParams();
+  const location = useAppLocation();
+  const navigate = useAppNavigate();
+  const orders = useAppSelector(getUserOrdersFromStore);
   const [sortedOrders, setSortedOrders] = useState<Orders>([]);
 
   useEffect( () => {

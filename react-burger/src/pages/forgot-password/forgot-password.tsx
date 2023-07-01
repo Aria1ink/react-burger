@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import { useNavigate, useLocation } from "react-router-dom"
 import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
 import { resetUserPassword } from "../../utils/tools/userTools";
 import { FormAuth } from '../../services/types/data';
+import { useAppLocation, useAppNavigate } from '../../utils/tools/hooks';
 
 export default function ForgotPasswordPage () {
   const [email, setEmail] = useState<string>('');
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useAppNavigate();
+  const location = useAppLocation();
   const formForgotPassword: FormAuth = {
     title: 'Восстановление пароля',
     input: [

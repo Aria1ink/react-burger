@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from 'react-router';
 import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
 import { signUp } from "../../utils/tools/userTools"
 import { FormAuth } from '../../services/types/data';
+import { useAppDispatch, useAppLocation, useAppNavigate } from '../../utils/tools/hooks';
 
 export default function RegisterPage () {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const dispatch = useAppDispatch();
+  const navigate = useAppNavigate();
+  const location = useAppLocation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

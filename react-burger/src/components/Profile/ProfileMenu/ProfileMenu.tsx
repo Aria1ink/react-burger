@@ -1,13 +1,12 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { signOut } from "../../../utils/tools/userTools";
 import style from "./ProfileMenu.module.css";
+import { useAppDispatch, useAppLocation, useAppNavigate } from "../../../utils/tools/hooks";
 
 export default function ProfileMenu () {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const location = useAppLocation();
+  const navigate = useAppNavigate();
+  const dispatch = useAppDispatch();
 
   const onProfile = () => {
     navigate("/profile");

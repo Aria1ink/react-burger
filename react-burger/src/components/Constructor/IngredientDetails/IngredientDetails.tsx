@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import style from "./IngredientDetails.module.css";
 import FoodEnergy from  '../FoodEnergy/FoodEnergy';
 import { clearIngredient } from "../../../services/slices/ingredient";
 import { getCurrentIngredientFromStore } from "../../../utils/tools/storeTools";
 import Preloader from "../../Preloader/Preloader";
+import { useAppDispatch, useAppSelector } from "../../../utils/tools/hooks";
 
 
 export default function IngredientDetails () {
-  const ingredient = useSelector(getCurrentIngredientFromStore);
-  const dispatch = useDispatch();
+  const ingredient = useAppSelector(getCurrentIngredientFromStore);
+  const dispatch = useAppDispatch();
 
   useEffect( () => {
     return () => {

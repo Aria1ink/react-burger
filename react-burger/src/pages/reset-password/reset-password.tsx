@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import { useNavigate } from "react-router-dom";
 import { saveResetUserPassword } from "../../utils/tools/userTools";
 import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
 import { FormAuth } from '../../services/types/data';
+import { useAppNavigate } from '../../utils/tools/hooks';
 
 export default function ResetPasswordPage () {
-  const navigate = useNavigate();
+  const navigate = useAppNavigate();
   const [password, setPassword] = useState('');
   const [key, setKey] = useState('');
   const formResetPassword: FormAuth = {

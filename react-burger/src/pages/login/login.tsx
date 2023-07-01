@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
 import { signIn } from "../../utils/tools/userTools";
 import AuthInputForm from "../../components/Profile/AuthInputForm/AuthInputForm";
 import { FormAuth } from '../../services/types/data';
+import { useAppDispatch, useAppLocation, useAppNavigate } from '../../utils/tools/hooks';
 
 export default function LoginPage () {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const dispatch = useAppDispatch();
+  const navigate = useAppNavigate();
+  const location = useAppLocation();
   let fromPage = "/";
   if (location.state) {
     fromPage = location.state.from;

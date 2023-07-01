@@ -1,11 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
 import ProfileMenu from "../../components/Profile/ProfileMenu/ProfileMenu";
 import style from './profile.module.css';
+import { useAppLocation } from '../../utils/tools/hooks';
 
 export default function ProfilePage () {
-  const location = useLocation();
+  const location = useAppLocation();
 
   return (
     <div className={style.profileMain}>

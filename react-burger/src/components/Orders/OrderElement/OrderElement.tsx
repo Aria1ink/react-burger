@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getItemById } from "../../../utils/tools/dataTools";
 import { getIngredientsFromStore } from "../../../utils/tools/storeTools";
@@ -10,18 +8,19 @@ import OrderStatus from "../OrderStatus/OrderStatus";
 import OrderImages from "../OrderImages/OrderImages";
 import style from "./OrderElement.module.css";
 import { Order } from "../../../services/types/store";
+import { useAppDispatch, useAppLocation, useAppNavigate, useAppSelector } from "../../../utils/tools/hooks";
 
 type Props = {
   order: Order
 };
 
 export default function OrderElement({ order }: Props) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [ price, setPrice ] = useState(0);
   const [ images, setimages ] = useState<string[]>([]);
-  const ingredients = useSelector(getIngredientsFromStore);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const ingredients = useAppSelector(getIngredientsFromStore);
+  const location = useAppLocation();
+  const navigate = useAppNavigate();
 
   const openModal = () => {
     dispatch(setSelectedOrder(order));

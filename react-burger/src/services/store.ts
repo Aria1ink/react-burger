@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from 'redux-thunk';
-import { socketMiddleware } from './middleware/socketMiddleware.js';
+import { socketMiddleware } from './middleware/socketMiddleware';
 import { rootReducer } from "./slices/rootSlice";
 import { urlWss } from '../variables/connection';
 import { userOrdersActions, allOrdersActions } from './slices/ws';

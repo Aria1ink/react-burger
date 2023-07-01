@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
-import { useSelector } from "react-redux";
 import IngredientElement from "../IngredientElement/IngredientElement";
 import style from "./Chapter.module.css";
 import { getIngredientsFromStore } from "../../../utils/tools/storeTools";
+import { useAppSelector } from "../../../utils/tools/hooks";
 
 type Props = {
   type: string;
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function Chapter (props: Props) {
-  const ingredients = useSelector(getIngredientsFromStore);
+  const ingredients = useAppSelector(getIngredientsFromStore);
 
   return (
     <>

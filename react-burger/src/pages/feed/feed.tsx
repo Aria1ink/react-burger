@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getItemById } from "../../utils/tools/dataTools";
 import { getAllOrdersFromStore } from "../../utils/tools/storeTools";
 import OrderList from "../../components/Orders/OrderList/OrderList";
@@ -12,13 +10,14 @@ import Preloader from "../../components/Preloader/Preloader";
 import { wsFeedConnect, wsFeedDisconnect } from "../../services/slices/ws";
 import style from "./feed.module.css";
 import { Orders } from "../../services/types/store";
+import { useAppDispatch, useAppLocation, useAppNavigate, useAppParams, useAppSelector } from "../../utils/tools/hooks";
 
 export default function FeedPage() {
-  const dispatch = useDispatch();
-  const { id } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const {orders, total, totalToday} = useSelector(getAllOrdersFromStore);
+  const dispatch = useAppDispatch();
+  const { id } = useAppParams();
+  const location = useAppLocation();
+  const navigate = useAppNavigate();
+  const {orders, total, totalToday} = useAppSelector(getAllOrdersFromStore);
   const [doneOrders, setDoneOrders] = useState<number[]>([]);
   const [inWorkOrders, setInWorkOrders] = useState<number[]>([]);
   const [sortedOrders, setSortedOrders] = useState<Orders>([]);

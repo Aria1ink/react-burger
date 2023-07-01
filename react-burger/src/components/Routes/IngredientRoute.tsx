@@ -1,10 +1,10 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import ConstructorPage from "../../pages/constructor/constructor";
 import IngredientPage from "../../pages/ingredients/ingredients";
+import { useAppLocation } from "../../utils/tools/hooks";
 
 export default function IngredientRoute() {
-  const location = useLocation();
+  const location = useAppLocation();
   if (location.state && location.state.from === "/") {
     return (
       <ConstructorPage />

@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import Chapter from "../Chapter/Chapter";
 import style from "./BurgerIngredients.module.css";
 import ChapterPanel from "../ChapterPanel/ChapterPanel";
 import {chapters} from "../../../variables/data";
 import { MenuState, setActiveTabMenu } from "../../../services/slices/menu";
-import { AppDispatch } from "../../../services/store";
+import { useAppDispatch } from "../../../utils/tools/hooks";
 
 export default function BurgerIngredients () {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect( () => {
     const observerOptions = {

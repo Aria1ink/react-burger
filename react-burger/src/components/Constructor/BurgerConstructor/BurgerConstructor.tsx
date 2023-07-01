@@ -1,5 +1,4 @@
 import React, {useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -16,7 +15,7 @@ import { setBun, defaultIngredients, addIngredient } from "../../../services/sli
 import { hideOrder } from "../../../services/slices/order";
 import { getCartFromStore, getIngredientsFromStore, getOrderNumberFromStore } from "../../../utils/tools/storeTools";
 import { CartIngredient, Ingredient } from "../../../services/types/ingredients";
-import { AppDispatch } from "../../../services/store";
+import { useAppDispatch, useAppSelector } from "../../../utils/tools/hooks";
 
 
 export default function BurgerConstructor () {
@@ -25,10 +24,10 @@ export default function BurgerConstructor () {
   }
   type tempCart = CartIngredient[];
   const [summ, setSumm] = useState<number>(0);
-  const dispatch = useDispatch<AppDispatch>();
-  const ingredients = useSelector(getIngredientsFromStore);
-  const orderNumber =  useSelector(getOrderNumberFromStore);
-  const cart = useSelector(getCartFromStore);
+  const dispatch = useAppDispatch();
+  const ingredients = useAppSelector(getIngredientsFromStore);
+  const orderNumber =  useAppSelector(getOrderNumberFromStore);
+  const cart = useAppSelector(getCartFromStore);
   const [{isHover}, dropTarget] = useDrop<Ingredient, unknown, collectedProps>({
     accept: "ingredient",
     drop: (item) => {

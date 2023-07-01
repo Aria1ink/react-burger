@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
 import IngredientDetails from "../../components/Constructor/IngredientDetails/IngredientDetails";
 import Preloader from '../../components/Preloader/Preloader';
 import { setIngredient } from '../../services/slices/ingredient';
 import { getItemById } from '../../utils/tools/dataTools';
 import { getCurrentIngredientFromStore, getIngredientsFromStore} from '../../utils/tools/storeTools';
+import { useAppDispatch, useAppNavigate, useAppParams, useAppSelector } from '../../utils/tools/hooks';
 
 export default function IngredientPage () {
-  const { id } = useParams<string>();
-  const dispatch = useDispatch();
-  const ingredients = useSelector(getIngredientsFromStore);
-  const currentIngredient = useSelector(getCurrentIngredientFromStore);
-  const navigate = useNavigate();
+  const { id } = useAppParams();
+  const dispatch = useAppDispatch();
+  const ingredients = useAppSelector(getIngredientsFromStore);
+  const currentIngredient = useAppSelector(getCurrentIngredientFromStore);
+  const navigate = useAppNavigate();
 
   useEffect( () => {
     if (ingredients && id && ingredients.length > 0) {

@@ -1,18 +1,18 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./ChapterPanel.module.css";
 import { MenuState, setActiveTabMenu } from "../../../services/slices/menu";
 import { getMenuStatusFromStore } from "../../../utils/tools/storeTools";
 import { Chapter } from "../../../services/types/ingredients";
+import { useAppDispatch, useAppSelector } from "../../../utils/tools/hooks";
 
 type Props = {
   chapters: Chapter[]
 };
 
 export default function ChapterPanel (props: Props) {
-  const currentMenu = useSelector(getMenuStatusFromStore);
-  const dispatch = useDispatch();
+  const currentMenu = useAppSelector(getMenuStatusFromStore);
+  const dispatch = useAppDispatch();
   const handleClick = (target: string) => {
     dispatch(setActiveTabMenu(target as MenuState));
     const chapter = document.getElementById(target);

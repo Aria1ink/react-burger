@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerIngredients from "../../components/Constructor/BurgerIngredients/BurgerIngredients";
@@ -11,20 +9,20 @@ import { setIngredient, clearIngredient } from "../../services/slices/ingredient
 import IngredientDetails from "../../components/Constructor/IngredientDetails/IngredientDetails";
 import Modal from "../../components/Modal/Modal";
 import Preloader from "../../components/Preloader/Preloader";
-import { AppDispatch } from "../../services/store";
+import { useAppDispatch, useAppLocation, useAppNavigate, useAppParams, useAppSelector } from "../../utils/tools/hooks";
 
 export default function ConstructorPage () {
-  const status = useSelector(loadIngredientsStatus);
-  const ingredients = useSelector(getIngredientsFromStore);
-  const selectedIngredient = useSelector(getCurrentIngredientFromStore);
+  const status = useAppSelector(loadIngredientsStatus);
+  const ingredients = useAppSelector(getIngredientsFromStore);
+  const selectedIngredient = useAppSelector(getCurrentIngredientFromStore);
   const closeIngredientDetails = () => {
     dispatch(clearIngredient());
     navigate("/");
   };
-  const dispatch = useDispatch<AppDispatch>();
-  const { id } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { id } = useAppParams();
+  const location = useAppLocation();
+  const navigate = useAppNavigate();
 
   useEffect(() => {
     if (ingredients && location.pathname.startsWith("/ingredients") && id && ingredients.length > 0) {

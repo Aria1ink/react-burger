@@ -1,5 +1,4 @@
 import type { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { ActionFromReducer } from "redux";
 import { Ingredient } from "./ingredients";
 
 export type Order = {
